@@ -3,17 +3,30 @@ package shiver.me.timbers.data.random.test;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.joda.time.LocalDate;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.concurrent.TimeUnit;
 
-import static org.apache.commons.lang3.time.DateUtils.truncate;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static org.joda.time.Period.days;
 
 public class DateMatchers {
 
-    public static Matcher<Date> isWithinASecondOf(Date date) {
-        return new WithinASecondDateMatcher(date);
+    public static IsOnDateMatcher isOn(Date date) {
+        return new IsOnDateMatcher(date);
+    }
+
+    public static Matcher<Date> isMidnightYesterday() {
+        return new IsOnDateMatcher(yesterdayMidnight());
+    }
+
+    public static Matcher<Date> isMidnightToday() {
+        return new IsOnDateMatcher(todayMidnight());
+    }
+
+    public static Matcher<Date> isMidnightTomorrow() {
+        return new IsOnDateMatcher(tomorrowMidnight());
     }
 
     public static Matcher<Date> isBetween(Date min, Date max) {
@@ -33,58 +46,63 @@ public class DateMatchers {
     }
 
     public static Date yesterdayMidnight() {
-
-        Calendar yesterday = calendarTodayMidnight();
-        yesterday.add(Calendar.DAY_OF_MONTH, -1);
-
-        return yesterday.getTime();
+        return yesterday().toDate();
     }
 
     public static Date todayMidnight() {
-        return calendarTodayMidnight().getTime();
+        return today().toDate();
     }
 
     public static Date tomorrowMidnight() {
+        return tomorrow().toDate();
+    }
 
-        Calendar yesterday = calendarTodayMidnight();
-        yesterday.add(Calendar.DAY_OF_MONTH, 1);
+    private static LocalDate yesterday() {
+        return today().minus(days(1));
+    }
 
-        return yesterday.getTime();
+    private static LocalDate today() {
+        return LocalDate.now();
+    }
+
+    private static LocalDate tomorrow() {
+        return today().plus(days(1));
     }
 
     public static Date dayAfterTomorrowMidnight() {
-
-        Calendar yesterday = calendarTodayMidnight();
-        yesterday.add(Calendar.DAY_OF_MONTH, 2);
-
-        return yesterday.getTime();
+        return tomorrow().plus(days(1)).toDate();
     }
 
-    private static Calendar calendarTodayMidnight() {
-        Calendar today = new GregorianCalendar();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        today.set(Calendar.MILLISECOND, 0);
-        return today;
-    }
-
-    private static class WithinASecondDateMatcher extends TypeSafeMatcher<Date> {
+    public static class IsOnDateMatcher extends TypeSafeMatcher<Date> {
 
         private final Date expected;
+        private long duration = 0;
+        private TimeUnit unit = MILLISECONDS;
 
-        public WithinASecondDateMatcher(Date expected) {
+        public IsOnDateMatcher(Date expected) {
             this.expected = expected;
         }
 
         @Override
         protected boolean matchesSafely(Date actual) {
-            return truncate(expected, Calendar.SECOND).equals(truncate(actual, Calendar.SECOND));
+            final long expectedTime = expected.getTime();
+            final long actualTime = actual.getTime();
+            final long threshold = unit.toMillis(duration);
+            final long lowerBoundTime = expectedTime - threshold;
+            final long upperBoundTime = expectedTime + threshold;
+
+            return lowerBoundTime <= actualTime && actualTime <= upperBoundTime;
         }
 
         @Override
         public void describeTo(Description description) {
             description.appendValue(expected);
+        }
+
+        public IsOnDateMatcher within(long duration, TimeUnit unit) {
+            this.duration = duration;
+            this.unit = unit;
+            return this;
         }
     }
 

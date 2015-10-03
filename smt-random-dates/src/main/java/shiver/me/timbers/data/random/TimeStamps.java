@@ -11,6 +11,8 @@ interface TimeStamps {
 
     long now();
 
+    long someTimeInADay();
+
     long yesterdayMidnight();
 
     long todayMidnight();

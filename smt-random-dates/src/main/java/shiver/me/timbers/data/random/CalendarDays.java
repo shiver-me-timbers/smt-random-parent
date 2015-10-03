@@ -7,39 +7,27 @@ import java.util.GregorianCalendar;
 /**
  * @author Karl Bennett
  */
-class UtilTimeStamps implements TimeStamps {
+class CalendarDays implements Days {
 
     @Override
-    public Date date(long date) {
-        return new Date(date);
-    }
-
-    @Override
-    public long now() {
-        return new Date().getTime();
-    }
-
-    @Override
-    public long yesterdayMidnight() {
-
+    public Date yesterday() {
         Calendar yesterday = midnight();
         yesterday.add(Calendar.DAY_OF_MONTH, -1);
 
-        return yesterday.getTime().getTime();
+        return yesterday.getTime();
     }
 
     @Override
-    public long todayMidnight() {
-        return midnight().getTime().getTime();
+    public Date today() {
+        return midnight().getTime();
     }
 
     @Override
-    public long tomorrowMidnight() {
-
+    public Date tomorrow() {
         Calendar tomorrow = midnight();
         tomorrow.add(Calendar.DAY_OF_MONTH, 1);
 
-        return tomorrow.getTime().getTime();
+        return tomorrow.getTime();
     }
 
     private Calendar midnight() {

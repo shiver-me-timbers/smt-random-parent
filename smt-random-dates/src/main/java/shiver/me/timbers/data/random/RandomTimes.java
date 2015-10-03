@@ -11,11 +11,16 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class RandomTimes {
 
+    private static final int RETRY_AMOUNT = 10000;
+
     private static Times dates() {
 
         final Random random = ThreadLocalRandom.current();
 
-        return new SomeTimes(random, new UtilTimeStamps());
+        return new SomeTimes(
+            new DateTimeStamps(random, new CalendarDays()),
+            new BoundNumbers<>(Long.class, new LongOperations(random), RETRY_AMOUNT, random)
+        );
     }
 
     /**

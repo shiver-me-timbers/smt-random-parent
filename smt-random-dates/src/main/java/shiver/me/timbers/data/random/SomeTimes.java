@@ -1,26 +1,23 @@
 package shiver.me.timbers.data.random;
 
 import java.util.Date;
-import java.util.Random;
 
 /**
  * @author Karl Bennett
  */
 class SomeTimes implements Times {
 
-    private static final int MILLISECOND_IN_ONE_DAY = 86400000;
-
-    private final Random random;
     private final TimeStamps timeStamps;
+    private final Numbers<Long> longs;
 
-    public SomeTimes(Random random, TimeStamps timeStamps) {
-        this.random = random;
+    public SomeTimes(TimeStamps timeStamps, Numbers<Long> longs) {
         this.timeStamps = timeStamps;
+        this.longs = longs;
     }
 
     @Override
     public Date someTime() {
-        return timeStamps.date(random.nextLong());
+        return timeStamps.date(longs.someNumber());
     }
 
     @Override
@@ -50,7 +47,7 @@ class SomeTimes implements Times {
         final long maxTime = max.getTime();
 
         // Minus 1 off the range to make sure it is upper bound exclusive.
-        return timeStamps.date(minTime + nextPositiveLong((maxTime - minTime) - 1));
+        return timeStamps.date(longs.someNumberBetween(minTime, maxTime) - 1);
     }
 
     @Override
@@ -69,40 +66,14 @@ class SomeTimes implements Times {
     }
 
     private Date someDateBefore(long time) {
-        return timeStamps.date(time - nextPositiveLong());
+        return timeStamps.date(time + (longs.someNegativeNumber() - 1));
     }
 
     private Date someDateAfter(long time) {
-        return timeStamps.date(time + nextPositiveLong());
+        return timeStamps.date(time + (longs.somePositiveNumber() + 1));
     }
 
     private Date someDateInDay(long midnightTime) {
-        return timeStamps.date(midnightTime + nextPositiveInt(MILLISECOND_IN_ONE_DAY));
-    }
-
-    private long nextPositiveLong() {
-
-        final long next = random.nextLong();
-
-        if (next >= 0) {
-            return next;
-        }
-
-        return next * -1;
-    }
-
-    private long nextPositiveLong(long bound) {
-        return (long) (random.nextDouble() * bound);
-    }
-
-    private int nextPositiveInt(int bound) {
-
-        final int next = random.nextInt(bound);
-
-        if (next >= 0) {
-            return next;
-        }
-
-        return next * -1;
+        return timeStamps.date(midnightTime + timeStamps.someTimeInADay());
     }
 }
