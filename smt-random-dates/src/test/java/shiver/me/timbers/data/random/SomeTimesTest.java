@@ -12,22 +12,22 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.mock;
 import static shiver.me.timbers.data.random.test.DateMatchers.isBetween;
 
-public class SomeDatesTest {
+public class SomeTimesTest {
 
     private static final int MILLISECOND_IN_ONE_DAY = 86400000;
 
-    private DateFactory dateFactory;
+    private TimeStamps timeStamps;
     private Random random;
-    private SomeDates dates;
+    private SomeTimes dates;
     private Date expected;
 
     @Before
     public void setUp() {
 
-        dateFactory = mock(DateFactory.class);
+        timeStamps = mock(TimeStamps.class);
         random = mock(Random.class);
 
-        dates = new SomeDates(random, dateFactory);
+        dates = new SomeTimes(random, timeStamps);
 
         expected = mock(Date.class);
     }
@@ -39,10 +39,10 @@ public class SomeDatesTest {
 
         // Given
         given(random.nextLong()).willReturn(randomLong);
-        given(dateFactory.date(randomLong)).willReturn(expected);
+        given(timeStamps.date(randomLong)).willReturn(expected);
 
         // When
-        final Date actual = dates.someDate();
+        final Date actual = dates.someTime();
 
         // Then
         assertEquals(expected, actual);
@@ -56,11 +56,11 @@ public class SomeDatesTest {
 
         // Given
         given(random.nextLong()).willReturn(randomLong);
-        given(dateFactory.nowTime()).willReturn(nowTime);
-        given(dateFactory.date(nowTime - randomLong)).willReturn(expected);
+        given(timeStamps.now()).willReturn(nowTime);
+        given(timeStamps.date(nowTime - randomLong)).willReturn(expected);
 
         // When
-        final Date actual = dates.somePastDate();
+        final Date actual = dates.someTimeInThePast();
 
         // Then
         assertEquals(expected, actual);
@@ -74,11 +74,11 @@ public class SomeDatesTest {
 
         // Given
         given(random.nextLong()).willReturn(randomLong);
-        given(dateFactory.nowTime()).willReturn(nowTime);
-        given(dateFactory.date(nowTime - (-1 * randomLong))).willReturn(expected);
+        given(timeStamps.now()).willReturn(nowTime);
+        given(timeStamps.date(nowTime - (-1 * randomLong))).willReturn(expected);
 
         // When
-        final Date actual = dates.somePastDate();
+        final Date actual = dates.someTimeInThePast();
 
         // Then
         assertEquals(expected, actual);
@@ -92,11 +92,11 @@ public class SomeDatesTest {
 
         // Given
         given(random.nextLong()).willReturn(randomLong);
-        given(dateFactory.nowTime()).willReturn(nowTime);
-        given(dateFactory.date(nowTime + randomLong)).willReturn(expected);
+        given(timeStamps.now()).willReturn(nowTime);
+        given(timeStamps.date(nowTime + randomLong)).willReturn(expected);
 
         // When
-        final Date actual = dates.someFutureDate();
+        final Date actual = dates.someTimeInTheFuture();
 
         // Then
         assertEquals(expected, actual);
@@ -110,11 +110,11 @@ public class SomeDatesTest {
 
         // Given
         given(random.nextLong()).willReturn(randomLong);
-        given(dateFactory.nowTime()).willReturn(nowTime);
-        given(dateFactory.date(nowTime + (-1 * randomLong))).willReturn(expected);
+        given(timeStamps.now()).willReturn(nowTime);
+        given(timeStamps.date(nowTime + (-1 * randomLong))).willReturn(expected);
 
         // When
-        final Date actual = dates.someFutureDate();
+        final Date actual = dates.someTimeInTheFuture();
 
         // Then
         assertEquals(expected, actual);
@@ -130,10 +130,10 @@ public class SomeDatesTest {
         // Given
         given(date.getTime()).willReturn(dateTime);
         given(random.nextLong()).willReturn(randomLong);
-        given(dateFactory.date(dateTime - randomLong)).willReturn(expected);
+        given(timeStamps.date(dateTime - randomLong)).willReturn(expected);
 
         // When
-        final Date actual = dates.someDateBefore(date);
+        final Date actual = dates.someTimeBefore(date);
 
         // Then
         assertEquals(expected, actual);
@@ -149,10 +149,10 @@ public class SomeDatesTest {
         // Given
         given(date.getTime()).willReturn(dateTime);
         given(random.nextLong()).willReturn(randomLong);
-        given(dateFactory.date(dateTime - (-1 * randomLong))).willReturn(expected);
+        given(timeStamps.date(dateTime - (-1 * randomLong))).willReturn(expected);
 
         // When
-        final Date actual = dates.someDateBefore(date);
+        final Date actual = dates.someTimeBefore(date);
 
         // Then
         assertEquals(expected, actual);
@@ -168,10 +168,10 @@ public class SomeDatesTest {
         // Given
         given(date.getTime()).willReturn(dateTime);
         given(random.nextLong()).willReturn(randomLong);
-        given(dateFactory.date(dateTime + randomLong)).willReturn(expected);
+        given(timeStamps.date(dateTime + randomLong)).willReturn(expected);
 
         // When
-        final Date actual = dates.someDateAfter(date);
+        final Date actual = dates.someTimeAfter(date);
 
         // Then
         assertEquals(expected, actual);
@@ -187,10 +187,10 @@ public class SomeDatesTest {
         // Given
         given(date.getTime()).willReturn(dateTime);
         given(random.nextLong()).willReturn(randomLong);
-        given(dateFactory.date(dateTime + (-1 * randomLong))).willReturn(expected);
+        given(timeStamps.date(dateTime + (-1 * randomLong))).willReturn(expected);
 
         // When
-        final Date actual = dates.someDateAfter(date);
+        final Date actual = dates.someTimeAfter(date);
 
         // Then
         assertEquals(expected, actual);
@@ -210,10 +210,10 @@ public class SomeDatesTest {
         given(min.getTime()).willReturn(minTime);
         given(max.getTime()).willReturn(maxTime);
         given(random.nextDouble()).willReturn(randomDouble);
-        given(dateFactory.date(minTime + (long) (range * randomDouble))).willReturn(expected);
+        given(timeStamps.date(minTime + (long) (range * randomDouble))).willReturn(expected);
 
         // When
-        final Date actual = dates.someDateBetween(min, max);
+        final Date actual = dates.someTimeBetween(min, max);
 
         // Then
         assertEquals(expected, actual);
@@ -230,7 +230,7 @@ public class SomeDatesTest {
         given(random.nextDouble()).willReturn(randomDouble);
 
         // When
-        final Date actual = new SomeDates(random, new UtilDateFactory()).someDateBetween(min, max);
+        final Date actual = new SomeTimes(random, new UtilTimeStamps()).someTimeBetween(min, max);
 
         // Then
         assertThat(actual, isBetween(min, max));
@@ -244,11 +244,11 @@ public class SomeDatesTest {
 
         // Given
         given(random.nextInt(MILLISECOND_IN_ONE_DAY)).willReturn(randomInt);
-        given(dateFactory.yesterdayMidnightTime()).willReturn(yesterdayMidnightTime);
-        given(dateFactory.date(yesterdayMidnightTime + randomInt)).willReturn(expected);
+        given(timeStamps.yesterdayMidnight()).willReturn(yesterdayMidnightTime);
+        given(timeStamps.date(yesterdayMidnightTime + randomInt)).willReturn(expected);
 
         // When
-        final Date actual = dates.someDateYesterday();
+        final Date actual = dates.someTimeYesterday();
 
         // Then
         assertEquals(expected, actual);
@@ -262,11 +262,11 @@ public class SomeDatesTest {
 
         // Given
         given(random.nextInt(MILLISECOND_IN_ONE_DAY)).willReturn(randomInt);
-        given(dateFactory.yesterdayMidnightTime()).willReturn(yesterdayMidnightTime);
-        given(dateFactory.date(yesterdayMidnightTime + (-1 * randomInt))).willReturn(expected);
+        given(timeStamps.yesterdayMidnight()).willReturn(yesterdayMidnightTime);
+        given(timeStamps.date(yesterdayMidnightTime + (-1 * randomInt))).willReturn(expected);
 
         // When
-        final Date actual = dates.someDateYesterday();
+        final Date actual = dates.someTimeYesterday();
 
         // Then
         assertEquals(expected, actual);
@@ -280,11 +280,11 @@ public class SomeDatesTest {
 
         // Given
         given(random.nextInt(MILLISECOND_IN_ONE_DAY)).willReturn(randomInt);
-        given(dateFactory.todayMidnight()).willReturn(todayMidnight);
-        given(dateFactory.date(todayMidnight + randomInt)).willReturn(expected);
+        given(timeStamps.todayMidnight()).willReturn(todayMidnight);
+        given(timeStamps.date(todayMidnight + randomInt)).willReturn(expected);
 
         // When
-        final Date actual = dates.someDateToday();
+        final Date actual = dates.someTimeToday();
 
         // Then
         assertEquals(expected, actual);
@@ -298,11 +298,11 @@ public class SomeDatesTest {
 
         // Given
         given(random.nextInt(MILLISECOND_IN_ONE_DAY)).willReturn(randomInt);
-        given(dateFactory.todayMidnight()).willReturn(todayMidnight);
-        given(dateFactory.date(todayMidnight + (-1 * randomInt))).willReturn(expected);
+        given(timeStamps.todayMidnight()).willReturn(todayMidnight);
+        given(timeStamps.date(todayMidnight + (-1 * randomInt))).willReturn(expected);
 
         // When
-        final Date actual = dates.someDateToday();
+        final Date actual = dates.someTimeToday();
 
         // Then
         assertEquals(expected, actual);
@@ -316,11 +316,11 @@ public class SomeDatesTest {
 
         // Given
         given(random.nextInt(MILLISECOND_IN_ONE_DAY)).willReturn(randomInt);
-        given(dateFactory.tomorrowMidnightTime()).willReturn(tomorrowMidnight);
-        given(dateFactory.date(tomorrowMidnight + randomInt)).willReturn(expected);
+        given(timeStamps.tomorrowMidnight()).willReturn(tomorrowMidnight);
+        given(timeStamps.date(tomorrowMidnight + randomInt)).willReturn(expected);
 
         // When
-        final Date actual = dates.someDateTomorrow();
+        final Date actual = dates.someTimeTomorrow();
 
         // Then
         assertEquals(expected, actual);
@@ -334,11 +334,11 @@ public class SomeDatesTest {
 
         // Given
         given(random.nextInt(MILLISECOND_IN_ONE_DAY)).willReturn(randomInt);
-        given(dateFactory.tomorrowMidnightTime()).willReturn(tomorrowMidnight);
-        given(dateFactory.date(tomorrowMidnight + (-1 * randomInt))).willReturn(expected);
+        given(timeStamps.tomorrowMidnight()).willReturn(tomorrowMidnight);
+        given(timeStamps.date(tomorrowMidnight + (-1 * randomInt))).willReturn(expected);
 
         // When
-        final Date actual = dates.someDateTomorrow();
+        final Date actual = dates.someTimeTomorrow();
 
         // Then
         assertEquals(expected, actual);

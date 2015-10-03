@@ -5,15 +5,15 @@ import java.util.Date;
 /**
  * @author Karl Bennett
  */
-interface DateFactory {
+interface TimeStamps {
 
     Date date(long date);
 
-    long nowTime();
+    long now();
 
-    long yesterdayMidnightTime();
+    long yesterdayMidnight();
 
     long todayMidnight();
 
-    long tomorrowMidnightTime();
+    long tomorrowMidnight();
 }

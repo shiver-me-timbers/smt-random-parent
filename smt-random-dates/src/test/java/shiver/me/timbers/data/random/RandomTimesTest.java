@@ -8,33 +8,33 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
-import static shiver.me.timbers.data.random.RandomDates.someDate;
-import static shiver.me.timbers.data.random.RandomDates.someDateAfter;
-import static shiver.me.timbers.data.random.RandomDates.someDateBefore;
-import static shiver.me.timbers.data.random.RandomDates.someDateBetween;
-import static shiver.me.timbers.data.random.RandomDates.someDateToday;
-import static shiver.me.timbers.data.random.RandomDates.someDateTomorrow;
-import static shiver.me.timbers.data.random.RandomDates.someDateYesterday;
-import static shiver.me.timbers.data.random.RandomDates.someFutureDate;
-import static shiver.me.timbers.data.random.RandomDates.somePastDate;
+import static shiver.me.timbers.data.random.RandomTimes.someTime;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeAfter;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeBefore;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeBetween;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeInTheFuture;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeInThePast;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeToday;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeTomorrow;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeYesterday;
 import static shiver.me.timbers.data.random.test.DateMatchers.isBetween;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeToday;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeTomorrow;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeYesterday;
 
-public class RandomDatesTest {
+public class RandomTimesTest {
 
     @Test
     public void Instantiation_to_get_full_coverage() {
 
-        new RandomDates();
+        new RandomTimes();
     }
 
     @Test
     public void Can_generate_a_random_date() {
 
         // When
-        final Date actual = someDate();
+        final Date actual = someTime();
 
         // Then
         assertNotNull(actual);
@@ -47,7 +47,7 @@ public class RandomDatesTest {
         final Date now = new Date();
 
         // When
-        final Date actual = someDateBefore(now);
+        final Date actual = someTimeBefore(now);
 
         // Then
         assertThat(actual, lessThanOrEqualTo(now));
@@ -60,7 +60,7 @@ public class RandomDatesTest {
         final Date now = new Date();
 
         // When
-        final Date actual = someDateAfter(now);
+        final Date actual = someTimeAfter(now);
 
         // Then
         assertThat(actual, greaterThanOrEqualTo(now));
@@ -73,7 +73,7 @@ public class RandomDatesTest {
         final Date now = new Date();
 
         // When
-        final Date actual = somePastDate();
+        final Date actual = someTimeInThePast();
 
         // Then
         assertThat(actual, lessThanOrEqualTo(now));
@@ -86,7 +86,7 @@ public class RandomDatesTest {
         final Date now = new Date();
 
         // When
-        final Date actual = someFutureDate();
+        final Date actual = someTimeInTheFuture();
 
         // Then
         assertThat(actual, greaterThanOrEqualTo(now));
@@ -101,7 +101,7 @@ public class RandomDatesTest {
         final Date max = new Date(now + 1000);
 
         // When
-        final Date actual = someDateBetween(min, max);
+        final Date actual = someTimeBetween(min, max);
 
         // Then
         assertThat(actual, isBetween(min, max));
@@ -111,7 +111,7 @@ public class RandomDatesTest {
     public void Can_generate_a_random_date_that_falls_yesterday() {
 
         // When
-        final Date actual = someDateYesterday();
+        final Date actual = someTimeYesterday();
 
         // Then
         assertThat(actual, isSometimeYesterday());
@@ -121,7 +121,7 @@ public class RandomDatesTest {
     public void Can_generate_a_random_date_that_falls_today() {
 
         // When
-        final Date actual = someDateToday();
+        final Date actual = someTimeToday();
 
         // Then
         assertThat(actual, isSometimeToday());
@@ -131,7 +131,7 @@ public class RandomDatesTest {
     public void Can_generate_a_random_date_that_falls_tomorrow() {
 
         // When
-        final Date actual = someDateTomorrow();
+        final Date actual = someTimeTomorrow();
 
         // Then
         assertThat(actual, isSometimeTomorrow());

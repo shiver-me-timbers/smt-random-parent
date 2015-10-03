@@ -6,78 +6,78 @@ import java.util.Random;
 /**
  * @author Karl Bennett
  */
-class SomeDates implements Dates {
+class SomeTimes implements Times {
 
     private static final int MILLISECOND_IN_ONE_DAY = 86400000;
 
     private final Random random;
-    private final DateFactory dateFactory;
+    private final TimeStamps timeStamps;
 
-    public SomeDates(Random random, DateFactory dateFactory) {
+    public SomeTimes(Random random, TimeStamps timeStamps) {
         this.random = random;
-        this.dateFactory = dateFactory;
+        this.timeStamps = timeStamps;
     }
 
     @Override
-    public Date someDate() {
-        return dateFactory.date(random.nextLong());
+    public Date someTime() {
+        return timeStamps.date(random.nextLong());
     }
 
     @Override
-    public Date somePastDate() {
-        return someDateBefore(dateFactory.nowTime());
+    public Date someTimeInThePast() {
+        return someDateBefore(timeStamps.now());
     }
 
     @Override
-    public Date someFutureDate() {
-        return someDateAfter(dateFactory.nowTime());
+    public Date someTimeInTheFuture() {
+        return someDateAfter(timeStamps.now());
     }
 
     @Override
-    public Date someDateBefore(Date date) {
+    public Date someTimeBefore(Date date) {
         return someDateBefore(date.getTime());
     }
 
     @Override
-    public Date someDateAfter(Date date) {
+    public Date someTimeAfter(Date date) {
         return someDateAfter(date.getTime());
     }
 
     @Override
-    public Date someDateBetween(Date min, Date max) {
+    public Date someTimeBetween(Date min, Date max) {
 
         final long minTime = min.getTime();
         final long maxTime = max.getTime();
 
-        // Minus 1 of the range to make sure it is upper bound exclusive.
-        return dateFactory.date(minTime + nextPositiveLong((maxTime - minTime) - 1));
+        // Minus 1 off the range to make sure it is upper bound exclusive.
+        return timeStamps.date(minTime + nextPositiveLong((maxTime - minTime) - 1));
     }
 
     @Override
-    public Date someDateYesterday() {
-        return someDateInDay(dateFactory.yesterdayMidnightTime());
+    public Date someTimeYesterday() {
+        return someDateInDay(timeStamps.yesterdayMidnight());
     }
 
     @Override
-    public Date someDateToday() {
-        return someDateInDay(dateFactory.todayMidnight());
+    public Date someTimeToday() {
+        return someDateInDay(timeStamps.todayMidnight());
     }
 
     @Override
-    public Date someDateTomorrow() {
-        return someDateInDay(dateFactory.tomorrowMidnightTime());
+    public Date someTimeTomorrow() {
+        return someDateInDay(timeStamps.tomorrowMidnight());
     }
 
     private Date someDateBefore(long time) {
-        return dateFactory.date(time - nextPositiveLong());
+        return timeStamps.date(time - nextPositiveLong());
     }
 
     private Date someDateAfter(long time) {
-        return dateFactory.date(time + nextPositiveLong());
+        return timeStamps.date(time + nextPositiveLong());
     }
 
     private Date someDateInDay(long midnightTime) {
-        return dateFactory.date(midnightTime + nextPositiveInt(MILLISECOND_IN_ONE_DAY));
+        return timeStamps.date(midnightTime + nextPositiveInt(MILLISECOND_IN_ONE_DAY));
     }
 
     private long nextPositiveLong() {

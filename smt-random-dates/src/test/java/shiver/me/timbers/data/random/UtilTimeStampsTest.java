@@ -15,7 +15,7 @@ import static shiver.me.timbers.data.random.test.DateMatchers.yesterdayMidnight;
 /**
  * @author Karl Bennett
  */
-public class UtilDateFactoryTest {
+public class UtilTimeStampsTest {
 
     @Test
     public void Can_create_a_date() {
@@ -25,7 +25,7 @@ public class UtilDateFactoryTest {
         final Date expected = new Date(date);
 
         // When
-        final Date actual = new UtilDateFactory().date(date);
+        final Date actual = new UtilTimeStamps().date(date);
 
         // Then
         assertEquals(expected, actual);
@@ -35,7 +35,7 @@ public class UtilDateFactoryTest {
     public void Can_get_the_time_for_now() {
 
         // When
-        final Date actual = new Date(new UtilDateFactory().nowTime());
+        final Date actual = new Date(new UtilTimeStamps().now());
 
         // Then
         assertThat(actual, isWithinASecondOf(new Date()));
@@ -45,7 +45,7 @@ public class UtilDateFactoryTest {
     public void Can_get_the_time_for_yesterday_at_midnight() {
 
         // When
-        final Date actual = new Date(new UtilDateFactory().yesterdayMidnightTime());
+        final Date actual = new Date(new UtilTimeStamps().yesterdayMidnight());
 
         // Then
         assertThat(actual, equalTo(yesterdayMidnight()));
@@ -55,7 +55,7 @@ public class UtilDateFactoryTest {
     public void Can_get_the_time_for_today_at_midnight() {
 
         // When
-        final Date actual = new Date(new UtilDateFactory().todayMidnight());
+        final Date actual = new Date(new UtilTimeStamps().todayMidnight());
 
         // Then
         assertThat(actual, equalTo(todayMidnight()));
@@ -65,7 +65,7 @@ public class UtilDateFactoryTest {
     public void Can_get_the_time_for_tomorrow_at_midnight() {
 
         // When
-        final Date actual = new Date(new UtilDateFactory().tomorrowMidnightTime());
+        final Date actual = new Date(new UtilTimeStamps().tomorrowMidnight());
 
         // Then
         assertThat(actual, equalTo(tomorrowMidnight()));

@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 /**
  * @author Karl Bennett
  */
-class UtilDateFactory implements DateFactory {
+class UtilTimeStamps implements TimeStamps {
 
     @Override
     public Date date(long date) {
@@ -15,12 +15,12 @@ class UtilDateFactory implements DateFactory {
     }
 
     @Override
-    public long nowTime() {
+    public long now() {
         return new Date().getTime();
     }
 
     @Override
-    public long yesterdayMidnightTime() {
+    public long yesterdayMidnight() {
 
         Calendar yesterday = midnight();
         yesterday.add(Calendar.DAY_OF_MONTH, -1);
@@ -34,7 +34,7 @@ class UtilDateFactory implements DateFactory {
     }
 
     @Override
-    public long tomorrowMidnightTime() {
+    public long tomorrowMidnight() {
 
         Calendar tomorrow = midnight();
         tomorrow.add(Calendar.DAY_OF_MONTH, 1);

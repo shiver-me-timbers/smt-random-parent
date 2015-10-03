@@ -9,75 +9,75 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author Karl Bennett
  */
-public class RandomDates {
+public class RandomTimes {
 
-    private static Dates dates() {
+    private static Times dates() {
 
         final Random random = ThreadLocalRandom.current();
 
-        return new SomeDates(random, new UtilDateFactory());
+        return new SomeTimes(random, new UtilTimeStamps());
     }
 
     /**
      * Generate a random date that could be in the past, present, or future.
      */
-    public static Date someDate() {
-        return dates().someDate();
+    public static Date someTime() {
+        return dates().someTime();
     }
 
     /**
      * Generate a random date that could be in the past, or present.
      */
-    public static Date somePastDate() {
-        return dates().somePastDate();
+    public static Date someTimeInThePast() {
+        return dates().someTimeInThePast();
     }
 
     /**
      * Generate a random date that could be in the present, or future.
      */
-    public static Date someFutureDate() {
-        return dates().someFutureDate();
+    public static Date someTimeInTheFuture() {
+        return dates().someTimeInTheFuture();
     }
 
     /**
      * Generate a random date that falls on or before a specific date.
      */
-    public static Date someDateBefore(Date date) {
-        return dates().someDateBefore(date);
+    public static Date someTimeBefore(Date date) {
+        return dates().someTimeBefore(date);
     }
 
     /**
      * Generate a random date that falls on or after a specific date.
      */
-    public static Date someDateAfter(Date date) {
-        return dates().someDateAfter(date);
+    public static Date someTimeAfter(Date date) {
+        return dates().someTimeAfter(date);
     }
 
     /**
      * Generate a random date that falls on or after the min date and before the max date.
      */
-    public static Date someDateBetween(Date min, Date max) {
-        return dates().someDateBetween(min, max);
+    public static Date someTimeBetween(Date min, Date max) {
+        return dates().someTimeBetween(min, max);
     }
 
     /**
      * Generate a random date that could be any time between 12:00:00 and 23:59:59 yesterday.
      */
-    public static Date someDateYesterday() {
-        return dates().someDateYesterday();
+    public static Date someTimeYesterday() {
+        return dates().someTimeYesterday();
     }
 
     /**
      * Generate a random date that could be any time between 12:00:00 and 23:59:59 today.
      */
-    public static Date someDateToday() {
-        return dates().someDateToday();
+    public static Date someTimeToday() {
+        return dates().someTimeToday();
     }
 
     /**
      * Generate a random date that could be any time between 12:00:00 and 23:59:59 tomorrow.
      */
-    public static Date someDateTomorrow() {
-        return dates().someDateTomorrow();
+    public static Date someTimeTomorrow() {
+        return dates().someTimeTomorrow();
     }
 }
