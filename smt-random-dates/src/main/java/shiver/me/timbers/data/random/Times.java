@@ -24,4 +24,10 @@ interface Times {
     Date someTimeToday();
 
     Date someTimeTomorrow();
+
+    Date someTimeLastWeek();
+
+    Date someTimeThisWeek();
+
+    Date someTimeNextWeek();
 }

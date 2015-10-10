@@ -65,6 +65,21 @@ class SomeTimes implements Times {
         return someDateInDay(timeStamps.tomorrowMidnight());
     }
 
+    @Override
+    public Date someTimeLastWeek() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Date someTimeThisWeek() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Date someTimeNextWeek() {
+        throw new UnsupportedOperationException();
+    }
+
     private Date someDateBefore(long time) {
         return timeStamps.date(time + (longs.someNegativeNumber() - 1));
     }

@@ -13,7 +13,7 @@ public class RandomTimes {
 
     private static final int RETRY_AMOUNT = 10000;
 
-    private static Times dates() {
+    private static Times times() {
 
         final Random random = ThreadLocalRandom.current();
 
@@ -24,65 +24,86 @@ public class RandomTimes {
     }
 
     /**
-     * Generate a random date that could be in the past, present, or future.
+     * Generate a random time that could be in the past, present, or future.
      */
     public static Date someTime() {
-        return dates().someTime();
+        return times().someTime();
     }
 
     /**
-     * Generate a random date that could be in the past, or present.
+     * Generate a random time in the past.
      */
     public static Date someTimeInThePast() {
-        return dates().someTimeInThePast();
+        return times().someTimeInThePast();
     }
 
     /**
-     * Generate a random date that could be in the present, or future.
+     * Generate a random time in the future.
      */
     public static Date someTimeInTheFuture() {
-        return dates().someTimeInTheFuture();
+        return times().someTimeInTheFuture();
     }
 
     /**
-     * Generate a random date that falls on or before a specific date.
+     * Generate a random time that falls before a specific date.
      */
     public static Date someTimeBefore(Date date) {
-        return dates().someTimeBefore(date);
+        return times().someTimeBefore(date);
     }
 
     /**
-     * Generate a random date that falls on or after a specific date.
+     * Generate a random time that falls after a specific date.
      */
     public static Date someTimeAfter(Date date) {
-        return dates().someTimeAfter(date);
+        return times().someTimeAfter(date);
     }
 
     /**
-     * Generate a random date that falls on or after the min date and before the max date.
+     * Generate a random time that falls on or after the min date and before the max date.
      */
     public static Date someTimeBetween(Date min, Date max) {
-        return dates().someTimeBetween(min, max);
+        return times().someTimeBetween(min, max);
     }
 
     /**
-     * Generate a random date that could be any time between 12:00:00 and 23:59:59 yesterday.
+     * Generate a random time that could be any time between 00:00:00 and 23:59:59 yesterday.
      */
     public static Date someTimeYesterday() {
-        return dates().someTimeYesterday();
+        return times().someTimeYesterday();
     }
 
     /**
-     * Generate a random date that could be any time between 12:00:00 and 23:59:59 today.
+     * Generate a random time that could be any time between 00:00:00 and 23:59:59 today.
      */
     public static Date someTimeToday() {
-        return dates().someTimeToday();
+        return times().someTimeToday();
     }
 
     /**
-     * Generate a random date that could be any time between 12:00:00 and 23:59:59 tomorrow.
+     * Generate a random time that could be any time between 00:00:00 and 23:59:59 tomorrow.
      */
     public static Date someTimeTomorrow() {
-        return dates().someTimeTomorrow();
+        return times().someTimeTomorrow();
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 Monday and 23:59:59 Sunday last week.
+     */
+    public static Date someTimeLastWeek() {
+        return times().someTimeLastWeek();
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 Monday and 23:59:59 Sunday this week.
+     */
+    public static Date someTimeThisWeek() {
+        return times().someTimeThisWeek();
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 Monday and 23:59:59 Sunday next week.
+     */
+    public static Date someTimeNextWeek() {
+        return times().someTimeNextWeek();
     }
 }

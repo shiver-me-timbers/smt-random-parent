@@ -1,6 +1,7 @@
 package shiver.me.timbers.data.random;
 
 import org.junit.Test;
+import shiver.me.timbers.data.random.test.DateMatchers;
 
 import java.util.Date;
 
@@ -14,9 +15,13 @@ import static shiver.me.timbers.data.random.RandomTimes.someTimeBefore;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeBetween;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeInTheFuture;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeInThePast;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeLastWeek;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeNextWeek;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeThisWeek;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeToday;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeTomorrow;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeYesterday;
+import static shiver.me.timbers.data.random.test.DateMatchers.*;
 import static shiver.me.timbers.data.random.test.DateMatchers.isBetween;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeToday;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeTomorrow;
@@ -135,5 +140,35 @@ public class RandomTimesTest {
 
         // Then
         assertThat(actual, isSometimeTomorrow());
+    }
+
+    @Test
+    public void Can_generate_a_random_date_that_falls_last_week() {
+
+        // When
+        final Date actual = someTimeLastWeek();
+
+        // Then
+        assertThat(actual, isSometimeLastWeek());
+    }
+
+    @Test
+    public void Can_generate_a_random_date_that_falls_this_week() {
+
+        // When
+        final Date actual = someTimeThisWeek();
+
+        // Then
+        assertThat(actual, isSometimeThisWeek());
+    }
+
+    @Test
+    public void Can_generate_a_random_date_that_falls_next_week() {
+
+        // When
+        final Date actual = someTimeNextWeek();
+
+        // Then
+        assertThat(actual, isSometimeNextWeek());
     }
 }
