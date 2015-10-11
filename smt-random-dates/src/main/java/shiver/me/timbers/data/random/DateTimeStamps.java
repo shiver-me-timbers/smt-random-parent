@@ -9,6 +9,7 @@ import java.util.Random;
 class DateTimeStamps implements TimeStamps {
 
     private static final int MILLISECOND_IN_ONE_DAY = 86400000;
+    private static final int MILLISECOND_IN_ONE_WEEK = 604800000;
 
     private final Random random;
     private final Days days;
@@ -46,5 +47,25 @@ class DateTimeStamps implements TimeStamps {
     @Override
     public long tomorrowMidnight() {
         return days.tomorrow().getTime();
+    }
+
+    @Override
+    public long someTimeInAWeek() {
+        return random.nextInt(MILLISECOND_IN_ONE_WEEK);
+    }
+
+    @Override
+    public long midnightMondayLastWeek() {
+        return days.mondayLastWeek().getTime();
+    }
+
+    @Override
+    public long midnightMondayThisWeek() {
+        return days.mondayThisWeek().getTime();
+    }
+
+    @Override
+    public long midnightMondayNextWeek() {
+        return days.mondayNextWeek().getTime();
     }
 }

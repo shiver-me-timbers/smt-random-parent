@@ -18,4 +18,12 @@ interface TimeStamps {
     long todayMidnight();
 
     long tomorrowMidnight();
+
+    long someTimeInAWeek();
+
+    long midnightMondayLastWeek();
+
+    long midnightMondayThisWeek();
+
+    long midnightMondayNextWeek();
 }

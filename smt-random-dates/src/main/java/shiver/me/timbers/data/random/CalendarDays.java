@@ -1,43 +1,62 @@
 package shiver.me.timbers.data.random;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
+
+import static shiver.me.timbers.data.random.DayOfWeek.MONDAY;
 
 /**
  * @author Karl Bennett
  */
 class CalendarDays implements Days {
 
+    private final Calendars calendars;
+
+    public CalendarDays(Calendars calendars) {
+        this.calendars = calendars;
+    }
+
     @Override
     public Date yesterday() {
-        Calendar yesterday = midnight();
-        yesterday.add(Calendar.DAY_OF_MONTH, -1);
-
-        return yesterday.getTime();
+        return calendars.midnightToday().minusDays(1).toDate();
     }
 
     @Override
     public Date today() {
-        return midnight().getTime();
+        return calendars.midnightToday().toDate();
     }
 
     @Override
     public Date tomorrow() {
-        Calendar tomorrow = midnight();
-        tomorrow.add(Calendar.DAY_OF_MONTH, 1);
-
-        return tomorrow.getTime();
+        return calendars.midnightToday().plusDays(1).toDate();
     }
 
-    private Calendar midnight() {
-
-        Calendar midnight = new GregorianCalendar();
-        midnight.set(Calendar.HOUR_OF_DAY, 0);
-        midnight.set(Calendar.MINUTE, 0);
-        midnight.set(Calendar.SECOND, 0);
-        midnight.set(Calendar.MILLISECOND, 0);
-
-        return midnight;
+    @Override
+    public Date mondayLastWeek() {
+        return monday().minusWeeks(1).toDate();
     }
+
+    @Override
+    public Date mondayThisWeek() {
+        return monday().toDate();
+    }
+
+    @Override
+    public Date mondayNextWeek() {
+        return monday().plusWeeks(1).toDate();
+    }
+
+    public Calendar monday() {
+        return calendars.midnightToday().withDayOfWeek(MONDAY);
+    }
+
+//    private Calendar midnight() {
+//
+//        Calendar midnight = new GregorianCalendar();
+//        midnight.set(Calendar.HOUR_OF_DAY, 0);
+//        midnight.set(Calendar.MINUTE, 0);
+//        midnight.set(Calendar.SECOND, 0);
+//        midnight.set(Calendar.MILLISECOND, 0);
+//
+//        return midnight;
+//    }
 }

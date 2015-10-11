@@ -1,7 +1,6 @@
 package shiver.me.timbers.data.random;
 
 import org.junit.Test;
-import shiver.me.timbers.data.random.test.DateMatchers;
 
 import java.util.Date;
 
@@ -21,8 +20,10 @@ import static shiver.me.timbers.data.random.RandomTimes.someTimeThisWeek;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeToday;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeTomorrow;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeYesterday;
-import static shiver.me.timbers.data.random.test.DateMatchers.*;
 import static shiver.me.timbers.data.random.test.DateMatchers.isBetween;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastWeek;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextWeek;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisWeek;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeToday;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeTomorrow;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeYesterday;

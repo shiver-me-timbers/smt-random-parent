@@ -28,7 +28,7 @@ public class SomeTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date() {
+    public void Can_generate_a_random_time() {
 
         final long randomLong = someLong();
 
@@ -46,7 +46,7 @@ public class SomeTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_in_the_past() {
+    public void Can_generate_a_random_time_in_the_past() {
 
         final long randomLong = someLong();
         final long nowTime = someLong();
@@ -66,7 +66,7 @@ public class SomeTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_in_the_future() {
+    public void Can_generate_a_random_time_in_the_future() {
 
         final long randomLong = someLong();
         final long nowTime = someLong();
@@ -86,7 +86,7 @@ public class SomeTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_that_falls_before_a_specific_date() {
+    public void Can_generate_a_random_time_that_falls_before_a_specific_date() {
 
         final Date date = mock(Date.class);
         final long dateTime = someLong();
@@ -107,7 +107,7 @@ public class SomeTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_that_falls_after_a_specific_date() {
+    public void Can_generate_a_random_time_that_falls_after_a_specific_date() {
 
         final Date date = mock(Date.class);
         final long dateTime = someLong();
@@ -128,7 +128,7 @@ public class SomeTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_that_falls_between_two_dates() {
+    public void Can_generate_a_random_time_that_falls_between_two_dates() {
 
         final Date min = mock(Date.class);
         final Date max = mock(Date.class);
@@ -152,16 +152,16 @@ public class SomeTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_that_falls_yesterday() {
+    public void Can_generate_a_random_time_that_falls_yesterday() {
 
-        final long timeInADay = someLong();
         final long yesterdayMidnightTime = someLong();
+        final long timeInADay = someLong();
 
         final Date expected = mock(Date.class);
 
         // Given
-        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.yesterdayMidnight()).willReturn(yesterdayMidnightTime);
+        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.date(yesterdayMidnightTime + timeInADay)).willReturn(expected);
 
         // When
@@ -172,16 +172,16 @@ public class SomeTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_that_falls_today() {
+    public void Can_generate_a_random_time_that_falls_today() {
 
-        final long timeInADay = someLong();
         final long todayMidnight = someLong();
+        final long timeInADay = someLong();
 
         final Date expected = mock(Date.class);
 
         // Given
-        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.todayMidnight()).willReturn(todayMidnight);
+        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.date(todayMidnight + timeInADay)).willReturn(expected);
 
         // When
@@ -192,20 +192,80 @@ public class SomeTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_that_falls_tomorrow() {
+    public void Can_generate_a_random_time_that_falls_tomorrow() {
 
+        final long tomorrowMidnight = someLong();
         final long timeInADay = someLong();
-        final long tomorrowMidnight = 2;
 
         final Date expected = mock(Date.class);
 
         // Given
-        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.tomorrowMidnight()).willReturn(tomorrowMidnight);
+        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.date(tomorrowMidnight + timeInADay)).willReturn(expected);
 
         // When
         final Date actual = times.someTimeTomorrow();
+
+        // Then
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_last_week() {
+
+        final long midnightMondayLastWeek = 2;
+        final long timeInAWeek = someLong();
+
+        final Date expected = mock(Date.class);
+
+        // Given
+        given(timeStamps.midnightMondayLastWeek()).willReturn(midnightMondayLastWeek);
+        given(timeStamps.someTimeInAWeek()).willReturn(timeInAWeek);
+        given(timeStamps.date(midnightMondayLastWeek + timeInAWeek)).willReturn(expected);
+
+        // When
+        final Date actual = times.someTimeLastWeek();
+
+        // Then
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_this_week() {
+
+        final long midnightMondayThisWeek = 2;
+        final long timeInAWeek = someLong();
+
+        final Date expected = mock(Date.class);
+
+        // Given
+        given(timeStamps.midnightMondayThisWeek()).willReturn(midnightMondayThisWeek);
+        given(timeStamps.someTimeInAWeek()).willReturn(timeInAWeek);
+        given(timeStamps.date(midnightMondayThisWeek + timeInAWeek)).willReturn(expected);
+
+        // When
+        final Date actual = times.someTimeThisWeek();
+
+        // Then
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_next_week() {
+
+        final long midnightMondayNextWeek = 2;
+        final long timeInAWeek = someLong();
+
+        final Date expected = mock(Date.class);
+
+        // Given
+        given(timeStamps.midnightMondayNextWeek()).willReturn(midnightMondayNextWeek);
+        given(timeStamps.someTimeInAWeek()).willReturn(timeInAWeek);
+        given(timeStamps.date(midnightMondayNextWeek + timeInAWeek)).willReturn(expected);
+
+        // When
+        final Date actual = times.someTimeNextWeek();
 
         // Then
         assertEquals(expected, actual);

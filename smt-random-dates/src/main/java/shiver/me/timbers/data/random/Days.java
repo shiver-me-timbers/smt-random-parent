@@ -12,4 +12,10 @@ interface Days {
     Date today();
 
     Date tomorrow();
+
+    Date mondayLastWeek();
+
+    Date mondayThisWeek();
+
+    Date mondayNextWeek();
 }

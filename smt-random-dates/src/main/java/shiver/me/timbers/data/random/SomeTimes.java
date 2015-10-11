@@ -22,22 +22,22 @@ class SomeTimes implements Times {
 
     @Override
     public Date someTimeInThePast() {
-        return someDateBefore(timeStamps.now());
+        return someTimeBefore(timeStamps.now());
     }
 
     @Override
     public Date someTimeInTheFuture() {
-        return someDateAfter(timeStamps.now());
+        return someTimeAfter(timeStamps.now());
     }
 
     @Override
     public Date someTimeBefore(Date date) {
-        return someDateBefore(date.getTime());
+        return someTimeBefore(date.getTime());
     }
 
     @Override
     public Date someTimeAfter(Date date) {
-        return someDateAfter(date.getTime());
+        return someTimeAfter(date.getTime());
     }
 
     @Override
@@ -52,43 +52,47 @@ class SomeTimes implements Times {
 
     @Override
     public Date someTimeYesterday() {
-        return someDateInDay(timeStamps.yesterdayMidnight());
+        return someTimeInDay(timeStamps.yesterdayMidnight());
     }
 
     @Override
     public Date someTimeToday() {
-        return someDateInDay(timeStamps.todayMidnight());
+        return someTimeInDay(timeStamps.todayMidnight());
     }
 
     @Override
     public Date someTimeTomorrow() {
-        return someDateInDay(timeStamps.tomorrowMidnight());
+        return someTimeInDay(timeStamps.tomorrowMidnight());
     }
 
     @Override
     public Date someTimeLastWeek() {
-        throw new UnsupportedOperationException();
+        return someTimeInWeek(timeStamps.midnightMondayLastWeek());
     }
 
     @Override
     public Date someTimeThisWeek() {
-        throw new UnsupportedOperationException();
+        return someTimeInWeek(timeStamps.midnightMondayThisWeek());
     }
 
     @Override
     public Date someTimeNextWeek() {
-        throw new UnsupportedOperationException();
+        return someTimeInWeek(timeStamps.midnightMondayNextWeek());
     }
 
-    private Date someDateBefore(long time) {
+    private Date someTimeBefore(long time) {
         return timeStamps.date(time + (longs.someNegativeNumber() - 1));
     }
 
-    private Date someDateAfter(long time) {
+    private Date someTimeAfter(long time) {
         return timeStamps.date(time + (longs.somePositiveNumber() + 1));
     }
 
-    private Date someDateInDay(long midnightTime) {
+    private Date someTimeInDay(long midnightTime) {
         return timeStamps.date(midnightTime + timeStamps.someTimeInADay());
+    }
+
+    public Date someTimeInWeek(long midnightTime) {
+        return timeStamps.date(midnightTime + timeStamps.someTimeInAWeek());
     }
 }
