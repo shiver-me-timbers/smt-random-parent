@@ -37,7 +37,7 @@ public class RandomTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date() {
+    public void Can_generate_a_random_time() {
 
         // When
         final Date actual = someTime();
@@ -47,7 +47,7 @@ public class RandomTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_before_another_date() {
+    public void Can_generate_a_random_time_before_another_date() {
 
         // Given
         final Date now = new Date();
@@ -60,7 +60,7 @@ public class RandomTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_after_another_date() {
+    public void Can_generate_a_random_time_after_another_date() {
 
         // Given
         final Date now = new Date();
@@ -99,7 +99,7 @@ public class RandomTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_that_falls_between_two_dates() {
+    public void Can_generate_a_random_time_that_falls_between_two_dates() {
 
         // Given
         final long now = new Date().getTime();
@@ -114,7 +114,7 @@ public class RandomTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_that_falls_yesterday() {
+    public void Can_generate_a_random_time_that_falls_yesterday() {
 
         // When
         final Date actual = someTimeYesterday();
@@ -124,7 +124,7 @@ public class RandomTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_that_falls_today() {
+    public void Can_generate_a_random_time_that_falls_today() {
 
         // When
         final Date actual = someTimeToday();
@@ -134,7 +134,7 @@ public class RandomTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_that_falls_tomorrow() {
+    public void Can_generate_a_random_time_that_falls_tomorrow() {
 
         // When
         final Date actual = someTimeTomorrow();
@@ -144,7 +144,7 @@ public class RandomTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_that_falls_last_week() {
+    public void Can_generate_a_random_time_that_falls_last_week() {
 
         // When
         final Date actual = someTimeLastWeek();
@@ -154,7 +154,7 @@ public class RandomTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_that_falls_this_week() {
+    public void Can_generate_a_random_time_that_falls_this_week() {
 
         // When
         final Date actual = someTimeThisWeek();
@@ -164,7 +164,7 @@ public class RandomTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_date_that_falls_next_week() {
+    public void Can_generate_a_random_time_that_falls_next_week() {
 
         // When
         final Date actual = someTimeNextWeek();
