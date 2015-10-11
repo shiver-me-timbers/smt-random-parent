@@ -21,9 +21,9 @@ interface TimeStamps {
 
     long someTimeInAWeek();
 
-    long midnightMondayLastWeek();
+    long midnightLastWeekOn(WeekDay weekDay);
 
-    long midnightMondayThisWeek();
+    long midnightThisWeekOn(WeekDay weekDay);
 
-    long midnightMondayNextWeek();
+    long midnightNextWeekOn(WeekDay weekDay);
 }

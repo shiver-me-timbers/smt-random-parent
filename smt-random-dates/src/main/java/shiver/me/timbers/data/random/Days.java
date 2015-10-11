@@ -13,9 +13,9 @@ interface Days {
 
     Date tomorrow();
 
-    Date mondayLastWeek();
+    Date lastWeekOn(WeekDay weekDay);
 
-    Date mondayThisWeek();
+    Date thisWeekOn(WeekDay weekDay);
 
-    Date mondayNextWeek();
+    Date nextWeekOn(WeekDay weekDay);
 }

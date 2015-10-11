@@ -2,6 +2,8 @@ package shiver.me.timbers.data.random;
 
 import java.util.Date;
 
+import static shiver.me.timbers.data.random.WeekDay.MONDAY;
+
 /**
  * @author Karl Bennett
  */
@@ -66,18 +68,23 @@ class SomeTimes implements Times {
     }
 
     @Override
+    public Date someTimeOn(WeekDay weekDay) {
+        return someTimeInDay(timeStamps.midnightThisWeekOn(weekDay));
+    }
+
+    @Override
     public Date someTimeLastWeek() {
-        return someTimeInWeek(timeStamps.midnightMondayLastWeek());
+        return someTimeInWeek(timeStamps.midnightLastWeekOn(MONDAY));
     }
 
     @Override
     public Date someTimeThisWeek() {
-        return someTimeInWeek(timeStamps.midnightMondayThisWeek());
+        return someTimeInWeek(timeStamps.midnightThisWeekOn(MONDAY));
     }
 
     @Override
     public Date someTimeNextWeek() {
-        return someTimeInWeek(timeStamps.midnightMondayNextWeek());
+        return someTimeInWeek(timeStamps.midnightNextWeekOn(MONDAY));
     }
 
     private Date someTimeBefore(long time) {

@@ -25,6 +25,8 @@ interface Times {
 
     Date someTimeTomorrow();
 
+    Date someTimeOn(WeekDay weekDay);
+
     Date someTimeLastWeek();
 
     Date someTimeThisWeek();

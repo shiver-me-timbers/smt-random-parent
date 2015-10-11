@@ -8,7 +8,9 @@ import java.util.Date;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.mock;
+import static shiver.me.timbers.data.random.RandomEnums.someEnum;
 import static shiver.me.timbers.data.random.RandomLongs.someLong;
+import static shiver.me.timbers.data.random.WeekDay.MONDAY;
 
 public class SomeTimesTest {
 
@@ -212,6 +214,27 @@ public class SomeTimesTest {
     }
 
     @Test
+    public void Can_generate_a_random_time_that_falls_on_a_specific_day_this_week() {
+
+        final WeekDay weekDay = someEnum(WeekDay.class);
+        final long weekDayMidnight = someLong();
+        final long timeInADay = someLong();
+
+        final Date expected = mock(Date.class);
+
+        // Given
+        given(timeStamps.midnightThisWeekOn(weekDay)).willReturn(weekDayMidnight);
+        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
+        given(timeStamps.date(weekDayMidnight + timeInADay)).willReturn(expected);
+
+        // When
+        final Date actual = times.someTimeOn(weekDay);
+
+        // Then
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void Can_generate_a_random_time_that_falls_last_week() {
 
         final long midnightMondayLastWeek = 2;
@@ -220,7 +243,7 @@ public class SomeTimesTest {
         final Date expected = mock(Date.class);
 
         // Given
-        given(timeStamps.midnightMondayLastWeek()).willReturn(midnightMondayLastWeek);
+        given(timeStamps.midnightLastWeekOn(MONDAY)).willReturn(midnightMondayLastWeek);
         given(timeStamps.someTimeInAWeek()).willReturn(timeInAWeek);
         given(timeStamps.date(midnightMondayLastWeek + timeInAWeek)).willReturn(expected);
 
@@ -240,7 +263,7 @@ public class SomeTimesTest {
         final Date expected = mock(Date.class);
 
         // Given
-        given(timeStamps.midnightMondayThisWeek()).willReturn(midnightMondayThisWeek);
+        given(timeStamps.midnightThisWeekOn(MONDAY)).willReturn(midnightMondayThisWeek);
         given(timeStamps.someTimeInAWeek()).willReturn(timeInAWeek);
         given(timeStamps.date(midnightMondayThisWeek + timeInAWeek)).willReturn(expected);
 
@@ -260,7 +283,7 @@ public class SomeTimesTest {
         final Date expected = mock(Date.class);
 
         // Given
-        given(timeStamps.midnightMondayNextWeek()).willReturn(midnightMondayNextWeek);
+        given(timeStamps.midnightNextWeekOn(MONDAY)).willReturn(midnightMondayNextWeek);
         given(timeStamps.someTimeInAWeek()).willReturn(timeInAWeek);
         given(timeStamps.date(midnightMondayNextWeek + timeInAWeek)).willReturn(expected);
 

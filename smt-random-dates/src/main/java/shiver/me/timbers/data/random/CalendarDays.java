@@ -2,8 +2,6 @@ package shiver.me.timbers.data.random;
 
 import java.util.Date;
 
-import static shiver.me.timbers.data.random.WeekDay.MONDAY;
-
 /**
  * @author Karl Bennett
  */
@@ -31,32 +29,21 @@ class CalendarDays implements Days {
     }
 
     @Override
-    public Date mondayLastWeek() {
-        return monday().minusWeeks(1).toDate();
+    public Date lastWeekOn(WeekDay weekDay) {
+        return on(weekDay).minusWeeks(1).toDate();
     }
 
     @Override
-    public Date mondayThisWeek() {
-        return monday().toDate();
+    public Date thisWeekOn(WeekDay weekDay) {
+        return on(weekDay).toDate();
     }
 
     @Override
-    public Date mondayNextWeek() {
-        return monday().plusWeeks(1).toDate();
+    public Date nextWeekOn(WeekDay weekDay) {
+        return on(weekDay).plusWeeks(1).toDate();
     }
 
-    public Calendar monday() {
-        return calendars.midnightToday().withDayOfWeek(MONDAY);
+    public Calendar on(WeekDay weekDay) {
+        return calendars.midnightToday().withDayOfWeek(weekDay);
     }
-
-//    private Calendar midnight() {
-//
-//        Calendar midnight = new GregorianCalendar();
-//        midnight.set(Calendar.HOUR_OF_DAY, 0);
-//        midnight.set(Calendar.MINUTE, 0);
-//        midnight.set(Calendar.SECOND, 0);
-//        midnight.set(Calendar.MILLISECOND, 0);
-//
-//        return midnight;
-//    }
 }

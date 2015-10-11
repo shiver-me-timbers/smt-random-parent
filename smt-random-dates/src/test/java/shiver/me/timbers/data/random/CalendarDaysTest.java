@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
-import static shiver.me.timbers.data.random.WeekDay.MONDAY;
+import static shiver.me.timbers.data.random.RandomEnums.someEnum;
 
 public class CalendarDaysTest {
 
@@ -81,7 +81,9 @@ public class CalendarDaysTest {
     }
 
     @Test
-    public void Can_get_a_date_for_monday_last_week() {
+    public void Can_get_a_date_for_a_specific_day_last_week() {
+
+        final WeekDay weekDay = someEnum(WeekDay.class);
 
         final Calendar calendar = mock(Calendar.class);
         final Calendar mondayCalendar = mock(Calendar.class);
@@ -91,19 +93,21 @@ public class CalendarDaysTest {
 
         // Given
         given(calendars.midnightToday()).willReturn(calendar);
-        given(calendar.withDayOfWeek(MONDAY)).willReturn(mondayCalendar);
+        given(calendar.withDayOfWeek(weekDay)).willReturn(mondayCalendar);
         given(mondayCalendar.minusWeeks(1)).willReturn(lastWeekCalendar);
         given(lastWeekCalendar.toDate()).willReturn(expected);
 
         // When
-        final Date actual = days.mondayLastWeek();
+        final Date actual = days.lastWeekOn(weekDay);
 
         // Then
         assertThat(actual, is(expected));
     }
 
     @Test
-    public void Can_get_a_date_for_monday_this_week() {
+    public void Can_get_a_date_for_a_specific_day_this_week() {
+
+        final WeekDay weekDay = someEnum(WeekDay.class);
 
         final Calendar calendar = mock(Calendar.class);
         final Calendar mondayCalendar = mock(Calendar.class);
@@ -112,18 +116,20 @@ public class CalendarDaysTest {
 
         // Given
         given(calendars.midnightToday()).willReturn(calendar);
-        given(calendar.withDayOfWeek(MONDAY)).willReturn(mondayCalendar);
+        given(calendar.withDayOfWeek(weekDay)).willReturn(mondayCalendar);
         given(mondayCalendar.toDate()).willReturn(expected);
 
         // When
-        final Date actual = days.mondayThisWeek();
+        final Date actual = days.thisWeekOn(weekDay);
 
         // Then
         assertThat(actual, is(expected));
     }
 
     @Test
-    public void Can_get_a_date_for_monday_next_week() {
+    public void Can_get_a_date_for_a_specific_day_next_week() {
+
+        final WeekDay weekDay = someEnum(WeekDay.class);
 
         final Calendar calendar = mock(Calendar.class);
         final Calendar mondayCalendar = mock(Calendar.class);
@@ -133,12 +139,12 @@ public class CalendarDaysTest {
 
         // Given
         given(calendars.midnightToday()).willReturn(calendar);
-        given(calendar.withDayOfWeek(MONDAY)).willReturn(mondayCalendar);
+        given(calendar.withDayOfWeek(weekDay)).willReturn(mondayCalendar);
         given(mondayCalendar.plusWeeks(1)).willReturn(nextWeekCalendar);
         given(nextWeekCalendar.toDate()).willReturn(expected);
 
         // When
-        final Date actual = days.mondayNextWeek();
+        final Date actual = days.nextWeekOn(weekDay);
 
         // Then
         assertThat(actual, is(expected));

@@ -1,9 +1,9 @@
-package shiver.me.timbers.data.random;
+package shiver.me.timbers.data.random.test;
 
 /**
  * @author Karl Bennett
  */
-public enum WeekDay {
+public enum MatcherWeekDay {
     MONDAY,
     TUESDAY,
     WEDNESDAY,

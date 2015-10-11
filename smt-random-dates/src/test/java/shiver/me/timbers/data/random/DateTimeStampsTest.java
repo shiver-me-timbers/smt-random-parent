@@ -13,6 +13,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static shiver.me.timbers.data.random.RandomEnums.someEnum;
 import static shiver.me.timbers.data.random.RandomIntegers.someInteger;
 import static shiver.me.timbers.data.random.RandomLongs.someLong;
 import static shiver.me.timbers.data.random.test.DateMatchers.isOn;
@@ -147,54 +148,60 @@ public class DateTimeStampsTest {
     }
 
     @Test
-    public void Can_get_the_time_for_monday_last_week_at_midnight() {
+    public void Can_get_the_time_for_a_specific_day_last_week_at_midnight() {
 
-        final Date mondayLastWeek = mock(Date.class);
+        final WeekDay weekDay = someEnum(WeekDay.class);
+
+        final Date weekDayLastWeek = mock(Date.class);
 
         final Long expected = someLong();
 
         // Given
-        given(days.mondayLastWeek()).willReturn(mondayLastWeek);
-        given(mondayLastWeek.getTime()).willReturn(expected);
+        given(days.lastWeekOn(weekDay)).willReturn(weekDayLastWeek);
+        given(weekDayLastWeek.getTime()).willReturn(expected);
 
         // When
-        final long actual = timeStamps.midnightMondayLastWeek();
+        final long actual = timeStamps.midnightLastWeekOn(weekDay);
 
         // Then
         assertThat(actual, equalTo(expected));
     }
 
     @Test
-    public void Can_get_the_time_for_monday_this_week_at_midnight() {
+    public void Can_get_the_time_for_a_specific_day_this_week_at_midnight() {
 
-        final Date mondayThisWeek = mock(Date.class);
+        final WeekDay weekDay = someEnum(WeekDay.class);
+
+        final Date weekDayThisWeek = mock(Date.class);
 
         final Long expected = someLong();
 
         // Given
-        given(days.mondayThisWeek()).willReturn(mondayThisWeek);
-        given(mondayThisWeek.getTime()).willReturn(expected);
+        given(days.thisWeekOn(weekDay)).willReturn(weekDayThisWeek);
+        given(weekDayThisWeek.getTime()).willReturn(expected);
 
         // When
-        final long actual = timeStamps.midnightMondayThisWeek();
+        final long actual = timeStamps.midnightThisWeekOn(weekDay);
 
         // Then
         assertThat(actual, equalTo(expected));
     }
 
     @Test
-    public void Can_get_the_time_for_monday_next_week_at_midnight() {
+    public void Can_get_the_time_for_a_specific_day_next_week_at_midnight() {
 
-        final Date mondayNextWeek = mock(Date.class);
+        final WeekDay weekDay = someEnum(WeekDay.class);
+
+        final Date weekDayNextWeek = mock(Date.class);
 
         final Long expected = someLong();
 
         // Given
-        given(days.mondayNextWeek()).willReturn(mondayNextWeek);
-        given(mondayNextWeek.getTime()).willReturn(expected);
+        given(days.nextWeekOn(weekDay)).willReturn(weekDayNextWeek);
+        given(weekDayNextWeek.getTime()).willReturn(expected);
 
         // When
-        final long actual = timeStamps.midnightMondayNextWeek();
+        final long actual = timeStamps.midnightNextWeekOn(weekDay);
 
         // Then
         assertThat(actual, equalTo(expected));

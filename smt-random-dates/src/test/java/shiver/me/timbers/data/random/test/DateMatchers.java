@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.joda.time.Period.days;
+import static shiver.me.timbers.data.random.test.MatcherWeekDay.MONDAY;
 
 public class DateMatchers {
 
@@ -45,15 +46,19 @@ public class DateMatchers {
         return new TomorrowMatcher();
     }
 
-    public static Matcher<? super Date> isSometimeLastWeek() {
+    public static Matcher<Date> isSometimeOn(MatcherWeekDay weekDay) {
+        return new WeekDayMatcher(weekDay);
+    }
+
+    public static Matcher<Date> isSometimeLastWeek() {
         return new LastWeekMatcher();
     }
 
-    public static Matcher<? super Date> isSometimeThisWeek() {
+    public static Matcher<Date> isSometimeThisWeek() {
         return new ThisWeekMatcher();
     }
 
-    public static Matcher<? super Date> isSometimeNextWeek() {
+    public static Matcher<Date> isSometimeNextWeek() {
         return new NextWeekMatcher();
     }
 
@@ -67,6 +72,14 @@ public class DateMatchers {
 
     public static Date tomorrowMidnight() {
         return tomorrow().toDate();
+    }
+
+    public static Date thisWeekMidnight(MatcherWeekDay weekDay) {
+        return thisWeek(weekDay).toDate();
+    }
+
+    public static Date dayAfterTomorrowMidnight() {
+        return tomorrow().plus(days(1)).toDate();
     }
 
     public static Date mondayLastWeekMidnight() {
@@ -102,7 +115,7 @@ public class DateMatchers {
     }
 
     private static LocalDate mondayThisWeek() {
-        return today().withDayOfWeek(1);
+        return thisWeek(MONDAY);
     }
 
     private static LocalDate sundayThisWeek() {
@@ -117,8 +130,8 @@ public class DateMatchers {
         return sundayThisWeek().plusWeeks(1);
     }
 
-    public static Date dayAfterTomorrowMidnight() {
-        return tomorrow().plus(days(1)).toDate();
+    private static LocalDate thisWeek(MatcherWeekDay weekDay) {
+        return today().withDayOfWeek(weekDay.ordinal() + 1);
     }
 
     public static class IsOnDateMatcher extends TypeSafeMatcher<Date> {
@@ -190,6 +203,12 @@ public class DateMatchers {
     private static class TomorrowMatcher extends BetweenDateMatcher {
         public TomorrowMatcher() {
             super(tomorrowMidnight(), dayAfterTomorrowMidnight());
+        }
+    }
+
+    private static class WeekDayMatcher extends BetweenDateMatcher {
+        public WeekDayMatcher(MatcherWeekDay weekDay) {
+            super(thisWeekMidnight(weekDay), thisWeek(weekDay).plusDays(1).toDate());
         }
     }
 

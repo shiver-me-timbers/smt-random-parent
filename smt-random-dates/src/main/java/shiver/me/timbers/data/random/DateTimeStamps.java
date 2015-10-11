@@ -55,17 +55,17 @@ class DateTimeStamps implements TimeStamps {
     }
 
     @Override
-    public long midnightMondayLastWeek() {
-        return days.mondayLastWeek().getTime();
+    public long midnightLastWeekOn(WeekDay weekDay) {
+        return days.lastWeekOn(weekDay).getTime();
     }
 
     @Override
-    public long midnightMondayThisWeek() {
-        return days.mondayThisWeek().getTime();
+    public long midnightThisWeekOn(WeekDay weekDay) {
+        return days.thisWeekOn(weekDay).getTime();
     }
 
     @Override
-    public long midnightMondayNextWeek() {
-        return days.mondayNextWeek().getTime();
+    public long midnightNextWeekOn(WeekDay weekDay) {
+        return days.nextWeekOn(weekDay).getTime();
     }
 }

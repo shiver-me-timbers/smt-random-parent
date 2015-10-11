@@ -1,6 +1,7 @@
 package shiver.me.timbers.data.random;
 
 import org.junit.Test;
+import shiver.me.timbers.data.random.test.MatcherWeekDay;
 
 import java.util.Date;
 
@@ -8,6 +9,7 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static shiver.me.timbers.data.random.RandomEnums.someEnum;
 import static shiver.me.timbers.data.random.RandomTimes.someTime;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeAfter;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeBefore;
@@ -16,6 +18,7 @@ import static shiver.me.timbers.data.random.RandomTimes.someTimeInTheFuture;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeInThePast;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastWeek;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextWeek;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeOn;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisWeek;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeToday;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeTomorrow;
@@ -23,6 +26,7 @@ import static shiver.me.timbers.data.random.RandomTimes.someTimeYesterday;
 import static shiver.me.timbers.data.random.test.DateMatchers.isBetween;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastWeek;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextWeek;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeOn;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisWeek;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeToday;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeTomorrow;
@@ -131,6 +135,19 @@ public class RandomTimesTest {
 
         // Then
         assertThat(actual, isSometimeToday());
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_on_a_specific_week_day() {
+
+        // Given
+        final WeekDay weekDay = someEnum(WeekDay.class);
+
+        // When
+        final Date actual = someTimeOn(weekDay);
+
+        // Then
+        assertThat(actual, isSometimeOn(MatcherWeekDay.valueOf(weekDay.name())));
     }
 
     @Test
