@@ -2,7 +2,7 @@ package shiver.me.timbers.data.random;
 
 import java.util.Date;
 
-import static shiver.me.timbers.data.random.DayOfWeek.MONDAY;
+import static shiver.me.timbers.data.random.WeekDay.MONDAY;
 
 /**
  * @author Karl Bennett

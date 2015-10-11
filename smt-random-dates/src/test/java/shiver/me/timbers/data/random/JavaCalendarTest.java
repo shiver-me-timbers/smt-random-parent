@@ -67,22 +67,22 @@ public class JavaCalendarTest {
     public void Can_set_the_day_of_the_week() {
 
         // Given
-        final DayOfWeek dayOfWeek = someEnum(DayOfWeek.class);
-        final Map<DayOfWeek, Integer> weekDayMap = new HashMap<DayOfWeek, Integer>() {{
-            put(DayOfWeek.MONDAY, java.util.Calendar.MONDAY);
-            put(DayOfWeek.TUESDAY, java.util.Calendar.TUESDAY);
-            put(DayOfWeek.WEDNESDAY, java.util.Calendar.WEDNESDAY);
-            put(DayOfWeek.THURSDAY, java.util.Calendar.THURSDAY);
-            put(DayOfWeek.FRIDAY, java.util.Calendar.FRIDAY);
-            put(DayOfWeek.SATURDAY, java.util.Calendar.SATURDAY);
-            put(DayOfWeek.SUNDAY, java.util.Calendar.SUNDAY);
+        final WeekDay weekDay = someEnum(WeekDay.class);
+        final Map<WeekDay, Integer> weekDayMap = new HashMap<WeekDay, Integer>() {{
+            put(WeekDay.MONDAY, java.util.Calendar.MONDAY);
+            put(WeekDay.TUESDAY, java.util.Calendar.TUESDAY);
+            put(WeekDay.WEDNESDAY, java.util.Calendar.WEDNESDAY);
+            put(WeekDay.THURSDAY, java.util.Calendar.THURSDAY);
+            put(WeekDay.FRIDAY, java.util.Calendar.FRIDAY);
+            put(WeekDay.SATURDAY, java.util.Calendar.SATURDAY);
+            put(WeekDay.SUNDAY, java.util.Calendar.SUNDAY);
         }};
 
         // When
-        final Calendar actual = javaCalendar.withDayOfWeek(dayOfWeek);
+        final Calendar actual = javaCalendar.withDayOfWeek(weekDay);
 
         // Then
-        verify(calendar).set(java.util.Calendar.DAY_OF_WEEK, weekDayMap.get(dayOfWeek));
+        verify(calendar).set(java.util.Calendar.DAY_OF_WEEK, weekDayMap.get(weekDay));
         assertThat(actual, is(javaCalendar));
     }
 

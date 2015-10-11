@@ -3,12 +3,12 @@ package shiver.me.timbers.data.random;
 /**
  * @author Karl Bennett
  */
-enum DayOfWeek {
-    SUNDAY,
+enum WeekDay {
     MONDAY,
     TUESDAY,
     WEDNESDAY,
     THURSDAY,
     FRIDAY,
-    SATURDAY
+    SATURDAY,
+    SUNDAY
 }

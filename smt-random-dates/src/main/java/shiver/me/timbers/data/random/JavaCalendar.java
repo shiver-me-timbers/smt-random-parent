@@ -1,11 +1,24 @@
 package shiver.me.timbers.data.random;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Karl Bennett
  */
 class JavaCalendar implements Calendar {
+
+    private static final Map<WeekDay, Integer> WEEK_DAY_MAP = new ConcurrentHashMap<WeekDay, Integer>() {{
+        put(WeekDay.MONDAY, java.util.Calendar.MONDAY);
+        put(WeekDay.TUESDAY, java.util.Calendar.TUESDAY);
+        put(WeekDay.WEDNESDAY, java.util.Calendar.WEDNESDAY);
+        put(WeekDay.THURSDAY, java.util.Calendar.THURSDAY);
+        put(WeekDay.FRIDAY, java.util.Calendar.FRIDAY);
+        put(WeekDay.SATURDAY, java.util.Calendar.SATURDAY);
+        put(WeekDay.SUNDAY, java.util.Calendar.SUNDAY);
+    }};
 
     private final java.util.Calendar calendar;
 
@@ -27,8 +40,8 @@ class JavaCalendar implements Calendar {
     }
 
     @Override
-    public Calendar withDayOfWeek(DayOfWeek dayOfWeek) {
-        calendar.set(java.util.Calendar.DAY_OF_WEEK, dayOfWeek.ordinal() + 1);
+    public Calendar withDayOfWeek(WeekDay weekDay) {
+        calendar.set(java.util.Calendar.DAY_OF_WEEK, WEEK_DAY_MAP.get(weekDay));
         return this;
     }
 

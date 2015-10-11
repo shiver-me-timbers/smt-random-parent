@@ -11,7 +11,7 @@ interface Calendar {
 
     Calendar plusDays(int days);
 
-    Calendar withDayOfWeek(DayOfWeek dayOfWeek);
+    Calendar withDayOfWeek(WeekDay weekDay);
 
     Calendar minusWeeks(int weeks);
 

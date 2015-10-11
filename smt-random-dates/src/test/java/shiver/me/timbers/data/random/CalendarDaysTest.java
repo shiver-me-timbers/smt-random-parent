@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
-import static shiver.me.timbers.data.random.DayOfWeek.MONDAY;
+import static shiver.me.timbers.data.random.WeekDay.MONDAY;
 
 public class CalendarDaysTest {
 
