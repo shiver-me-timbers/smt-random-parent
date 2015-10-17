@@ -68,11 +68,6 @@ class SomeTimes implements Times {
     }
 
     @Override
-    public Date someTimeOn(WeekDay weekDay) {
-        return someTimeInDay(timeStamps.midnightThisWeekOn(weekDay));
-    }
-
-    @Override
     public Date someTimeLastWeek() {
         return someTimeInWeek(timeStamps.midnightLastWeekOn(MONDAY));
     }
@@ -85,6 +80,21 @@ class SomeTimes implements Times {
     @Override
     public Date someTimeNextWeek() {
         return someTimeInWeek(timeStamps.midnightNextWeekOn(MONDAY));
+    }
+
+    @Override
+    public Date someTimeLastWeekOn(WeekDay weekDay) {
+        return someTimeInDay(timeStamps.midnightLastWeekOn(weekDay));
+    }
+
+    @Override
+    public Date someTimeThisWeekOn(WeekDay weekDay) {
+        return someTimeInDay(timeStamps.midnightThisWeekOn(weekDay));
+    }
+
+    @Override
+    public Date someTimeNextWeekOn(WeekDay weekDay) {
+        return someTimeInDay(timeStamps.midnightNextWeekOn(weekDay));
     }
 
     private Date someTimeBefore(long time) {

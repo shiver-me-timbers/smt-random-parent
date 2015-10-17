@@ -86,10 +86,6 @@ public class RandomTimes {
         return times().someTimeTomorrow();
     }
 
-    public static Date someTimeOn(WeekDay weekDay) {
-        return times().someTimeOn(weekDay);
-    }
-
     /**
      * Generate a random time that could be any time between 00:00:00 Monday and 23:59:59 Sunday last week.
      */
@@ -109,5 +105,26 @@ public class RandomTimes {
      */
     public static Date someTimeNextWeek() {
         return times().someTimeNextWeek();
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 and 23:59:59 of a given day last week.
+     */
+    public static Date someTimeLastWeekOn(WeekDay weekDay) {
+        return times().someTimeLastWeekOn(weekDay);
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 and 23:59:59 of a given day this week.
+     */
+    public static Date someTimeThisWeekOn(WeekDay weekDay) {
+        return times().someTimeThisWeekOn(weekDay);
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 and 23:59:59 of a given day next week.
+     */
+    public static Date someTimeNextWeekOn(WeekDay weekDay) {
+        return times().someTimeNextWeekOn(weekDay);
     }
 }

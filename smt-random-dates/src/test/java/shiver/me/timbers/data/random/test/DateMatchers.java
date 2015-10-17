@@ -11,23 +11,12 @@ import java.util.concurrent.TimeUnit;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.joda.time.Period.days;
 import static shiver.me.timbers.data.random.test.MatcherWeekDay.MONDAY;
+import static shiver.me.timbers.data.random.test.MatcherWeekDay.SUNDAY;
 
 public class DateMatchers {
 
     public static IsOnDateMatcher isOn(Date date) {
         return new IsOnDateMatcher(date);
-    }
-
-    public static Matcher<Date> isMidnightYesterday() {
-        return new IsOnDateMatcher(yesterdayMidnight());
-    }
-
-    public static Matcher<Date> isMidnightToday() {
-        return new IsOnDateMatcher(todayMidnight());
-    }
-
-    public static Matcher<Date> isMidnightTomorrow() {
-        return new IsOnDateMatcher(tomorrowMidnight());
     }
 
     public static Matcher<Date> isBetween(Date min, Date max) {
@@ -46,10 +35,6 @@ public class DateMatchers {
         return new TomorrowMatcher();
     }
 
-    public static Matcher<Date> isSometimeOn(MatcherWeekDay weekDay) {
-        return new WeekDayMatcher(weekDay);
-    }
-
     public static Matcher<Date> isSometimeLastWeek() {
         return new LastWeekMatcher();
     }
@@ -62,8 +47,20 @@ public class DateMatchers {
         return new NextWeekMatcher();
     }
 
+    public static Matcher<Date> isSometimeLastWeekOn(MatcherWeekDay weekDay) {
+        return new LastWeekDayMatcher(weekDay);
+    }
+
+    public static Matcher<Date> isSometimeThisWeekOn(MatcherWeekDay weekDay) {
+        return new ThisWeekDayMatcher(weekDay);
+    }
+
+    public static Matcher<Date> isSometimeNextWeekOn(MatcherWeekDay weekDay) {
+        return new NextWeekDayMatcher(weekDay);
+    }
+
     public static Date yesterdayMidnight() {
-        return yesterday().toDate();
+        return today().minus(days(1)).toDate();
     }
 
     public static Date todayMidnight() {
@@ -74,32 +71,36 @@ public class DateMatchers {
         return tomorrow().toDate();
     }
 
-    public static Date thisWeekMidnight(MatcherWeekDay weekDay) {
-        return thisWeek(weekDay).toDate();
-    }
-
     public static Date dayAfterTomorrowMidnight() {
         return tomorrow().plus(days(1)).toDate();
     }
 
     public static Date mondayLastWeekMidnight() {
-        return mondayLastWeek().toDate();
+        return lastWeekMidnight(MONDAY);
     }
 
     public static Date mondayThisWeekMidnight() {
-        return mondayThisWeek().toDate();
+        return thisWeekMidnight(MONDAY);
     }
 
     public static Date mondayNextWeekMidnight() {
-        return mondayNextWeek().toDate();
+        return nextWeekMidnight(MONDAY);
     }
 
     public static Date mondayWeekAfterNextMidnight() {
-        return sundayNextWeek().toDate();
+        return nextWeek(SUNDAY).toDate();
     }
 
-    private static LocalDate yesterday() {
-        return today().minus(days(1));
+    public static Date lastWeekMidnight(MatcherWeekDay weekDay) {
+        return lastWeek(weekDay).toDate();
+    }
+
+    public static Date thisWeekMidnight(MatcherWeekDay weekDay) {
+        return thisWeek(weekDay).toDate();
+    }
+
+    public static Date nextWeekMidnight(MatcherWeekDay weekDay) {
+        return nextWeek(weekDay).toDate();
     }
 
     private static LocalDate today() {
@@ -110,28 +111,16 @@ public class DateMatchers {
         return today().plus(days(1));
     }
 
-    private static LocalDate mondayLastWeek() {
-        return mondayThisWeek().minusWeeks(1);
-    }
-
-    private static LocalDate mondayThisWeek() {
-        return thisWeek(MONDAY);
-    }
-
-    private static LocalDate sundayThisWeek() {
-        return today().withDayOfWeek(7);
-    }
-
-    private static LocalDate mondayNextWeek() {
-        return mondayThisWeek().plusWeeks(1);
-    }
-
-    private static LocalDate sundayNextWeek() {
-        return sundayThisWeek().plusWeeks(1);
+    private static LocalDate lastWeek(MatcherWeekDay weekDay) {
+        return thisWeek(weekDay).minusWeeks(1);
     }
 
     private static LocalDate thisWeek(MatcherWeekDay weekDay) {
         return today().withDayOfWeek(weekDay.ordinal() + 1);
+    }
+
+    private static LocalDate nextWeek(MatcherWeekDay weekDay) {
+        return thisWeek(weekDay).plusWeeks(1);
     }
 
     public static class IsOnDateMatcher extends TypeSafeMatcher<Date> {
@@ -206,9 +195,21 @@ public class DateMatchers {
         }
     }
 
-    private static class WeekDayMatcher extends BetweenDateMatcher {
-        public WeekDayMatcher(MatcherWeekDay weekDay) {
+    private static class LastWeekDayMatcher extends BetweenDateMatcher {
+        public LastWeekDayMatcher(MatcherWeekDay weekDay) {
+            super(lastWeekMidnight(weekDay), lastWeek(weekDay).plusDays(1).toDate());
+        }
+    }
+
+    private static class ThisWeekDayMatcher extends BetweenDateMatcher {
+        public ThisWeekDayMatcher(MatcherWeekDay weekDay) {
             super(thisWeekMidnight(weekDay), thisWeek(weekDay).plusDays(1).toDate());
+        }
+    }
+
+    private static class NextWeekDayMatcher extends BetweenDateMatcher {
+        public NextWeekDayMatcher(MatcherWeekDay weekDay) {
+            super(nextWeekMidnight(weekDay), nextWeek(weekDay).plusDays(1).toDate());
         }
     }
 

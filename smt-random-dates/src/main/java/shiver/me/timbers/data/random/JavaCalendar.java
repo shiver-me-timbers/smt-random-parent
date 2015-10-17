@@ -23,6 +23,7 @@ class JavaCalendar implements Calendar {
 
     public JavaCalendar(java.util.Calendar calendar) {
         this.calendar = calendar;
+        // The week should start with Monday: https://www.cl.cam.ac.uk/~mgk25/iso-time.html
         calendar.setFirstDayOfWeek(java.util.Calendar.MONDAY);
     }
 

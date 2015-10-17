@@ -214,30 +214,9 @@ public class SomeTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_time_that_falls_on_a_specific_day_this_week() {
-
-        final WeekDay weekDay = someEnum(WeekDay.class);
-        final long weekDayMidnight = someLong();
-        final long timeInADay = someLong();
-
-        final Date expected = mock(Date.class);
-
-        // Given
-        given(timeStamps.midnightThisWeekOn(weekDay)).willReturn(weekDayMidnight);
-        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
-        given(timeStamps.date(weekDayMidnight + timeInADay)).willReturn(expected);
-
-        // When
-        final Date actual = times.someTimeOn(weekDay);
-
-        // Then
-        assertEquals(expected, actual);
-    }
-
-    @Test
     public void Can_generate_a_random_time_that_falls_last_week() {
 
-        final long midnightMondayLastWeek = 2;
+        final long midnightMondayLastWeek = someLong();
         final long timeInAWeek = someLong();
 
         final Date expected = mock(Date.class);
@@ -257,7 +236,7 @@ public class SomeTimesTest {
     @Test
     public void Can_generate_a_random_time_that_falls_this_week() {
 
-        final long midnightMondayThisWeek = 2;
+        final long midnightMondayThisWeek = someLong();
         final long timeInAWeek = someLong();
 
         final Date expected = mock(Date.class);
@@ -277,7 +256,7 @@ public class SomeTimesTest {
     @Test
     public void Can_generate_a_random_time_that_falls_next_week() {
 
-        final long midnightMondayNextWeek = 2;
+        final long midnightMondayNextWeek = someLong();
         final long timeInAWeek = someLong();
 
         final Date expected = mock(Date.class);
@@ -289,6 +268,69 @@ public class SomeTimesTest {
 
         // When
         final Date actual = times.someTimeNextWeek();
+
+        // Then
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_on_a_specific_day_last_week() {
+
+        final WeekDay weekDay = someEnum(WeekDay.class);
+        final long weekDayMidnight = someLong();
+        final long timeInADay = someLong();
+
+        final Date expected = mock(Date.class);
+
+        // Given
+        given(timeStamps.midnightLastWeekOn(weekDay)).willReturn(weekDayMidnight);
+        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
+        given(timeStamps.date(weekDayMidnight + timeInADay)).willReturn(expected);
+
+        // When
+        final Date actual = times.someTimeLastWeekOn(weekDay);
+
+        // Then
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_on_a_specific_day_this_week() {
+
+        final WeekDay weekDay = someEnum(WeekDay.class);
+        final long weekDayMidnight = someLong();
+        final long timeInADay = someLong();
+
+        final Date expected = mock(Date.class);
+
+        // Given
+        given(timeStamps.midnightThisWeekOn(weekDay)).willReturn(weekDayMidnight);
+        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
+        given(timeStamps.date(weekDayMidnight + timeInADay)).willReturn(expected);
+
+        // When
+        final Date actual = times.someTimeThisWeekOn(weekDay);
+
+        // Then
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_on_a_specific_day_next_week() {
+
+        final WeekDay weekDay = someEnum(WeekDay.class);
+        final long weekDayMidnight = someLong();
+        final long timeInADay = someLong();
+
+        final Date expected = mock(Date.class);
+
+        // Given
+        given(timeStamps.midnightNextWeekOn(weekDay)).willReturn(weekDayMidnight);
+        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
+        given(timeStamps.date(weekDayMidnight + timeInADay)).willReturn(expected);
+
+        // When
+        final Date actual = times.someTimeNextWeekOn(weekDay);
 
         // Then
         assertEquals(expected, actual);

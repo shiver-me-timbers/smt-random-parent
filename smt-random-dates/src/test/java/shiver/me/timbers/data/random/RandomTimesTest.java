@@ -17,17 +17,21 @@ import static shiver.me.timbers.data.random.RandomTimes.someTimeBetween;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeInTheFuture;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeInThePast;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastWeek;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeLastWeekOn;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextWeek;
-import static shiver.me.timbers.data.random.RandomTimes.someTimeOn;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeNextWeekOn;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisWeek;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeThisWeekOn;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeToday;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeTomorrow;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeYesterday;
 import static shiver.me.timbers.data.random.test.DateMatchers.isBetween;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastWeek;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastWeekOn;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextWeek;
-import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeOn;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextWeekOn;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisWeek;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisWeekOn;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeToday;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeTomorrow;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeYesterday;
@@ -138,19 +142,6 @@ public class RandomTimesTest {
     }
 
     @Test
-    public void Can_generate_a_random_time_that_falls_on_a_specific_week_day() {
-
-        // Given
-        final WeekDay weekDay = someEnum(WeekDay.class);
-
-        // When
-        final Date actual = someTimeOn(weekDay);
-
-        // Then
-        assertThat(actual, isSometimeOn(MatcherWeekDay.valueOf(weekDay.name())));
-    }
-
-    @Test
     public void Can_generate_a_random_time_that_falls_tomorrow() {
 
         // When
@@ -188,5 +179,44 @@ public class RandomTimesTest {
 
         // Then
         assertThat(actual, isSometimeNextWeek());
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_last_week_on_a_specific_day() {
+
+        // Given
+        final WeekDay weekDay = someEnum(WeekDay.class);
+
+        // When
+        final Date actual = someTimeLastWeekOn(weekDay);
+
+        // Then
+        assertThat(actual, isSometimeLastWeekOn(MatcherWeekDay.valueOf(weekDay.name())));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_this_week_on_a_specific_day() {
+
+        // Given
+        final WeekDay weekDay = someEnum(WeekDay.class);
+
+        // When
+        final Date actual = someTimeThisWeekOn(weekDay);
+
+        // Then
+        assertThat(actual, isSometimeThisWeekOn(MatcherWeekDay.valueOf(weekDay.name())));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_next_week_on_a_specific_day() {
+
+        // Given
+        final WeekDay weekDay = someEnum(WeekDay.class);
+
+        // When
+        final Date actual = someTimeNextWeekOn(weekDay);
+
+        // Then
+        assertThat(actual, isSometimeNextWeekOn(MatcherWeekDay.valueOf(weekDay.name())));
     }
 }

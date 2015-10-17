@@ -25,11 +25,15 @@ interface Times {
 
     Date someTimeTomorrow();
 
-    Date someTimeOn(WeekDay weekDay);
-
     Date someTimeLastWeek();
 
     Date someTimeThisWeek();
 
     Date someTimeNextWeek();
+
+    Date someTimeLastWeekOn(WeekDay weekDay);
+
+    Date someTimeThisWeekOn(WeekDay weekDay);
+
+    Date someTimeNextWeekOn(WeekDay weekDay);
 }
