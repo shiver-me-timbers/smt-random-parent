@@ -1,6 +1,7 @@
 package shiver.me.timbers.data.random;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Date;
@@ -17,7 +18,7 @@ public class SomeTimesTest {
 
     private TimeStamps timeStamps;
     private Numbers<Long> longs;
-    private RandomDateBuilder randomDateBuilder;
+    private RandomTimeBuilder randomTimeBuilder;
 
     private SomeTimes times;
 
@@ -26,9 +27,9 @@ public class SomeTimesTest {
     public void setUp() {
         timeStamps = mock(TimeStamps.class);
         longs = mock(Numbers.class);
-        randomDateBuilder = mock(RandomDateBuilder.class);
+        randomTimeBuilder = mock(RandomTimeBuilder.class);
 
-        times = new SomeTimes(timeStamps, longs, randomDateBuilder);
+        times = new SomeTimes(timeStamps, longs, randomTimeBuilder);
     }
 
     @Test
@@ -38,15 +39,15 @@ public class SomeTimesTest {
 
         final Date date = mock(Date.class);
 
-        final RandomDateBuilder expected = mock(RandomDateBuilder.class);
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
         given(longs.someNumber()).willReturn(randomLong);
         given(timeStamps.date(randomLong)).willReturn(date);
-        given(randomDateBuilder.create(date)).willReturn(expected);
+        given(randomTimeBuilder.create(date)).willReturn(expected);
 
         // When
-        final RandomDateBuilder actual = times.someTime();
+        final RandomTimeBuilder actual = times.someTime();
 
         // Then
         assertThat(actual, is(expected));
@@ -60,16 +61,16 @@ public class SomeTimesTest {
 
         final Date date = mock(Date.class);
 
-        final RandomDateBuilder expected = mock(RandomDateBuilder.class);
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
         given(longs.someNegativeNumber()).willReturn(randomLong);
         given(timeStamps.now()).willReturn(nowTime);
         given(timeStamps.date(nowTime + (randomLong - 1))).willReturn(date);
-        given(randomDateBuilder.create(date)).willReturn(expected);
+        given(randomTimeBuilder.create(date)).willReturn(expected);
 
         // When
-        final RandomDateBuilder actual = times.someTimeInThePast();
+        final RandomTimeBuilder actual = times.someTimeInThePast();
 
         // Then
         assertThat(actual, is(expected));
@@ -83,16 +84,16 @@ public class SomeTimesTest {
 
         final Date date = mock(Date.class);
 
-        final RandomDateBuilder expected = mock(RandomDateBuilder.class);
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
         given(longs.somePositiveNumber()).willReturn(randomLong);
         given(timeStamps.now()).willReturn(nowTime);
         given(timeStamps.date(nowTime + (randomLong + 1))).willReturn(date);
-        given(randomDateBuilder.create(date)).willReturn(expected);
+        given(randomTimeBuilder.create(date)).willReturn(expected);
 
         // When
-        final RandomDateBuilder actual = times.someTimeInTheFuture();
+        final RandomTimeBuilder actual = times.someTimeInTheFuture();
 
         // Then
         assertThat(actual, is(expected));
@@ -107,16 +108,16 @@ public class SomeTimesTest {
 
         final Date beforeDate = mock(Date.class);
 
-        final RandomDateBuilder expected = mock(RandomDateBuilder.class);
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
         given(date.getTime()).willReturn(dateTime);
         given(longs.someNegativeNumber()).willReturn(randomLong);
         given(timeStamps.date(dateTime + (randomLong - 1))).willReturn(beforeDate);
-        given(randomDateBuilder.create(beforeDate)).willReturn(expected);
+        given(randomTimeBuilder.create(beforeDate)).willReturn(expected);
 
         // When
-        final RandomDateBuilder actual = times.someTimeBefore(date);
+        final RandomTimeBuilder actual = times.someTimeBefore(date);
 
         // Then
         assertThat(actual, is(expected));
@@ -131,16 +132,16 @@ public class SomeTimesTest {
 
         final Date afterDate = mock(Date.class);
 
-        final RandomDateBuilder expected = mock(RandomDateBuilder.class);
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
         given(date.getTime()).willReturn(dateTime);
         given(longs.somePositiveNumber()).willReturn(randomLong);
         given(timeStamps.date(dateTime + (randomLong + 1))).willReturn(afterDate);
-        given(randomDateBuilder.create(afterDate)).willReturn(expected);
+        given(randomTimeBuilder.create(afterDate)).willReturn(expected);
 
         // When
-        final RandomDateBuilder actual = times.someTimeAfter(date);
+        final RandomTimeBuilder actual = times.someTimeAfter(date);
 
         // Then
         assertThat(actual, is(expected));
@@ -157,17 +158,17 @@ public class SomeTimesTest {
 
         final Date betweenDate = mock(Date.class);
 
-        final RandomDateBuilder expected = mock(RandomDateBuilder.class);
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
         given(min.getTime()).willReturn(minTime);
         given(max.getTime()).willReturn(maxTime);
         given(longs.someNumberBetween(minTime, maxTime)).willReturn(randomTime);
         given(timeStamps.date(randomTime - 1)).willReturn(betweenDate);
-        given(randomDateBuilder.create(betweenDate)).willReturn(expected);
+        given(randomTimeBuilder.create(betweenDate)).willReturn(expected);
 
         // When
-        final RandomDateBuilder actual = times.someTimeBetween(min, max);
+        final RandomTimeBuilder actual = times.someTimeBetween(min, max);
 
         // Then
         assertThat(actual, is(expected));
@@ -181,16 +182,16 @@ public class SomeTimesTest {
 
         final Date yesterday = mock(Date.class);
 
-        final RandomDateBuilder expected = mock(RandomDateBuilder.class);
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
         given(timeStamps.yesterdayMidnight()).willReturn(yesterdayMidnightTime);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.date(yesterdayMidnightTime + timeInADay)).willReturn(yesterday);
-        given(randomDateBuilder.create(yesterday)).willReturn(expected);
+        given(randomTimeBuilder.create(yesterday)).willReturn(expected);
 
         // When
-        final RandomDateBuilder actual = times.someTimeYesterday();
+        final RandomTimeBuilder actual = times.someTimeYesterday();
 
         // Then
         assertThat(actual, is(expected));
@@ -204,16 +205,16 @@ public class SomeTimesTest {
 
         final Date today = mock(Date.class);
 
-        final RandomDateBuilder expected = mock(RandomDateBuilder.class);
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
         given(timeStamps.todayMidnight()).willReturn(todayMidnight);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.date(todayMidnight + timeInADay)).willReturn(today);
-        given(randomDateBuilder.create(today)).willReturn(expected);
+        given(randomTimeBuilder.create(today)).willReturn(expected);
 
         // When
-        final RandomDateBuilder actual = times.someTimeToday();
+        final RandomTimeBuilder actual = times.someTimeToday();
 
         // Then
         assertThat(actual, is(expected));
@@ -227,16 +228,16 @@ public class SomeTimesTest {
 
         final Date tomorrow = mock(Date.class);
 
-        final RandomDateBuilder expected = mock(RandomDateBuilder.class);
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
         given(timeStamps.tomorrowMidnight()).willReturn(tomorrowMidnight);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.date(tomorrowMidnight + timeInADay)).willReturn(tomorrow);
-        given(randomDateBuilder.create(tomorrow)).willReturn(expected);
+        given(randomTimeBuilder.create(tomorrow)).willReturn(expected);
 
         // When
-        final RandomDateBuilder actual = times.someTimeTomorrow();
+        final RandomTimeBuilder actual = times.someTimeTomorrow();
 
         // Then
         assertThat(actual, is(expected));
@@ -250,16 +251,16 @@ public class SomeTimesTest {
 
         final Date lastWeek = mock(Date.class);
 
-        final RandomDateBuilder expected = mock(RandomDateBuilder.class);
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
         given(timeStamps.midnightLastWeekOn(MONDAY)).willReturn(midnightMondayLastWeek);
         given(timeStamps.someTimeInAWeek()).willReturn(timeInAWeek);
         given(timeStamps.date(midnightMondayLastWeek + timeInAWeek)).willReturn(lastWeek);
-        given(randomDateBuilder.create(lastWeek)).willReturn(expected);
+        given(randomTimeBuilder.create(lastWeek)).willReturn(expected);
 
         // When
-        final RandomDateBuilder actual = times.someTimeLastWeek();
+        final RandomTimeBuilder actual = times.someTimeLastWeek();
 
         // Then
         assertThat(actual, is(expected));
@@ -273,16 +274,16 @@ public class SomeTimesTest {
 
         final Date thisWeek = mock(Date.class);
 
-        final RandomDateBuilder expected = mock(RandomDateBuilder.class);
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
         given(timeStamps.midnightThisWeekOn(MONDAY)).willReturn(midnightMondayThisWeek);
         given(timeStamps.someTimeInAWeek()).willReturn(timeInAWeek);
         given(timeStamps.date(midnightMondayThisWeek + timeInAWeek)).willReturn(thisWeek);
-        given(randomDateBuilder.create(thisWeek)).willReturn(expected);
+        given(randomTimeBuilder.create(thisWeek)).willReturn(expected);
 
         // When
-        final RandomDateBuilder actual = times.someTimeThisWeek();
+        final RandomTimeBuilder actual = times.someTimeThisWeek();
 
         // Then
         assertThat(actual, is(expected));
@@ -296,16 +297,16 @@ public class SomeTimesTest {
 
         final Date nextWeek = mock(Date.class);
 
-        final RandomDateBuilder expected = mock(RandomDateBuilder.class);
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
         given(timeStamps.midnightNextWeekOn(MONDAY)).willReturn(midnightMondayNextWeek);
         given(timeStamps.someTimeInAWeek()).willReturn(timeInAWeek);
         given(timeStamps.date(midnightMondayNextWeek + timeInAWeek)).willReturn(nextWeek);
-        given(randomDateBuilder.create(nextWeek)).willReturn(expected);
+        given(randomTimeBuilder.create(nextWeek)).willReturn(expected);
 
         // When
-        final RandomDateBuilder actual = times.someTimeNextWeek();
+        final RandomTimeBuilder actual = times.someTimeNextWeek();
 
         // Then
         assertThat(actual, is(expected));
@@ -320,16 +321,16 @@ public class SomeTimesTest {
 
         final Date lastWeek = mock(Date.class);
 
-        final RandomDateBuilder expected = mock(RandomDateBuilder.class);
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
         given(timeStamps.midnightLastWeekOn(weekDay)).willReturn(weekDayMidnight);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.date(weekDayMidnight + timeInADay)).willReturn(lastWeek);
-        given(randomDateBuilder.create(lastWeek)).willReturn(expected);
+        given(randomTimeBuilder.create(lastWeek)).willReturn(expected);
 
         // When
-        final RandomDateBuilder actual = times.someTimeLastWeekOn(weekDay);
+        final RandomTimeBuilder actual = times.someTimeLastWeekOn(weekDay);
 
         // Then
         assertThat(actual, is(expected));
@@ -344,16 +345,16 @@ public class SomeTimesTest {
 
         final Date thisWeek = mock(Date.class);
 
-        final RandomDateBuilder expected = mock(RandomDateBuilder.class);
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
         given(timeStamps.midnightThisWeekOn(weekDay)).willReturn(weekDayMidnight);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.date(weekDayMidnight + timeInADay)).willReturn(thisWeek);
-        given(randomDateBuilder.create(thisWeek)).willReturn(expected);
+        given(randomTimeBuilder.create(thisWeek)).willReturn(expected);
 
         // When
-        final RandomDateBuilder actual = times.someTimeThisWeekOn(weekDay);
+        final RandomTimeBuilder actual = times.someTimeThisWeekOn(weekDay);
 
         // Then
         assertThat(actual, is(expected));
@@ -368,16 +369,16 @@ public class SomeTimesTest {
 
         final Date nextWeek = mock(Date.class);
 
-        final RandomDateBuilder expected = mock(RandomDateBuilder.class);
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
         given(timeStamps.midnightNextWeekOn(weekDay)).willReturn(weekDayMidnight);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.date(weekDayMidnight + timeInADay)).willReturn(nextWeek);
-        given(randomDateBuilder.create(nextWeek)).willReturn(expected);
+        given(randomTimeBuilder.create(nextWeek)).willReturn(expected);
 
         // When
-        final RandomDateBuilder actual = times.someTimeNextWeekOn(weekDay);
+        final RandomTimeBuilder actual = times.someTimeNextWeekOn(weekDay);
 
         // Then
         assertThat(actual, is(expected));
