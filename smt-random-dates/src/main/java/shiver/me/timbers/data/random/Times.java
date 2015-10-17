@@ -7,33 +7,33 @@ import java.util.Date;
  */
 interface Times {
 
-    Date someTime();
+    RandomDateBuilder someTime();
 
-    Date someTimeInThePast();
+    RandomDateBuilder someTimeInThePast();
 
-    Date someTimeInTheFuture();
+    RandomDateBuilder someTimeInTheFuture();
 
-    Date someTimeBefore(Date date);
+    RandomDateBuilder someTimeBefore(Date date);
 
-    Date someTimeAfter(Date date);
+    RandomDateBuilder someTimeAfter(Date date);
 
-    Date someTimeBetween(Date min, Date max);
+    RandomDateBuilder someTimeBetween(Date min, Date max);
 
-    Date someTimeYesterday();
+    RandomDateBuilder someTimeYesterday();
 
-    Date someTimeToday();
+    RandomDateBuilder someTimeToday();
 
-    Date someTimeTomorrow();
+    RandomDateBuilder someTimeTomorrow();
 
-    Date someTimeLastWeek();
+    RandomDateBuilder someTimeLastWeek();
 
-    Date someTimeThisWeek();
+    RandomDateBuilder someTimeThisWeek();
 
-    Date someTimeNextWeek();
+    RandomDateBuilder someTimeNextWeek();
 
-    Date someTimeLastWeekOn(WeekDay weekDay);
+    RandomDateBuilder someTimeLastWeekOn(WeekDay weekDay);
 
-    Date someTimeThisWeekOn(WeekDay weekDay);
+    RandomDateBuilder someTimeThisWeekOn(WeekDay weekDay);
 
-    Date someTimeNextWeekOn(WeekDay weekDay);
+    RandomDateBuilder someTimeNextWeekOn(WeekDay weekDay);
 }

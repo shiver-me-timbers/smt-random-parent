@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.joda.time.Period.days;
 import static shiver.me.timbers.data.random.test.MatcherWeekDay.MONDAY;
-import static shiver.me.timbers.data.random.test.MatcherWeekDay.SUNDAY;
 
 public class DateMatchers {
 
@@ -88,7 +87,7 @@ public class DateMatchers {
     }
 
     public static Date mondayWeekAfterNextMidnight() {
-        return nextWeek(SUNDAY).toDate();
+        return nextWeek(MONDAY).plusWeeks(1).toDate();
     }
 
     public static Date lastWeekMidnight(MatcherWeekDay weekDay) {

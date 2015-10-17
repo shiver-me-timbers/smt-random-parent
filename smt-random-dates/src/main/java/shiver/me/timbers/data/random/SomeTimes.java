@@ -11,105 +11,107 @@ class SomeTimes implements Times {
 
     private final TimeStamps timeStamps;
     private final Numbers<Long> longs;
+    private final RandomDateBuilder randomDateBuilder;
 
-    public SomeTimes(TimeStamps timeStamps, Numbers<Long> longs) {
+    public SomeTimes(TimeStamps timeStamps, Numbers<Long> longs, RandomDateBuilder randomDateBuilder) {
         this.timeStamps = timeStamps;
         this.longs = longs;
+        this.randomDateBuilder = randomDateBuilder;
     }
 
     @Override
-    public Date someTime() {
-        return timeStamps.date(longs.someNumber());
+    public RandomDateBuilder someTime() {
+        return randomDateBuilder.create(timeStamps.date(longs.someNumber()));
     }
 
     @Override
-    public Date someTimeInThePast() {
+    public RandomDateBuilder someTimeInThePast() {
         return someTimeBefore(timeStamps.now());
     }
 
     @Override
-    public Date someTimeInTheFuture() {
+    public RandomDateBuilder someTimeInTheFuture() {
         return someTimeAfter(timeStamps.now());
     }
 
     @Override
-    public Date someTimeBefore(Date date) {
+    public RandomDateBuilder someTimeBefore(Date date) {
         return someTimeBefore(date.getTime());
     }
 
     @Override
-    public Date someTimeAfter(Date date) {
+    public RandomDateBuilder someTimeAfter(Date date) {
         return someTimeAfter(date.getTime());
     }
 
     @Override
-    public Date someTimeBetween(Date min, Date max) {
+    public RandomDateBuilder someTimeBetween(Date min, Date max) {
 
         final long minTime = min.getTime();
         final long maxTime = max.getTime();
 
         // Minus 1 off the range to make sure it is upper bound exclusive.
-        return timeStamps.date(longs.someNumberBetween(minTime, maxTime) - 1);
+        return randomDateBuilder.create(timeStamps.date(longs.someNumberBetween(minTime, maxTime) - 1));
     }
 
     @Override
-    public Date someTimeYesterday() {
+    public RandomDateBuilder someTimeYesterday() {
         return someTimeInDay(timeStamps.yesterdayMidnight());
     }
 
     @Override
-    public Date someTimeToday() {
+    public RandomDateBuilder someTimeToday() {
         return someTimeInDay(timeStamps.todayMidnight());
     }
 
     @Override
-    public Date someTimeTomorrow() {
+    public RandomDateBuilder someTimeTomorrow() {
         return someTimeInDay(timeStamps.tomorrowMidnight());
     }
 
     @Override
-    public Date someTimeLastWeek() {
+    public RandomDateBuilder someTimeLastWeek() {
         return someTimeInWeek(timeStamps.midnightLastWeekOn(MONDAY));
     }
 
     @Override
-    public Date someTimeThisWeek() {
+    public RandomDateBuilder someTimeThisWeek() {
         return someTimeInWeek(timeStamps.midnightThisWeekOn(MONDAY));
     }
 
     @Override
-    public Date someTimeNextWeek() {
+    public RandomDateBuilder someTimeNextWeek() {
         return someTimeInWeek(timeStamps.midnightNextWeekOn(MONDAY));
     }
 
     @Override
-    public Date someTimeLastWeekOn(WeekDay weekDay) {
+    public RandomDateBuilder someTimeLastWeekOn(WeekDay weekDay) {
         return someTimeInDay(timeStamps.midnightLastWeekOn(weekDay));
     }
 
     @Override
-    public Date someTimeThisWeekOn(WeekDay weekDay) {
+    public RandomDateBuilder someTimeThisWeekOn(WeekDay weekDay) {
         return someTimeInDay(timeStamps.midnightThisWeekOn(weekDay));
     }
 
     @Override
-    public Date someTimeNextWeekOn(WeekDay weekDay) {
+    public RandomDateBuilder someTimeNextWeekOn(WeekDay weekDay) {
         return someTimeInDay(timeStamps.midnightNextWeekOn(weekDay));
     }
 
-    private Date someTimeBefore(long time) {
-        return timeStamps.date(time + (longs.someNegativeNumber() - 1));
+    private RandomDateBuilder someTimeBefore(long time) {
+        return randomDateBuilder.create(timeStamps.date(time + (longs.someNegativeNumber() - 1)));
     }
 
-    private Date someTimeAfter(long time) {
-        return timeStamps.date(time + (longs.somePositiveNumber() + 1));
+    private RandomDateBuilder someTimeAfter(long time) {
+        return randomDateBuilder.create(timeStamps.date(time + (longs.somePositiveNumber() + 1)));
     }
 
-    private Date someTimeInDay(long midnightTime) {
-        return timeStamps.date(midnightTime + timeStamps.someTimeInADay());
+    private RandomDateBuilder someTimeInDay(long midnightTime) {
+        return randomDateBuilder.create(timeStamps.date(midnightTime + timeStamps.someTimeInADay()));
     }
 
-    public Date someTimeInWeek(long midnightTime) {
-        return timeStamps.date(midnightTime + timeStamps.someTimeInAWeek());
+    public RandomDateBuilder someTimeInWeek(long midnightTime) {
+        return randomDateBuilder.create(timeStamps.date(midnightTime + timeStamps.someTimeInAWeek()));
     }
 }
