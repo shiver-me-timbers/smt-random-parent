@@ -5,5 +5,7 @@ package shiver.me.timbers.data.random;
  */
 interface Calendars {
 
+    Calendar create(Long time);
+
     Calendar midnightToday();
 }

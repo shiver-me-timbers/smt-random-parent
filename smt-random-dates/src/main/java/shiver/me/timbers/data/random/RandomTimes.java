@@ -18,8 +18,11 @@ public class RandomTimes {
         final Random random = ThreadLocalRandom.current();
 
         return new SomeTimes(
-            new DateTimeStamps(random, new CalendarDays(new JavaCalendars())),
-            new BoundNumbers<>(Long.class, new LongOperations(random), RETRY_AMOUNT, random), new RandomTimeBuilderCreator());
+            new RandomTimeBuilderCreator(
+                new DateTimeStamps(random, new JavaCalendars()),
+                new BoundNumbers<>(Long.class, new LongOperations(random), RETRY_AMOUNT, random)
+            )
+        );
     }
 
     /**

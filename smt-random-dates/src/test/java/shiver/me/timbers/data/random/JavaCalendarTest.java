@@ -10,10 +10,12 @@ import java.util.Map;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static shiver.me.timbers.data.random.RandomEnums.someEnum;
 import static shiver.me.timbers.data.random.RandomIntegers.somePositiveInteger;
+import static shiver.me.timbers.data.random.RandomLongs.someLong;
 import static shiver.me.timbers.data.random.test.DateMatchers.isOn;
 
 /**
@@ -56,7 +58,7 @@ public class JavaCalendarTest {
         final Integer days = somePositiveInteger();
 
         // When
-        final Calendar actual = javaCalendar.plusDays(days);
+        final Calendar actual = javaCalendar.addDays(days);
 
         // Then
         verify(calendar).add(java.util.Calendar.DAY_OF_MONTH, days);
@@ -107,7 +109,7 @@ public class JavaCalendarTest {
         final Integer weeks = somePositiveInteger();
 
         // When
-        final Calendar actual = javaCalendar.plusWeeks(weeks);
+        final Calendar actual = javaCalendar.addWeeks(weeks);
 
         // Then
         verify(calendar).add(java.util.Calendar.WEEK_OF_YEAR, weeks);
@@ -122,5 +124,20 @@ public class JavaCalendarTest {
 
         // Then
         assertThat(actual, isOn(calendar.getTime()).within(1, SECONDS));
+    }
+
+    @Test
+    public void Can_convert_the_calendar_into_time() {
+
+        final Long expected = someLong();
+
+        // Given
+        given(calendar.getTimeInMillis()).willReturn(expected);
+
+        // When
+        final long actual = javaCalendar.toTime();
+
+        // Then
+        assertThat(actual, is(expected));
     }
 }

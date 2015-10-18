@@ -1,29 +1,25 @@
 package shiver.me.timbers.data.random;
 
-import java.util.Date;
-
 /**
  * @author Karl Bennett
  */
 interface TimeStamps {
 
-    Date date(long date);
-
     long now();
-
-    long someTimeInADay();
-
-    long yesterdayMidnight();
 
     long todayMidnight();
 
-    long tomorrowMidnight();
+    long someTimeInADay();
 
     long someTimeInAWeek();
 
-    long midnightLastWeekOn(WeekDay weekDay);
-
     long midnightThisWeekOn(WeekDay weekDay);
 
-    long midnightNextWeekOn(WeekDay weekDay);
+    long minusDays(Long time, int days);
+
+    long addDays(Long time, int days);
+
+    long minusWeeks(Long time, int weeks);
+
+    long addWeeks(Long time, int weeks);
 }

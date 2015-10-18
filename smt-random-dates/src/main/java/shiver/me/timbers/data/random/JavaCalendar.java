@@ -34,7 +34,7 @@ class JavaCalendar implements Calendar {
     }
 
     @Override
-    public Calendar plusDays(int days) {
+    public Calendar addDays(int days) {
         calendar.add(java.util.Calendar.DAY_OF_MONTH, days);
         return this;
     }
@@ -52,7 +52,7 @@ class JavaCalendar implements Calendar {
     }
 
     @Override
-    public Calendar plusWeeks(int weeks) {
+    public Calendar addWeeks(int weeks) {
         calendar.add(java.util.Calendar.WEEK_OF_YEAR, weeks);
         return this;
     }
@@ -60,5 +60,10 @@ class JavaCalendar implements Calendar {
     @Override
     public Date toDate() {
         return calendar.getTime();
+    }
+
+    @Override
+    public long toTime() {
+        return calendar.getTimeInMillis();
     }
 }

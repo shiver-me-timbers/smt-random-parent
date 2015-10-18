@@ -13,6 +13,14 @@ import static java.util.Calendar.SECOND;
 class JavaCalendars implements Calendars {
 
     @Override
+    public Calendar create(Long time) {
+        java.util.Calendar calendar = new GregorianCalendar();
+        calendar.setTimeInMillis(time);
+
+        return new JavaCalendar(calendar);
+    }
+
+    @Override
     public Calendar midnightToday() {
         java.util.Calendar midnight = new GregorianCalendar();
         midnight.set(HOUR_OF_DAY, 0);

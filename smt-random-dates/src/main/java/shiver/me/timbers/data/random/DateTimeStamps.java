@@ -8,20 +8,15 @@ import java.util.Random;
  */
 class DateTimeStamps implements TimeStamps {
 
-    private static final int MILLISECOND_IN_ONE_DAY = 86400000;
-    private static final int MILLISECOND_IN_ONE_WEEK = 604800000;
+    private static final int MILLISECONDS_IN_ONE_DAY = 86400000;
+    private static final int MILLISECONDS_IN_ONE_WEEK = 604800000;
 
     private final Random random;
-    private final Days days;
+    private final Calendars calendars;
 
-    public DateTimeStamps(Random random, Days days) {
+    public DateTimeStamps(Random random, Calendars calendars) {
         this.random = random;
-        this.days = days;
-    }
-
-    @Override
-    public Date date(long date) {
-        return new Date(date);
+        this.calendars = calendars;
     }
 
     @Override
@@ -30,42 +25,42 @@ class DateTimeStamps implements TimeStamps {
     }
 
     @Override
-    public long someTimeInADay() {
-        return random.nextInt(MILLISECOND_IN_ONE_DAY);
-    }
-
-    @Override
-    public long yesterdayMidnight() {
-        return days.yesterday().getTime();
-    }
-
-    @Override
     public long todayMidnight() {
-        return days.today().getTime();
+        return calendars.midnightToday().toTime();
     }
 
     @Override
-    public long tomorrowMidnight() {
-        return days.tomorrow().getTime();
+    public long someTimeInADay() {
+        return random.nextInt(MILLISECONDS_IN_ONE_DAY);
     }
 
     @Override
     public long someTimeInAWeek() {
-        return random.nextInt(MILLISECOND_IN_ONE_WEEK);
-    }
-
-    @Override
-    public long midnightLastWeekOn(WeekDay weekDay) {
-        return days.lastWeekOn(weekDay).getTime();
+        return random.nextInt(MILLISECONDS_IN_ONE_WEEK);
     }
 
     @Override
     public long midnightThisWeekOn(WeekDay weekDay) {
-        return days.thisWeekOn(weekDay).getTime();
+        return calendars.midnightToday().withDayOfWeek(weekDay).toTime();
     }
 
     @Override
-    public long midnightNextWeekOn(WeekDay weekDay) {
-        return days.nextWeekOn(weekDay).getTime();
+    public long minusDays(Long time, int days) {
+        return calendars.create(time).minusDays(days).toTime();
+    }
+
+    @Override
+    public long addDays(Long time, int days) {
+        return calendars.create(time).addDays(days).toTime();
+    }
+
+    @Override
+    public long minusWeeks(Long time, int weeks) {
+        return calendars.create(time).minusWeeks(weeks).toTime();
+    }
+
+    @Override
+    public long addWeeks(Long time, int weeks) {
+        return calendars.create(time).addWeeks(weeks).toTime();
     }
 }

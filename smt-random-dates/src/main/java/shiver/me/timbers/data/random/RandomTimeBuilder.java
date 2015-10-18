@@ -7,7 +7,50 @@ import java.util.Date;
  */
 public class RandomTimeBuilder extends Date {
 
-    RandomTimeBuilder(long time) {
+    private final TimeStamps timeStamps;
+    private final Numbers<Long> longs;
+
+    RandomTimeBuilder(TimeStamps timeStamps, Numbers<Long> longs, long time) {
         super(time);
+        this.timeStamps = timeStamps;
+        this.longs = longs;
+    }
+
+    RandomTimeBuilder inThePast() {
+        return someTimeBefore(getTime());
+    }
+
+    RandomTimeBuilder inTheFuture() {
+        return someTimeAfter(getTime());
+    }
+
+    public RandomTimeBuilder minusDays(int days) {
+        setTime(timeStamps.minusDays(getTime(), days));
+        return this;
+    }
+
+    public RandomTimeBuilder addDays(int days) {
+        setTime(timeStamps.addDays(getTime(), days));
+        return this;
+    }
+
+    public RandomTimeBuilder minusWeeks(int weeks) {
+        setTime(timeStamps.minusWeeks(getTime(), weeks));
+        return this;
+    }
+
+    public RandomTimeBuilder addWeeks(int weeks) {
+        setTime(timeStamps.addWeeks(getTime(), weeks));
+        return this;
+    }
+
+    private RandomTimeBuilder someTimeBefore(long time) {
+        setTime(time + (longs.someNegativeNumber() - 1));
+        return this;
+    }
+
+    private RandomTimeBuilder someTimeAfter(long time) {
+        setTime(time + (longs.somePositiveNumber() + 1));
+        return this;
     }
 }

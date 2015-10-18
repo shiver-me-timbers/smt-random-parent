@@ -9,13 +9,15 @@ interface Calendar {
 
     Calendar minusDays(int days);
 
-    Calendar plusDays(int days);
+    Calendar addDays(int days);
 
     Calendar withDayOfWeek(WeekDay weekDay);
 
     Calendar minusWeeks(int weeks);
 
-    Calendar plusWeeks(int weeks);
+    Calendar addWeeks(int weeks);
 
     Date toDate();
+
+    long toTime();
 }
