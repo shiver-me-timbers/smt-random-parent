@@ -28,105 +28,105 @@ public class RandomTimes {
     /**
      * Generate a random time that could be in the past, present, or future.
      */
-    public static Date someTime() {
+    public static RandomTimeBuilder someTime() {
         return times().someTime();
     }
 
     /**
      * Generate a random time in the past.
      */
-    public static Date someTimeInThePast() {
+    public static RandomTimeBuilder someTimeInThePast() {
         return times().someTimeInThePast();
     }
 
     /**
      * Generate a random time in the future.
      */
-    public static Date someTimeInTheFuture() {
+    public static RandomTimeBuilder someTimeInTheFuture() {
         return times().someTimeInTheFuture();
     }
 
     /**
      * Generate a random time that falls before a specific date.
      */
-    public static Date someTimeBefore(Date date) {
+    public static RandomTimeBuilder someTimeBefore(Date date) {
         return times().someTimeBefore(date);
     }
 
     /**
      * Generate a random time that falls after a specific date.
      */
-    public static Date someTimeAfter(Date date) {
+    public static RandomTimeBuilder someTimeAfter(Date date) {
         return times().someTimeAfter(date);
     }
 
     /**
      * Generate a random time that falls on or after the min date and before the max date.
      */
-    public static Date someTimeBetween(Date min, Date max) {
+    public static RandomTimeBuilder someTimeBetween(Date min, Date max) {
         return times().someTimeBetween(min, max);
     }
 
     /**
      * Generate a random time that could be any time between 00:00:00 and 23:59:59 yesterday.
      */
-    public static Date someTimeYesterday() {
+    public static RandomTimeBuilder someTimeYesterday() {
         return times().someTimeYesterday();
     }
 
     /**
      * Generate a random time that could be any time between 00:00:00 and 23:59:59 today.
      */
-    public static Date someTimeToday() {
+    public static RandomTimeBuilder someTimeToday() {
         return times().someTimeToday();
     }
 
     /**
      * Generate a random time that could be any time between 00:00:00 and 23:59:59 tomorrow.
      */
-    public static Date someTimeTomorrow() {
+    public static RandomTimeBuilder someTimeTomorrow() {
         return times().someTimeTomorrow();
     }
 
     /**
      * Generate a random time that could be any time between 00:00:00 Monday and 23:59:59 Sunday last week.
      */
-    public static Date someTimeLastWeek() {
+    public static RandomTimeBuilder someTimeLastWeek() {
         return times().someTimeLastWeek();
     }
 
     /**
      * Generate a random time that could be any time between 00:00:00 Monday and 23:59:59 Sunday this week.
      */
-    public static Date someTimeThisWeek() {
+    public static RandomTimeBuilder someTimeThisWeek() {
         return times().someTimeThisWeek();
     }
 
     /**
      * Generate a random time that could be any time between 00:00:00 Monday and 23:59:59 Sunday next week.
      */
-    public static Date someTimeNextWeek() {
+    public static RandomTimeBuilder someTimeNextWeek() {
         return times().someTimeNextWeek();
     }
 
     /**
      * Generate a random time that could be any time between 00:00:00 and 23:59:59 of a given day last week.
      */
-    public static Date someTimeLastWeekOn(WeekDay weekDay) {
+    public static RandomTimeBuilder someTimeLastWeekOn(WeekDay weekDay) {
         return times().someTimeLastWeekOn(weekDay);
     }
 
     /**
      * Generate a random time that could be any time between 00:00:00 and 23:59:59 of a given day this week.
      */
-    public static Date someTimeThisWeekOn(WeekDay weekDay) {
+    public static RandomTimeBuilder someTimeThisWeekOn(WeekDay weekDay) {
         return times().someTimeThisWeekOn(weekDay);
     }
 
     /**
      * Generate a random time that could be any time between 00:00:00 and 23:59:59 of a given day next week.
      */
-    public static Date someTimeNextWeekOn(WeekDay weekDay) {
+    public static RandomTimeBuilder someTimeNextWeekOn(WeekDay weekDay) {
         return times().someTimeNextWeekOn(weekDay);
     }
 }
