@@ -7,14 +7,7 @@ import java.util.Date;
  */
 public class RandomTimeBuilder extends Date {
 
-    RandomTimeBuilder() {
-    }
-
-    private RandomTimeBuilder(long time) {
+    RandomTimeBuilder(long time) {
         super(time);
-    }
-
-    public RandomTimeBuilder create(Date date) {
-        return new RandomTimeBuilder(date.getTime());
     }
 }

@@ -19,7 +19,7 @@ public class RandomTimes {
 
         return new SomeTimes(
             new DateTimeStamps(random, new CalendarDays(new JavaCalendars())),
-            new BoundNumbers<>(Long.class, new LongOperations(random), RETRY_AMOUNT, random), new RandomTimeBuilder());
+            new BoundNumbers<>(Long.class, new LongOperations(random), RETRY_AMOUNT, random), new RandomTimeBuilderCreator());
     }
 
     /**

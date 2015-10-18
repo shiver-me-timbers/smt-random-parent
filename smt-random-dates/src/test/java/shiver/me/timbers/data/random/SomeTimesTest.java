@@ -1,7 +1,6 @@
 package shiver.me.timbers.data.random;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Date;
@@ -18,7 +17,7 @@ public class SomeTimesTest {
 
     private TimeStamps timeStamps;
     private Numbers<Long> longs;
-    private RandomTimeBuilder randomTimeBuilder;
+    private RandomTimeCreator<RandomTimeBuilder> randomTimeCreator;
 
     private SomeTimes times;
 
@@ -27,9 +26,9 @@ public class SomeTimesTest {
     public void setUp() {
         timeStamps = mock(TimeStamps.class);
         longs = mock(Numbers.class);
-        randomTimeBuilder = mock(RandomTimeBuilder.class);
+        randomTimeCreator = mock(RandomTimeCreator.class);
 
-        times = new SomeTimes(timeStamps, longs, randomTimeBuilder);
+        times = new SomeTimes(timeStamps, longs, randomTimeCreator);
     }
 
     @Test
@@ -44,7 +43,7 @@ public class SomeTimesTest {
         // Given
         given(longs.someNumber()).willReturn(randomLong);
         given(timeStamps.date(randomLong)).willReturn(date);
-        given(randomTimeBuilder.create(date)).willReturn(expected);
+        given(randomTimeCreator.create(date)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTime();
@@ -67,7 +66,7 @@ public class SomeTimesTest {
         given(longs.someNegativeNumber()).willReturn(randomLong);
         given(timeStamps.now()).willReturn(nowTime);
         given(timeStamps.date(nowTime + (randomLong - 1))).willReturn(date);
-        given(randomTimeBuilder.create(date)).willReturn(expected);
+        given(randomTimeCreator.create(date)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeInThePast();
@@ -90,7 +89,7 @@ public class SomeTimesTest {
         given(longs.somePositiveNumber()).willReturn(randomLong);
         given(timeStamps.now()).willReturn(nowTime);
         given(timeStamps.date(nowTime + (randomLong + 1))).willReturn(date);
-        given(randomTimeBuilder.create(date)).willReturn(expected);
+        given(randomTimeCreator.create(date)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeInTheFuture();
@@ -114,7 +113,7 @@ public class SomeTimesTest {
         given(date.getTime()).willReturn(dateTime);
         given(longs.someNegativeNumber()).willReturn(randomLong);
         given(timeStamps.date(dateTime + (randomLong - 1))).willReturn(beforeDate);
-        given(randomTimeBuilder.create(beforeDate)).willReturn(expected);
+        given(randomTimeCreator.create(beforeDate)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeBefore(date);
@@ -138,7 +137,7 @@ public class SomeTimesTest {
         given(date.getTime()).willReturn(dateTime);
         given(longs.somePositiveNumber()).willReturn(randomLong);
         given(timeStamps.date(dateTime + (randomLong + 1))).willReturn(afterDate);
-        given(randomTimeBuilder.create(afterDate)).willReturn(expected);
+        given(randomTimeCreator.create(afterDate)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeAfter(date);
@@ -165,7 +164,7 @@ public class SomeTimesTest {
         given(max.getTime()).willReturn(maxTime);
         given(longs.someNumberBetween(minTime, maxTime)).willReturn(randomTime);
         given(timeStamps.date(randomTime - 1)).willReturn(betweenDate);
-        given(randomTimeBuilder.create(betweenDate)).willReturn(expected);
+        given(randomTimeCreator.create(betweenDate)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeBetween(min, max);
@@ -188,7 +187,7 @@ public class SomeTimesTest {
         given(timeStamps.yesterdayMidnight()).willReturn(yesterdayMidnightTime);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.date(yesterdayMidnightTime + timeInADay)).willReturn(yesterday);
-        given(randomTimeBuilder.create(yesterday)).willReturn(expected);
+        given(randomTimeCreator.create(yesterday)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeYesterday();
@@ -211,7 +210,7 @@ public class SomeTimesTest {
         given(timeStamps.todayMidnight()).willReturn(todayMidnight);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.date(todayMidnight + timeInADay)).willReturn(today);
-        given(randomTimeBuilder.create(today)).willReturn(expected);
+        given(randomTimeCreator.create(today)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeToday();
@@ -234,7 +233,7 @@ public class SomeTimesTest {
         given(timeStamps.tomorrowMidnight()).willReturn(tomorrowMidnight);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.date(tomorrowMidnight + timeInADay)).willReturn(tomorrow);
-        given(randomTimeBuilder.create(tomorrow)).willReturn(expected);
+        given(randomTimeCreator.create(tomorrow)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeTomorrow();
@@ -257,7 +256,7 @@ public class SomeTimesTest {
         given(timeStamps.midnightLastWeekOn(MONDAY)).willReturn(midnightMondayLastWeek);
         given(timeStamps.someTimeInAWeek()).willReturn(timeInAWeek);
         given(timeStamps.date(midnightMondayLastWeek + timeInAWeek)).willReturn(lastWeek);
-        given(randomTimeBuilder.create(lastWeek)).willReturn(expected);
+        given(randomTimeCreator.create(lastWeek)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeLastWeek();
@@ -280,7 +279,7 @@ public class SomeTimesTest {
         given(timeStamps.midnightThisWeekOn(MONDAY)).willReturn(midnightMondayThisWeek);
         given(timeStamps.someTimeInAWeek()).willReturn(timeInAWeek);
         given(timeStamps.date(midnightMondayThisWeek + timeInAWeek)).willReturn(thisWeek);
-        given(randomTimeBuilder.create(thisWeek)).willReturn(expected);
+        given(randomTimeCreator.create(thisWeek)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeThisWeek();
@@ -303,7 +302,7 @@ public class SomeTimesTest {
         given(timeStamps.midnightNextWeekOn(MONDAY)).willReturn(midnightMondayNextWeek);
         given(timeStamps.someTimeInAWeek()).willReturn(timeInAWeek);
         given(timeStamps.date(midnightMondayNextWeek + timeInAWeek)).willReturn(nextWeek);
-        given(randomTimeBuilder.create(nextWeek)).willReturn(expected);
+        given(randomTimeCreator.create(nextWeek)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeNextWeek();
@@ -327,7 +326,7 @@ public class SomeTimesTest {
         given(timeStamps.midnightLastWeekOn(weekDay)).willReturn(weekDayMidnight);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.date(weekDayMidnight + timeInADay)).willReturn(lastWeek);
-        given(randomTimeBuilder.create(lastWeek)).willReturn(expected);
+        given(randomTimeCreator.create(lastWeek)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeLastWeekOn(weekDay);
@@ -351,7 +350,7 @@ public class SomeTimesTest {
         given(timeStamps.midnightThisWeekOn(weekDay)).willReturn(weekDayMidnight);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.date(weekDayMidnight + timeInADay)).willReturn(thisWeek);
-        given(randomTimeBuilder.create(thisWeek)).willReturn(expected);
+        given(randomTimeCreator.create(thisWeek)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeThisWeekOn(weekDay);
@@ -375,7 +374,7 @@ public class SomeTimesTest {
         given(timeStamps.midnightNextWeekOn(weekDay)).willReturn(weekDayMidnight);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
         given(timeStamps.date(weekDayMidnight + timeInADay)).willReturn(nextWeek);
-        given(randomTimeBuilder.create(nextWeek)).willReturn(expected);
+        given(randomTimeCreator.create(nextWeek)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeNextWeekOn(weekDay);

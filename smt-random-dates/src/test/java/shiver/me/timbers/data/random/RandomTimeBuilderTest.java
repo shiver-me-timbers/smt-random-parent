@@ -12,20 +12,5 @@ import static shiver.me.timbers.data.random.RandomLongs.someLong;
 
 public class RandomTimeBuilderTest {
 
-    @Test
-    public void Can_create_a_random_date_builder() {
 
-        final Date date = mock(Date.class);
-
-        final Long time = someLong();
-
-        // Given
-        given(date.getTime()).willReturn(time);
-
-        // When
-        final RandomTimeBuilder actual = new RandomTimeBuilder().create(date);
-
-        // Then
-        assertThat(actual.getTime(), is(time));
-    }
 }
