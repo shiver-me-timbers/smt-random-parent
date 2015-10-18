@@ -1,7 +1,5 @@
 package shiver.me.timbers.data.random;
 
-import java.util.Date;
-
 /**
  * @author Karl Bennett
  */
@@ -16,8 +14,6 @@ interface Calendar {
     Calendar minusWeeks(int weeks);
 
     Calendar addWeeks(int weeks);
-
-    Date toDate();
 
     long toTime();
 }

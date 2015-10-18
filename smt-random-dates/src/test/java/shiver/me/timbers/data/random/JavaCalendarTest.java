@@ -117,16 +117,6 @@ public class JavaCalendarTest {
     }
 
     @Test
-    public void Can_convert_the_calendar_into_a_date() {
-
-        // When
-        final Date actual = javaCalendar.toDate();
-
-        // Then
-        assertThat(actual, isOn(calendar.getTime()).within(1, SECONDS));
-    }
-
-    @Test
     public void Can_convert_the_calendar_into_time() {
 
         final Long expected = someLong();

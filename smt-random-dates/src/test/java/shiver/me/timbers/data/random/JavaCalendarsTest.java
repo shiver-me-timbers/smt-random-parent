@@ -41,6 +41,6 @@ public class JavaCalendarsTest {
         final Calendar actual = calendars.midnightToday();
 
         // Then
-        assertThat(LocalDate.now().toDate(), equalTo(actual.toDate()));
+        assertThat(actual.toTime(), equalTo(LocalDate.now().toDate().getTime()));
     }
 }

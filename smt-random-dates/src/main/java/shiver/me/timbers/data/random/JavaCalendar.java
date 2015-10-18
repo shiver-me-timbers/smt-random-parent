@@ -58,11 +58,6 @@ class JavaCalendar implements Calendar {
     }
 
     @Override
-    public Date toDate() {
-        return calendar.getTime();
-    }
-
-    @Override
     public long toTime() {
         return calendar.getTimeInMillis();
     }
