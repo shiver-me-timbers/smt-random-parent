@@ -20,6 +20,7 @@ import shiver.me.timbers.data.random.test.IsANumber;
 import shiver.me.timbers.data.random.test.NumberValues;
 
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.lessThan;
 import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertThat;
 
@@ -126,7 +127,7 @@ class SingleNumbersTests<N extends Number & Comparable> {
         // Then
         assertThat(actual, isANumber);
         assertThat(actual, greaterThanOrEqualTo(min));
-        assertThat(actual, lessThanOrEqualTo(max));
+        assertThat(actual, lessThan(max));
     }
 
     void A_random_number_between_two_negative_numbers_can_be_generated(SingleNumbers<N> nm) {
@@ -141,7 +142,7 @@ class SingleNumbersTests<N extends Number & Comparable> {
         // Then
         assertThat(actual, isANumber);
         assertThat(actual, greaterThanOrEqualTo(min));
-        assertThat(actual, lessThanOrEqualTo(max));
+        assertThat(actual, lessThan(max));
     }
 
     void A_random_number_between_a_negative_number_and_a_positive_number_can_be_generated(SingleNumbers<N> nm) {
@@ -156,6 +157,6 @@ class SingleNumbersTests<N extends Number & Comparable> {
         // Then
         assertThat(actual, isANumber);
         assertThat(actual, greaterThanOrEqualTo(min));
-        assertThat(actual, lessThanOrEqualTo(max));
+        assertThat(actual, lessThan(max));
     }
 }

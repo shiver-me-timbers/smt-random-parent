@@ -81,11 +81,6 @@ class LongOperations extends AbstractOperations<Long> implements BoundNumberOper
     }
 
     @Override
-    public Long inc(Long value) {
-        return value + 1;
-    }
-
-    @Override
     public boolean greaterThan(Long left, Long right) {
         return left > right;
     }

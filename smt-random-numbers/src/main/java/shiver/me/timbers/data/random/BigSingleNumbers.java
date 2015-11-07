@@ -76,7 +76,7 @@ class BigSingleNumbers<N extends Number> implements SingleNumbers<N> {
 
         final N delta = ops.minus(max, min);
 
-        final N result = ops.someNumber(ops.inc(delta));
+        final N result = ops.someNumber(delta);
 
         return ops.plus(min, result);
     }

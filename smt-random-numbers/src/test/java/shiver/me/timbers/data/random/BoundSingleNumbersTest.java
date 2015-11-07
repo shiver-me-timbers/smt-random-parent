@@ -294,7 +294,6 @@ public class BoundSingleNumbersTest {
         final Number max = mock(Number.class);
         final Number maxValue = mock(Number.class);
         final Number delta = mock(Number.class);
-        final Number deltaPlusOne = mock(Number.class);
         final Number value = mock(Number.class);
         final Number expected = mock(Number.class);
 
@@ -308,8 +307,7 @@ public class BoundSingleNumbersTest {
         given(ops.max()).willReturn(maxValue);
         given(ops.greaterThan(maxValue, delta)).willReturn(true);
 
-        given(ops.inc(delta)).willReturn(deltaPlusOne);
-        given(ops.someNumber(deltaPlusOne)).willReturn(value);
+        given(ops.someNumber(delta)).willReturn(value);
         given(ofc.willNotOverflowIfSummed(min, value)).willReturn(true);
 
         given(ops.plus(min, value)).willReturn(expected);
@@ -328,7 +326,6 @@ public class BoundSingleNumbersTest {
         final Number max = mock(Number.class);
         final Number maxValue = mock(Number.class);
         final Number delta = mock(Number.class);
-        final Number deltaPlusOne = mock(Number.class);
         final Number value = mock(Number.class);
         final Number expected = mock(Number.class);
 
@@ -341,8 +338,7 @@ public class BoundSingleNumbersTest {
         given(ops.max()).willReturn(maxValue);
         given(ops.greaterThan(maxValue, delta)).willReturn(true);
 
-        given(ops.inc(delta)).willReturn(deltaPlusOne);
-        given(ops.someNumber(deltaPlusOne)).willReturn(value);
+        given(ops.someNumber(delta)).willReturn(value);
         given(ofc.willNotOverflowIfSummed(min, value)).willReturn(false);
 
         given(ops.someNumber()).willReturn(expected);

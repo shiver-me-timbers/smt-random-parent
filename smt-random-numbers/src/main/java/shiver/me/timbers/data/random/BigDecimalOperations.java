@@ -21,7 +21,6 @@ import java.util.Random;
 import java.util.concurrent.Callable;
 
 import static java.lang.String.format;
-import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.ZERO;
 import static shiver.me.timbers.data.random.Retries.retry;
 
@@ -97,11 +96,6 @@ class BigDecimalOperations extends AbstractOperations<BigDecimal> implements Num
     @Override
     public BigDecimal minus(BigDecimal left, BigDecimal right) {
         return left.subtract(right);
-    }
-
-    @Override
-    public BigDecimal inc(BigDecimal value) {
-        return value.add(ONE);
     }
 
     @Override

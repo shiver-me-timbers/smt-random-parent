@@ -126,12 +126,6 @@ public class LongOperationsTest {
     }
 
     @Test
-    public void A_long_can_be_incremented() {
-
-        TESTS.A_number_can_be_incremented(operations);
-    }
-
-    @Test
     public void A_long_can_be_checked_if_between_two_integers() {
 
         TESTS.A_number_can_be_checked_if_between_two_numbers(operations);

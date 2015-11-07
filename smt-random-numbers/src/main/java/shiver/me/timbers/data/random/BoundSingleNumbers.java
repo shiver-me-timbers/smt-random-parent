@@ -115,7 +115,7 @@ class BoundSingleNumbers<N extends Number> implements SingleNumbers<N> {
 
             if (ops.greaterThan(ops.max(), delta)) {
 
-                final N result = ops.someNumber(ops.inc(delta));
+                final N result = ops.someNumber(delta);
 
                 if (ofc.willNotOverflowIfSummed(min, result)) {
                     return ops.plus(min, result);

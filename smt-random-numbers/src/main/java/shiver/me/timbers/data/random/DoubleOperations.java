@@ -81,11 +81,6 @@ class DoubleOperations extends AbstractOperations<Double> implements BoundNumber
     }
 
     @Override
-    public Double inc(Double value) {
-        return value + 1;
-    }
-
-    @Override
     public boolean greaterThan(Double left, Double right) {
         return left > right;
     }

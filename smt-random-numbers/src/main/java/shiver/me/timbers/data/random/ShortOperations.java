@@ -81,11 +81,6 @@ class ShortOperations extends AbstractOperations<Short> implements BoundNumberOp
     }
 
     @Override
-    public Short inc(Short value) {
-        return (short) (value + 1);
-    }
-
-    @Override
     public boolean greaterThan(Short left, Short right) {
         return left > right;
     }

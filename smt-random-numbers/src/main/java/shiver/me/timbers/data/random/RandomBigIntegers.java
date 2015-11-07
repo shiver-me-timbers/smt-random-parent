@@ -82,7 +82,7 @@ public class RandomBigIntegers {
     }
 
     /**
-     * Generate a random BigInteger value that falls between the two min and max values inclusive.
+     * Generate a random BigInteger value that falls between a min, inclusive, and max, exclusive.
      */
     public static BigInteger someBigIntegerBetween(BigInteger min, BigInteger max) {
         return bigIntegers().someNumberBetween(min, max);

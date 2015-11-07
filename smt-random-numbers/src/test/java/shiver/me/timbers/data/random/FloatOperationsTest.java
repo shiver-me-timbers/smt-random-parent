@@ -127,12 +127,6 @@ public class FloatOperationsTest {
     }
 
     @Test
-    public void A_float_can_be_incremented() {
-
-        TESTS.A_number_can_be_incremented(operations);
-    }
-
-    @Test
     public void A_float_can_be_checked_if_between_two_floats() {
 
         TESTS.A_number_can_be_checked_if_between_two_numbers(operations);

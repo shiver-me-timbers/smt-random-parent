@@ -81,11 +81,6 @@ class IntegerOperations extends AbstractOperations<Integer> implements BoundNumb
     }
 
     @Override
-    public Integer inc(Integer value) {
-        return value + 1;
-    }
-
-    @Override
     public boolean greaterThan(Integer left, Integer right) {
         return left > right;
     }

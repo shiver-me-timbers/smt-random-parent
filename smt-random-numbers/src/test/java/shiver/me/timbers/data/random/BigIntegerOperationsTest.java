@@ -140,12 +140,6 @@ public class BigIntegerOperationsTest {
     }
 
     @Test
-    public void A_big_big_integer_can_be_incremented() {
-
-        TESTS.A_number_can_be_incremented(operations);
-    }
-
-    @Test
     public void A_big_big_integer_can_be_checked_if_between_two_big_integers() {
 
         TESTS.A_number_can_be_checked_if_between_two_numbers(operations);

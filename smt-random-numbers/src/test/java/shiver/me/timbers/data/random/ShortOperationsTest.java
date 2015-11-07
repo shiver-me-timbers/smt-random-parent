@@ -126,12 +126,6 @@ public class ShortOperationsTest {
     }
 
     @Test
-    public void An_short_can_be_incremented() {
-
-        TESTS.A_number_can_be_incremented(operations);
-    }
-
-    @Test
     public void An_short_can_be_checked_if_between_two_shorts() {
 
         TESTS.A_number_can_be_checked_if_between_two_numbers(operations);

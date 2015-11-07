@@ -81,11 +81,6 @@ class FloatOperations extends AbstractOperations<Float> implements BoundNumberOp
     }
 
     @Override
-    public Float inc(Float value) {
-        return value + 1;
-    }
-
-    @Override
     public boolean greaterThan(Float left, Float right) {
         return left > right;
     }

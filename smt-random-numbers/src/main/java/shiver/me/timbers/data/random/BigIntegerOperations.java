@@ -21,7 +21,6 @@ import java.util.Random;
 import java.util.concurrent.Callable;
 
 import static java.lang.String.format;
-import static java.math.BigInteger.ONE;
 import static java.math.BigInteger.ZERO;
 import static shiver.me.timbers.data.random.Retries.retry;
 
@@ -94,11 +93,6 @@ class BigIntegerOperations extends AbstractOperations<BigInteger> implements Num
     @Override
     public BigInteger minus(BigInteger left, BigInteger right) {
         return left.subtract(right);
-    }
-
-    @Override
-    public BigInteger inc(BigInteger value) {
-        return value.add(ONE);
     }
 
     @Override

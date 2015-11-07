@@ -78,7 +78,7 @@ public class RandomFloats {
     }
 
     /**
-     * Generate a random float value that falls between the two min and max values inclusive.
+     * Generate a random float value that falls between a min, inclusive, and max, exclusive.
      */
     public static Float someFloatBetween(Float min, Float max) {
         return floats().someNumberBetween(min, max);

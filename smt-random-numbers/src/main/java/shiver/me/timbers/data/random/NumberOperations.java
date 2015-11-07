@@ -39,8 +39,6 @@ interface NumberOperations<N extends Number> {
 
     N minus(N left, N right);
 
-    N inc(N value);
-
     boolean greaterThan(N left, N right);
 
     boolean isInBetween(N min, N max, N value);

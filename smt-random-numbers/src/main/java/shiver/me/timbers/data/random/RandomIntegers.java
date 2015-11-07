@@ -78,7 +78,7 @@ public class RandomIntegers {
     }
 
     /**
-     * Generate a random integer value that falls between the two min and max values inclusive.
+     * Generate a random integer value that falls between a min, inclusive, and max, exclusive.
      */
     public static Integer someIntegerBetween(Integer min, Integer max) {
         return integers().someNumberBetween(min, max);

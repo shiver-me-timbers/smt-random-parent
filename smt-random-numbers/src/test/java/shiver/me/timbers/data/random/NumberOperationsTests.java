@@ -116,15 +116,6 @@ class NumberOperationsTests<N extends Number> {
         assertEquals(values.one(), actual);
     }
 
-    void A_number_can_be_incremented(NumberOperations<N> operations) {
-
-        // When
-        final N actual = operations.inc(values.one());
-
-        // Then
-        assertEquals(values.two(), actual);
-    }
-
     void A_number_can_be_checked_if_between_two_numbers(NumberOperations<N> operations) {
 
         // Given

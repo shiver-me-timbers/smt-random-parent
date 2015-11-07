@@ -78,7 +78,7 @@ public class RandomDoubles {
     }
 
     /**
-     * Generate a random double value that falls between the two min and max values inclusive.
+     * Generate a random double value that falls between a min, inclusive, and max, exclusive.
      */
     public static Double someDoubleBetween(Double min, Double max) {
         return doubles().someNumberBetween(min, max);

@@ -3,11 +3,9 @@ package shiver.me.timbers.data.random;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -16,7 +14,6 @@ import static org.mockito.Mockito.verify;
 import static shiver.me.timbers.data.random.RandomEnums.someEnum;
 import static shiver.me.timbers.data.random.RandomIntegers.somePositiveInteger;
 import static shiver.me.timbers.data.random.RandomLongs.someLong;
-import static shiver.me.timbers.data.random.test.DateMatchers.isOn;
 
 /**
  * @author Karl Bennett
