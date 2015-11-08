@@ -57,6 +57,24 @@ class JavaCalendar implements Calendar {
     }
 
     @Override
+    public Calendar withDateOfMonth(int date) {
+        calendar.set(java.util.Calendar.DAY_OF_MONTH, date);
+        return this;
+    }
+
+    @Override
+    public Calendar minusMonths(int months) {
+        calendar.add(java.util.Calendar.MONTH, -months);
+        return this;
+    }
+
+    @Override
+    public Calendar addMonths(int months) {
+        calendar.add(java.util.Calendar.MONTH, months);
+        return this;
+    }
+
+    @Override
     public long toTime() {
         return calendar.getTimeInMillis();
     }

@@ -10,6 +10,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.mock;
 import static shiver.me.timbers.data.random.RandomEnums.someEnum;
+import static shiver.me.timbers.data.random.RandomIntegers.someInteger;
 
 public class SomeTimesTest {
 
@@ -292,6 +293,114 @@ public class SomeTimesTest {
 
         // When
         final RandomTimeBuilder actual = times.someTimeNextWeekOn(weekDay);
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_last_month() {
+
+        final RandomTimeBuilder thisMonthBuilder = mock(RandomTimeBuilder.class);
+
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
+
+        // Given
+        given(randomTimeCreator.thisMonth()).willReturn(thisMonthBuilder);
+        given(thisMonthBuilder.minusMonths(1)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = times.someTimeLastMonth();
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_this_month() {
+
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
+
+        // Given
+        given(randomTimeCreator.thisMonth()).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = times.someTimeThisMonth();
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_next_month() {
+
+        final RandomTimeBuilder thisMonthBuilder = mock(RandomTimeBuilder.class);
+
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
+
+        // Given
+        given(randomTimeCreator.thisMonth()).willReturn(thisMonthBuilder);
+        given(thisMonthBuilder.addMonths(1)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = times.someTimeNextMonth();
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_on_a_specific_day_last_month() {
+
+        final int date = someInteger();
+
+        final RandomTimeBuilder lastMonthBuilder = mock(RandomTimeBuilder.class);
+
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
+
+        // Given
+        given(randomTimeCreator.thisMonthOnThe(date)).willReturn(lastMonthBuilder);
+        given(lastMonthBuilder.minusMonths(1)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = times.someTimeLastMonthOnThe(date);
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_on_a_specific_day_this_month() {
+
+        final int date = someInteger();
+
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
+
+        // Given
+        given(randomTimeCreator.thisMonthOnThe(date)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = times.someTimeThisMonthOnThe(date);
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_on_a_specific_day_next_month() {
+
+        final int date = someInteger();
+
+        final RandomTimeBuilder nextMonthBuilder = mock(RandomTimeBuilder.class);
+
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
+
+        // Given
+        given(randomTimeCreator.thisMonthOnThe(date)).willReturn(nextMonthBuilder);
+        given(nextMonthBuilder.addMonths(1)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = times.someTimeNextMonthOnThe(date);
 
         // Then
         assertThat(actual, is(expected));

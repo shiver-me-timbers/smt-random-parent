@@ -36,4 +36,16 @@ interface Times {
     RandomTimeBuilder someTimeThisWeekOn(WeekDay weekDay);
 
     RandomTimeBuilder someTimeNextWeekOn(WeekDay weekDay);
+
+    RandomTimeBuilder someTimeLastMonth();
+
+    RandomTimeBuilder someTimeThisMonth();
+
+    RandomTimeBuilder someTimeNextMonth();
+
+    RandomTimeBuilder someTimeLastMonthOnThe(int date);
+
+    RandomTimeBuilder someTimeThisMonthOnThe(int date);
+
+    RandomTimeBuilder someTimeNextMonthOnThe(int date);
 }

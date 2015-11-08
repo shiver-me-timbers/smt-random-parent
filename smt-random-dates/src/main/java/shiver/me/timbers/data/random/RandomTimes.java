@@ -14,12 +14,14 @@ public class RandomTimes {
     private static final int RETRY_AMOUNT = 10000;
 
     private static Times times() {
-
         final Random random = ThreadLocalRandom.current();
 
         return new SomeTimes(
             new RandomTimeBuilderCreator(
-                new DateTimeStamps(random, new JavaCalendars()),
+                new DateTimeStamps(
+                    new BoundNumbers<>(Integer.class, new IntegerOperations(random), RETRY_AMOUNT, random),
+                    new JavaCalendars()
+                ),
                 new BoundNumbers<>(Long.class, new LongOperations(random), RETRY_AMOUNT, random)
             )
         );
@@ -128,5 +130,47 @@ public class RandomTimes {
      */
     public static RandomTimeBuilder someTimeNextWeekOn(WeekDay weekDay) {
         return times().someTimeNextWeekOn(weekDay);
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 the 1st and 23:59:59 on the last day of last month.
+     */
+    public static RandomTimeBuilder someTimeLastMonth() {
+        return times().someTimeLastMonth();
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 the 1st and 23:59:59 on the last day of this month.
+     */
+    public static RandomTimeBuilder someTimeThisMonth() {
+        return times().someTimeThisMonth();
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 the 1st and 23:59:59 on the last day of next month.
+     */
+    public static RandomTimeBuilder someTimeNextMonth() {
+        return times().someTimeNextMonth();
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 and 23:59:59 of a given date last month.
+     */
+    public static RandomTimeBuilder someTimeLastMonthOnThe(int date) {
+        return times().someTimeLastMonthOnThe(date);
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 and 23:59:59 of a given date this month.
+     */
+    public static RandomTimeBuilder someTimeThisMonthOnThe(int date) {
+        return times().someTimeThisMonthOnThe(date);
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 and 23:59:59 of a given date next month.
+     */
+    public static RandomTimeBuilder someTimeNextMonthOnThe(int date) {
+        return times().someTimeNextMonthOnThe(date);
     }
 }

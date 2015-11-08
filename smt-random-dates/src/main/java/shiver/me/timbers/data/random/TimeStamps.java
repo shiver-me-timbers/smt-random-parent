@@ -13,13 +13,21 @@ interface TimeStamps {
 
     long someTimeInAWeek();
 
+    long someTimeInAMonth();
+
     long midnightThisWeekOn(WeekDay weekDay);
 
-    long minusDays(Long time, int days);
+    long midnightThisMonthOnThe(int date);
 
-    long addDays(Long time, int days);
+    long minusDays(long time, int days);
 
-    long minusWeeks(Long time, int weeks);
+    long addDays(long time, int days);
 
-    long addWeeks(Long time, int weeks);
+    long minusWeeks(long time, int weeks);
+
+    long addWeeks(long time, int weeks);
+
+    long minusMonths(long time, int months);
+
+    long addMonths(long time, int months);
 }

@@ -8,4 +8,6 @@ interface Calendars {
     Calendar create(Long time);
 
     Calendar midnightToday();
+
+    int daysThisMonth();
 }

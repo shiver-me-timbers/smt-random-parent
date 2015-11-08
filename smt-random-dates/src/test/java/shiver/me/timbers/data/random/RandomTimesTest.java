@@ -10,26 +10,39 @@ import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static shiver.me.timbers.data.random.RandomEnums.someEnum;
+import static shiver.me.timbers.data.random.RandomIntegers.someIntegerBetween;
 import static shiver.me.timbers.data.random.RandomTimes.someTime;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeAfter;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeBefore;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeBetween;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeInTheFuture;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeInThePast;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeLastMonth;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeLastMonthOnThe;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastWeek;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastWeekOn;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeNextMonth;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeNextMonthOnThe;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextWeek;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextWeekOn;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeThisMonth;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeThisMonthOnThe;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisWeek;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisWeekOn;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeToday;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeTomorrow;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeYesterday;
 import static shiver.me.timbers.data.random.test.DateMatchers.isBetween;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastMonth;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastMonthOnThe;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastWeek;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastWeekOn;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextMonth;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextMonthOnThe;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextWeek;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextWeekOn;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisMonth;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisMonthOnThe;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisWeek;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisWeekOn;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeToday;
@@ -218,5 +231,75 @@ public class RandomTimesTest {
 
         // Then
         assertThat(actual, isSometimeNextWeekOn(MatcherWeekDay.valueOf(weekDay.name())));
+    }
+
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_last_month() {
+
+        // When
+        final Date actual = someTimeLastMonth();
+
+        // Then
+        assertThat(actual, isSometimeLastMonth());
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_this_month() {
+
+        // When
+        final Date actual = someTimeThisMonth();
+
+        // Then
+        assertThat(actual, isSometimeThisMonth());
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_next_month() {
+
+        // When
+        final Date actual = someTimeNextMonth();
+
+        // Then
+        assertThat(actual, isSometimeNextMonth());
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_last_month_on_a_specific_day() {
+
+        // Given
+        final Integer date = someIntegerBetween(1, 28);
+
+        // When
+        final Date actual = someTimeLastMonthOnThe(date);
+
+        // Then
+        assertThat(actual, isSometimeLastMonthOnThe(date));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_this_month_on_a_specific_day() {
+
+        // Given
+        final Integer date = someIntegerBetween(1, 28);
+
+        // When
+        final Date actual = someTimeThisMonthOnThe(date);
+
+        // Then
+        assertThat(actual, isSometimeThisMonthOnThe(date));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_next_month_on_a_specific_day() {
+
+        // Given
+        final Integer date = someIntegerBetween(1, 28);
+
+        // When
+        final Date actual = someTimeNextMonthOnThe(date);
+
+        // Then
+        assertThat(actual, isSometimeNextMonthOnThe(date));
     }
 }

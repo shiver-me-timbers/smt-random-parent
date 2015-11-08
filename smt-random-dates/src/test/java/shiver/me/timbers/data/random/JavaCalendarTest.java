@@ -12,6 +12,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static shiver.me.timbers.data.random.RandomEnums.someEnum;
+import static shiver.me.timbers.data.random.RandomIntegers.someInteger;
 import static shiver.me.timbers.data.random.RandomIntegers.somePositiveInteger;
 import static shiver.me.timbers.data.random.RandomLongs.someLong;
 
@@ -38,7 +39,7 @@ public class JavaCalendarTest {
     public void Can_minus_days() {
 
         // Given
-        final Integer days = somePositiveInteger();
+        final int days = somePositiveInteger();
 
         // When
         final Calendar actual = javaCalendar.minusDays(days);
@@ -52,7 +53,7 @@ public class JavaCalendarTest {
     public void Can_add_days() {
 
         // Given
-        final Integer days = somePositiveInteger();
+        final int days = somePositiveInteger();
 
         // When
         final Calendar actual = javaCalendar.addDays(days);
@@ -89,7 +90,7 @@ public class JavaCalendarTest {
     public void Can_minus_weeks() {
 
         // Given
-        final Integer weeks = somePositiveInteger();
+        final int weeks = somePositiveInteger();
 
         // When
         final Calendar actual = javaCalendar.minusWeeks(weeks);
@@ -103,13 +104,55 @@ public class JavaCalendarTest {
     public void Can_add_weeks() {
 
         // Given
-        final Integer weeks = somePositiveInteger();
+        final int weeks = somePositiveInteger();
 
         // When
         final Calendar actual = javaCalendar.addWeeks(weeks);
 
         // Then
         verify(calendar).add(java.util.Calendar.WEEK_OF_YEAR, weeks);
+        assertThat(actual, is(javaCalendar));
+    }
+
+    @Test
+    public void Can_set_the_date_of_the_month() {
+
+        // Given
+        final int date = someInteger();
+
+        // When
+        final Calendar actual = javaCalendar.withDateOfMonth(date);
+
+        // Then
+        verify(calendar).set(java.util.Calendar.DAY_OF_MONTH, date);
+        assertThat(actual, is(javaCalendar));
+    }
+
+    @Test
+    public void Can_minus_months() {
+
+        // Given
+        final int months = somePositiveInteger();
+
+        // When
+        final Calendar actual = javaCalendar.minusMonths(months);
+
+        // Then
+        verify(calendar).add(java.util.Calendar.MONTH, -months);
+        assertThat(actual, is(javaCalendar));
+    }
+
+    @Test
+    public void Can_add_months() {
+
+        // Given
+        final int months = somePositiveInteger();
+
+        // When
+        final Calendar actual = javaCalendar.addMonths(months);
+
+        // Then
+        verify(calendar).add(java.util.Calendar.MONTH, months);
         assertThat(actual, is(javaCalendar));
     }
 

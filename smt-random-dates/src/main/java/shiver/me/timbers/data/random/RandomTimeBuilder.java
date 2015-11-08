@@ -44,6 +44,16 @@ public class RandomTimeBuilder extends Date {
         return this;
     }
 
+    public RandomTimeBuilder minusMonths(int months) {
+        setTime(timeStamps.minusMonths(getTime(), months));
+        return this;
+    }
+
+    public RandomTimeBuilder addMonths(int months) {
+        setTime(timeStamps.addMonths(getTime(), months));
+        return this;
+    }
+
     private RandomTimeBuilder someTimeBefore(long time) {
         setTime(time + (longs.someNegativeNumber() - 1));
         return this;

@@ -38,6 +38,16 @@ class RandomTimeBuilderCreator implements RandomTimeCreator<RandomTimeBuilder> {
     }
 
     @Override
+    public RandomTimeBuilder thisMonth() {
+        return create(timeStamps.midnightThisMonthOnThe(1) + timeStamps.someTimeInAMonth());
+    }
+
+    @Override
+    public RandomTimeBuilder thisMonthOnThe(int date) {
+        return create(timeStamps.midnightThisMonthOnThe(date) + timeStamps.someTimeInADay());
+    }
+
+    @Override
     public RandomTimeBuilder today() {
         return create(timeStamps.todayMidnight() + timeStamps.someTimeInADay());
     }

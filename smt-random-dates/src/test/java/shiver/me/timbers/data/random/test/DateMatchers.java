@@ -58,6 +58,30 @@ public class DateMatchers {
         return new NextWeekDayMatcher(weekDay);
     }
 
+    public static Matcher<Date> isSometimeLastMonth() {
+        return new LastMonthMatcher();
+    }
+
+    public static Matcher<Date> isSometimeThisMonth() {
+        return new ThisMonthMatcher();
+    }
+
+    public static Matcher<Date> isSometimeNextMonth() {
+        return new NextMonthMatcher();
+    }
+
+    public static Matcher<Date> isSometimeLastMonthOnThe(int date) {
+        return new LastMonthDateMatcher(date);
+    }
+
+    public static Matcher<Date> isSometimeThisMonthOnThe(int date) {
+        return new ThisMonthDateMatcher(date);
+    }
+
+    public static Matcher<Date> isSometimeNextMonthOnThe(int date) {
+        return new NextMonthDateMatcher(date);
+    }
+
     public static Date yesterdayMidnight() {
         return today().minus(days(1)).toDate();
     }
@@ -102,6 +126,34 @@ public class DateMatchers {
         return nextWeek(weekDay).toDate();
     }
 
+    public static Date the1stOfLastMonthMidnight() {
+        return lastMonthMidnight(1);
+    }
+
+    public static Date the1stOfThisMonthMidnight() {
+        return thisMonthMidnight(1);
+    }
+
+    public static Date the1stOfNextMonthMidnight() {
+        return nextMonthMidnight(1);
+    }
+
+    public static Date the1stOfMonthAfterNextMidnight() {
+        return nextMonth(1).plusMonths(1).toDate();
+    }
+
+    public static Date lastMonthMidnight(int date) {
+        return lastMonth(date).toDate();
+    }
+
+    public static Date thisMonthMidnight(int date) {
+        return thisMonth(date).toDate();
+    }
+
+    public static Date nextMonthMidnight(int date) {
+        return nextMonth(date).toDate();
+    }
+
     private static LocalDate today() {
         return LocalDate.now();
     }
@@ -120,6 +172,18 @@ public class DateMatchers {
 
     private static LocalDate nextWeek(MatcherWeekDay weekDay) {
         return thisWeek(weekDay).plusWeeks(1);
+    }
+
+    private static LocalDate lastMonth(int date) {
+        return thisMonth(date).minusMonths(1);
+    }
+
+    private static LocalDate thisMonth(int date) {
+        return today().withDayOfMonth(date);
+    }
+
+    private static LocalDate nextMonth(int date) {
+        return thisMonth(date).plusMonths(1);
     }
 
     public static class IsOnDateMatcher extends TypeSafeMatcher<Date> {
@@ -228,5 +292,44 @@ public class DateMatchers {
         public NextWeekMatcher() {
             super(mondayNextWeekMidnight(), mondayWeekAfterNextMidnight());
         }
+    }
+
+    private static class LastMonthMatcher extends BetweenDateMatcher {
+        public LastMonthMatcher() {
+            super(the1stOfLastMonthMidnight(), the1stOfThisMonthMidnight());
+        }
+    }
+
+    private static class ThisMonthMatcher extends BetweenDateMatcher {
+        public ThisMonthMatcher() {
+            super(the1stOfThisMonthMidnight(), the1stOfNextMonthMidnight());
+        }
+    }
+
+    private static class NextMonthMatcher extends BetweenDateMatcher {
+        public NextMonthMatcher() {
+            super(the1stOfNextMonthMidnight(), the1stOfMonthAfterNextMidnight());
+        }
+    }
+
+    private static class LastMonthDateMatcher extends BetweenDateMatcher {
+        public LastMonthDateMatcher(int date) {
+            super(lastMonthMidnight(date), lastMonth(date).plusDays(1).toDate());
+        }
+
+    }
+
+    private static class ThisMonthDateMatcher extends BetweenDateMatcher {
+        public ThisMonthDateMatcher(int date) {
+            super(thisMonthMidnight(date), thisMonth(date).plusDays(1).toDate());
+        }
+
+    }
+
+    private static class NextMonthDateMatcher extends BetweenDateMatcher {
+        public NextMonthDateMatcher(int date) {
+            super(nextMonthMidnight(date), nextMonth(date).plusDays(1).toDate());
+        }
+
     }
 }

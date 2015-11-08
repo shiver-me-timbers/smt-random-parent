@@ -15,6 +15,10 @@ interface RandomTimeCreator<D extends Date> {
 
     D thisWeekOn(WeekDay weekDay);
 
+    D thisMonth();
+
+    D thisMonthOnThe(int date);
+
     D today();
 
     D between(Date min, Date max);

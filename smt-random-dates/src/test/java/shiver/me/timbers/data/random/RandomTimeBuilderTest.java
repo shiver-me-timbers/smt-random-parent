@@ -33,7 +33,7 @@ public class RandomTimeBuilderTest {
 
         final long randomLong = someLong();
 
-        final Long expected = initialTime + (randomLong - 1);
+        final long expected = initialTime + (randomLong - 1);
 
         // Given
         given(longs.someNegativeNumber()).willReturn(randomLong);
@@ -50,7 +50,7 @@ public class RandomTimeBuilderTest {
 
         final long randomLong = someLong();
 
-        final Long expected = initialTime + (randomLong + 1);
+        final long expected = initialTime + (randomLong + 1);
 
         // Given
         given(longs.somePositiveNumber()).willReturn(randomLong);
@@ -65,9 +65,9 @@ public class RandomTimeBuilderTest {
     @Test
     public void Can_minus_some_days_off_the_random_time_builders_time() {
 
-        final Integer days = someInteger();
+        final int days = someInteger();
 
-        final Long expected = someLong();
+        final long expected = someLong();
 
         // Given
         given(timeStamps.minusDays(initialTime, days)).willReturn(expected);
@@ -82,9 +82,9 @@ public class RandomTimeBuilderTest {
     @Test
     public void Can_add_some_days_off_the_random_time_builders_time() {
 
-        final Integer days = someInteger();
+        final int days = someInteger();
 
-        final Long expected = someLong();
+        final long expected = someLong();
 
         // Given
         given(timeStamps.addDays(initialTime, days)).willReturn(expected);
@@ -99,9 +99,9 @@ public class RandomTimeBuilderTest {
     @Test
     public void Can_minus_some_weeks_off_the_random_time_builders_time() {
 
-        final Integer weeks = someInteger();
+        final int weeks = someInteger();
 
-        final Long expected = someLong();
+        final long expected = someLong();
 
         // Given
         given(timeStamps.minusWeeks(initialTime, weeks)).willReturn(expected);
@@ -116,15 +116,49 @@ public class RandomTimeBuilderTest {
     @Test
     public void Can_add_some_weeks_to_the_random_time_builders_time() {
 
-        final Integer weeks = someInteger();
+        final int weeks = someInteger();
 
-        final Long expected = someLong();
+        final long expected = someLong();
 
         // Given
         given(timeStamps.addWeeks(initialTime, weeks)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = builder.addWeeks(weeks);
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
+    public void Can_minus_some_months_off_the_random_time_builders_time() {
+
+        final int months = someInteger();
+
+        final long expected = someLong();
+
+        // Given
+        given(timeStamps.minusMonths(initialTime, months)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = builder.minusMonths(months);
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
+    public void Can_add_some_months_to_the_random_time_builders_time() {
+
+        final int months = someInteger();
+
+        final long expected = someLong();
+
+        // Given
+        given(timeStamps.addMonths(initialTime, months)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = builder.addMonths(months);
 
         // Then
         assertThat(actual.getTime(), is(expected));

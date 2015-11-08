@@ -2,6 +2,7 @@ package shiver.me.timbers.data.random;
 
 import java.util.GregorianCalendar;
 
+import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.HOUR_OF_DAY;
 import static java.util.Calendar.MILLISECOND;
 import static java.util.Calendar.MINUTE;
@@ -29,5 +30,10 @@ class JavaCalendars implements Calendars {
         midnight.set(MILLISECOND, 0);
 
         return new JavaCalendar(midnight);
+    }
+
+    @Override
+    public int daysThisMonth() {
+        return new GregorianCalendar().getActualMaximum(DAY_OF_MONTH);
     }
 }

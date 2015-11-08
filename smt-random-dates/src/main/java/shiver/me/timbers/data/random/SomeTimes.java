@@ -88,6 +88,36 @@ class SomeTimes implements Times {
         return thisWeekOn(weekDay).addWeeks(1);
     }
 
+    @Override
+    public RandomTimeBuilder someTimeLastMonth() {
+        return thisMonth().minusMonths(1);
+    }
+
+    @Override
+    public RandomTimeBuilder someTimeThisMonth() {
+        return thisMonth();
+    }
+
+    @Override
+    public RandomTimeBuilder someTimeNextMonth() {
+        return thisMonth().addMonths(1);
+    }
+
+    @Override
+    public RandomTimeBuilder someTimeLastMonthOnThe(int date) {
+        return thisMonthOnThe(date).minusMonths(1);
+    }
+
+    @Override
+    public RandomTimeBuilder someTimeThisMonthOnThe(int date) {
+        return thisMonthOnThe(date);
+    }
+
+    @Override
+    public RandomTimeBuilder someTimeNextMonthOnThe(int date) {
+        return thisMonthOnThe(date).addMonths(1);
+    }
+
     private RandomTimeBuilder now() {
         return randomTimeCreator.now();
     }
@@ -106,5 +136,13 @@ class SomeTimes implements Times {
 
     private RandomTimeBuilder thisWeekOn(WeekDay weekDay) {
         return randomTimeCreator.thisWeekOn(weekDay);
+    }
+
+    private RandomTimeBuilder thisMonth() {
+        return randomTimeCreator.thisMonth();
+    }
+
+    private RandomTimeBuilder thisMonthOnThe(int date) {
+        return randomTimeCreator.thisMonthOnThe(date);
     }
 }

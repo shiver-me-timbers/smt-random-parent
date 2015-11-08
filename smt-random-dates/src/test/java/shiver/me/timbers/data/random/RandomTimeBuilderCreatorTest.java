@@ -10,6 +10,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static shiver.me.timbers.data.random.RandomEnums.someEnum;
+import static shiver.me.timbers.data.random.RandomIntegers.someInteger;
 import static shiver.me.timbers.data.random.RandomLongs.someLong;
 import static shiver.me.timbers.data.random.WeekDay.MONDAY;
 
@@ -62,13 +63,13 @@ public class RandomTimeBuilderCreatorTest {
     @Test
     public void Can_create_a_random_time_builder_for_some_time_this_week() {
 
-        final long midnightMondayLastWeek = someLong();
+        final long midnightMondayThisWeek = someLong();
         final long timeInAWeek = someLong();
 
-        final Long expected = midnightMondayLastWeek + timeInAWeek;
+        final Long expected = midnightMondayThisWeek + timeInAWeek;
 
         // Given
-        given(timeStamps.midnightThisWeekOn(MONDAY)).willReturn(midnightMondayLastWeek);
+        given(timeStamps.midnightThisWeekOn(MONDAY)).willReturn(midnightMondayThisWeek);
         given(timeStamps.someTimeInAWeek()).willReturn(timeInAWeek);
 
         // When
@@ -83,17 +84,57 @@ public class RandomTimeBuilderCreatorTest {
 
         final WeekDay weekDay = someEnum(WeekDay.class);
 
-        final long midnightMondayLastWeek = someLong();
+        final long midnightMondayThisWeek = someLong();
         final long timeInADay = someLong();
 
-        final Long expected = midnightMondayLastWeek + timeInADay;
+        final Long expected = midnightMondayThisWeek + timeInADay;
 
         // Given
-        given(timeStamps.midnightThisWeekOn(weekDay)).willReturn(midnightMondayLastWeek);
+        given(timeStamps.midnightThisWeekOn(weekDay)).willReturn(midnightMondayThisWeek);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
 
         // When
         final RandomTimeBuilder actual = creator.thisWeekOn(weekDay);
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
+    public void Can_create_a_random_time_builder_for_some_time_this_month() {
+
+        final long midnightTheMonthOnThe1st = someLong();
+        final long timeInAMonth = someLong();
+
+        final Long expected = midnightTheMonthOnThe1st + timeInAMonth;
+
+        // Given
+        given(timeStamps.midnightThisMonthOnThe(1)).willReturn(midnightTheMonthOnThe1st);
+        given(timeStamps.someTimeInAMonth()).willReturn(timeInAMonth);
+
+        // When
+        final RandomTimeBuilder actual = creator.thisMonth();
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
+    public void Can_create_a_random_time_builder_for_some_time_in_a_specific_date_this_month() {
+
+        final int date = someInteger();
+
+        final long midnightTheMonthOnThe1st = someLong();
+        final long timeInADay = someLong();
+
+        final Long expected = midnightTheMonthOnThe1st + timeInADay;
+
+        // Given
+        given(timeStamps.midnightThisMonthOnThe(date)).willReturn(midnightTheMonthOnThe1st);
+        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
+
+        // When
+        final RandomTimeBuilder actual = creator.thisMonthOnThe(date);
 
         // Then
         assertThat(actual.getTime(), is(expected));

@@ -15,5 +15,11 @@ interface Calendar {
 
     Calendar addWeeks(int weeks);
 
+    Calendar withDateOfMonth(int date);
+
+    Calendar minusMonths(int months);
+
+    Calendar addMonths(int months);
+
     long toTime();
 }
