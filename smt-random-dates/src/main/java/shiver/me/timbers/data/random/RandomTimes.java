@@ -173,4 +173,49 @@ public class RandomTimes {
     public static RandomTimeBuilder someTimeNextMonthOnThe(int date) {
         return times().someTimeNextMonthOnThe(date);
     }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 the 1st of January and 23:59:59 the 31st of
+     * December last year.
+     */
+    public static RandomTimeBuilder someTimeLastYear() {
+        return times().someTimeLastYear();
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 the 1st of January and 23:59:59 the 31st of
+     * December this year.
+     */
+    public static RandomTimeBuilder someTimeThisYear() {
+        return times().someTimeThisYear();
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 the 1st of January and 23:59:59 the 31st of
+     * December next year.
+     */
+    public static RandomTimeBuilder someTimeNextYear() {
+        return times().someTimeNextYear();
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 and 23:59:59 of a given day last year.
+     */
+    public static RandomTimeBuilder someTimeLastYearOnThe(int day) {
+        return times().someTimeLastYearOnThe(day);
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 and 23:59:59 of a given day this year.
+     */
+    public static RandomTimeBuilder someTimeThisYearOnThe(int day) {
+        return times().someTimeThisYearOnThe(day);
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 and 23:59:59 of a given day next year.
+     */
+    public static RandomTimeBuilder someTimeNextYearOnThe(int day) {
+        return times().someTimeNextYearOnThe(day);
+    }
 }

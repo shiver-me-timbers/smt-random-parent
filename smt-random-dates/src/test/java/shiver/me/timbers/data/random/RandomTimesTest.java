@@ -37,17 +37,26 @@ import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastMont
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastMonthOnThe;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastWeek;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastWeekOn;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastYear;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastYearOnDay;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextMonth;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextMonthOnThe;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextWeek;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextWeekOn;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextYear;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextYearOnDay;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisMonth;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisMonthOnThe;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisWeek;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisWeekOn;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisYear;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisYearOnDay;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeToday;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeTomorrow;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeYesterday;
+import static shiver.me.timbers.data.random.test.DateMatchers.maxDaysLastMoneth;
+import static shiver.me.timbers.data.random.test.DateMatchers.maxDaysNextMoneth;
+import static shiver.me.timbers.data.random.test.DateMatchers.maxDaysThisMoneth;
 
 public class RandomTimesTest {
 
@@ -268,7 +277,7 @@ public class RandomTimesTest {
     public void Can_generate_a_random_time_that_falls_last_month_on_a_specific_day() {
 
         // Given
-        final Integer date = someIntegerBetween(1, 28);
+        final Integer date = someIntegerBetween(1, maxDaysLastMoneth() + 1);
 
         // When
         final Date actual = someTimeLastMonthOnThe(date);
@@ -281,7 +290,7 @@ public class RandomTimesTest {
     public void Can_generate_a_random_time_that_falls_this_month_on_a_specific_day() {
 
         // Given
-        final Integer date = someIntegerBetween(1, 28);
+        final Integer date = someIntegerBetween(1, maxDaysThisMoneth() + 1);
 
         // When
         final Date actual = someTimeThisMonthOnThe(date);
@@ -294,12 +303,81 @@ public class RandomTimesTest {
     public void Can_generate_a_random_time_that_falls_next_month_on_a_specific_day() {
 
         // Given
-        final Integer date = someIntegerBetween(1, 28);
+        final Integer date = someIntegerBetween(1, maxDaysNextMoneth() + 1);
 
         // When
         final Date actual = someTimeNextMonthOnThe(date);
 
         // Then
         assertThat(actual, isSometimeNextMonthOnThe(date));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_last_year() {
+
+        // When
+        final Date actual = RandomTimes.someTimeLastYear();
+
+        // Then
+        assertThat(actual, isSometimeLastYear());
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_this_year() {
+
+        // When
+        final Date actual = RandomTimes.someTimeThisYear();
+
+        // Then
+        assertThat(actual, isSometimeThisYear());
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_next_year() {
+
+        // When
+        final Date actual = RandomTimes.someTimeNextYear();
+
+        // Then
+        assertThat(actual, isSometimeNextYear());
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_last_year_on_a_specific_day() {
+
+        // Given
+        final Integer day = someIntegerBetween(1, 366);
+
+        // When
+        final Date actual = RandomTimes.someTimeLastYearOnThe(day);
+
+        // Then
+        assertThat(actual, isSometimeLastYearOnDay(day));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_this_year_on_a_specific_day() {
+
+        // Given
+        final Integer day = someIntegerBetween(1, 366);
+
+        // When
+        final Date actual = RandomTimes.someTimeThisYearOnThe(day);
+
+        // Then
+        assertThat(actual, isSometimeThisYearOnDay(day));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_next_year_on_a_specific_day() {
+
+        // Given
+        final Integer day = someIntegerBetween(1, 366);
+
+        // When
+        final Date actual = RandomTimes.someTimeNextYearOnThe(day);
+
+        // Then
+        assertThat(actual, isSometimeNextYearOnDay(day));
     }
 }

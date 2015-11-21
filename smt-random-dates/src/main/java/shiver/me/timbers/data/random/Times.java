@@ -48,4 +48,16 @@ interface Times {
     RandomTimeBuilder someTimeThisMonthOnThe(int date);
 
     RandomTimeBuilder someTimeNextMonthOnThe(int date);
+
+    RandomTimeBuilder someTimeLastYear();
+
+    RandomTimeBuilder someTimeThisYear();
+
+    RandomTimeBuilder someTimeNextYear();
+
+    RandomTimeBuilder someTimeLastYearOnThe(int day);
+
+    RandomTimeBuilder someTimeThisYearOnThe(int day);
+
+    RandomTimeBuilder someTimeNextYearOnThe(int day);
 }

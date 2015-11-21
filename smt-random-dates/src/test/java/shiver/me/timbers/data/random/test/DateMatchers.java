@@ -82,76 +82,128 @@ public class DateMatchers {
         return new NextMonthDateMatcher(date);
     }
 
-    public static Date yesterdayMidnight() {
+    public static Matcher<Date> isSometimeLastYear() {
+        return new LastYearMatcher();
+    }
+
+    public static Matcher<Date> isSometimeThisYear() {
+        return new ThisYearMatcher();
+    }
+
+    public static Matcher<Date> isSometimeNextYear() {
+        return new NextYearMatcher();
+    }
+
+    public static Matcher<Date> isSometimeLastYearOnDay(int day) {
+        return new LastYearDayMatcher(day);
+    }
+
+    public static Matcher<Date> isSometimeThisYearOnDay(int day) {
+        return new ThisYearDayMatcher(day);
+    }
+
+    public static Matcher<Date> isSometimeNextYearOnDay(int day) {
+        return new NextYearDayMatcher(day);
+    }
+
+    private static Date yesterdayMidnight() {
         return today().minus(days(1)).toDate();
     }
 
-    public static Date todayMidnight() {
+    private static Date todayMidnight() {
         return today().toDate();
     }
 
-    public static Date tomorrowMidnight() {
+    private static Date tomorrowMidnight() {
         return tomorrow().toDate();
     }
 
-    public static Date dayAfterTomorrowMidnight() {
+    private static Date dayAfterTomorrowMidnight() {
         return tomorrow().plus(days(1)).toDate();
     }
 
-    public static Date mondayLastWeekMidnight() {
+    private static Date mondayLastWeekMidnight() {
         return lastWeekMidnight(MONDAY);
     }
 
-    public static Date mondayThisWeekMidnight() {
+    private static Date mondayThisWeekMidnight() {
         return thisWeekMidnight(MONDAY);
     }
 
-    public static Date mondayNextWeekMidnight() {
+    private static Date mondayNextWeekMidnight() {
         return nextWeekMidnight(MONDAY);
     }
 
-    public static Date mondayWeekAfterNextMidnight() {
+    private static Date mondayWeekAfterNextMidnight() {
         return nextWeek(MONDAY).plusWeeks(1).toDate();
     }
 
-    public static Date lastWeekMidnight(MatcherWeekDay weekDay) {
+    private static Date lastWeekMidnight(MatcherWeekDay weekDay) {
         return lastWeek(weekDay).toDate();
     }
 
-    public static Date thisWeekMidnight(MatcherWeekDay weekDay) {
+    private static Date thisWeekMidnight(MatcherWeekDay weekDay) {
         return thisWeek(weekDay).toDate();
     }
 
-    public static Date nextWeekMidnight(MatcherWeekDay weekDay) {
+    private static Date nextWeekMidnight(MatcherWeekDay weekDay) {
         return nextWeek(weekDay).toDate();
     }
 
-    public static Date the1stOfLastMonthMidnight() {
+    private static Date the1stOfLastMonthMidnight() {
         return lastMonthMidnight(1);
     }
 
-    public static Date the1stOfThisMonthMidnight() {
+    private static Date the1stOfThisMonthMidnight() {
         return thisMonthMidnight(1);
     }
 
-    public static Date the1stOfNextMonthMidnight() {
+    private static Date the1stOfNextMonthMidnight() {
         return nextMonthMidnight(1);
     }
 
-    public static Date the1stOfMonthAfterNextMidnight() {
+    private static Date the1stOfTheMonthAfterNextMidnight() {
         return nextMonth(1).plusMonths(1).toDate();
     }
 
-    public static Date lastMonthMidnight(int date) {
+    private static Date lastMonthMidnight(int date) {
         return lastMonth(date).toDate();
     }
 
-    public static Date thisMonthMidnight(int date) {
+    private static Date thisMonthMidnight(int date) {
         return thisMonth(date).toDate();
     }
 
-    public static Date nextMonthMidnight(int date) {
+    private static Date nextMonthMidnight(int date) {
         return nextMonth(date).toDate();
+    }
+
+    private static Date the1stDayOfLastYearMidnight() {
+        return lastYearMidnight(1);
+    }
+
+    private static Date the1stDayOfThisYearMidnight() {
+        return thisYearMidnight(1);
+    }
+
+    private static Date the1stDayOfNextYearMidnight() {
+        return nextYearMidnight(1);
+    }
+
+    private static Date the1stDayOfTheYearAfterNextMidnight() {
+        return nextYear(1).plusYears(1).toDate();
+    }
+
+    private static Date lastYearMidnight(int day) {
+        return lastYear(day).toDate();
+    }
+
+    private static Date thisYearMidnight(int day) {
+        return thisYear(day).toDate();
+    }
+
+    private static Date nextYearMidnight(int day) {
+        return nextYear(day).toDate();
     }
 
     private static LocalDate today() {
@@ -184,6 +236,30 @@ public class DateMatchers {
 
     private static LocalDate nextMonth(int date) {
         return thisMonth(date).plusMonths(1);
+    }
+
+    private static LocalDate lastYear(int day) {
+        return thisYear(day).minusYears(1);
+    }
+
+    private static LocalDate thisYear(int day) {
+        return today().withDayOfYear(day);
+    }
+
+    private static LocalDate nextYear(int day) {
+        return thisYear(day).plusYears(1);
+    }
+
+    public static int maxDaysLastMoneth() {
+        return LocalDate.now().minusMonths(1).dayOfMonth().getMaximumValue();
+    }
+
+    public static int maxDaysThisMoneth() {
+        return LocalDate.now().dayOfMonth().getMaximumValue();
+    }
+
+    public static int maxDaysNextMoneth() {
+        return LocalDate.now().plusMonths(1).dayOfMonth().getMaximumValue();
     }
 
     public static class IsOnDateMatcher extends TypeSafeMatcher<Date> {
@@ -308,7 +384,7 @@ public class DateMatchers {
 
     private static class NextMonthMatcher extends BetweenDateMatcher {
         public NextMonthMatcher() {
-            super(the1stOfNextMonthMidnight(), the1stOfMonthAfterNextMidnight());
+            super(the1stOfNextMonthMidnight(), the1stOfTheMonthAfterNextMidnight());
         }
     }
 
@@ -331,5 +407,41 @@ public class DateMatchers {
             super(nextMonthMidnight(date), nextMonth(date).plusDays(1).toDate());
         }
 
+    }
+
+    private static class LastYearMatcher extends BetweenDateMatcher {
+        public LastYearMatcher() {
+            super(the1stDayOfLastYearMidnight(), the1stDayOfThisYearMidnight());
+        }
+    }
+
+    private static class ThisYearMatcher extends BetweenDateMatcher {
+        public ThisYearMatcher() {
+            super(the1stDayOfThisYearMidnight(), the1stDayOfNextYearMidnight());
+        }
+    }
+
+    private static class NextYearMatcher extends BetweenDateMatcher {
+        public NextYearMatcher() {
+            super(the1stDayOfNextYearMidnight(), the1stDayOfTheYearAfterNextMidnight());
+        }
+    }
+
+    private static class LastYearDayMatcher extends BetweenDateMatcher {
+        public LastYearDayMatcher(int day) {
+            super(lastYearMidnight(day), lastYear(day).plusDays(1).toDate());
+        }
+    }
+
+    private static class ThisYearDayMatcher extends BetweenDateMatcher {
+        public ThisYearDayMatcher(int day) {
+            super(thisYearMidnight(day), thisYear(day).plusDays(1).toDate());
+        }
+    }
+
+    private static class NextYearDayMatcher extends BetweenDateMatcher {
+        public NextYearDayMatcher(int day) {
+            super(nextYearMidnight(day), nextYear(day).plusDays(1).toDate());
+        }
     }
 }

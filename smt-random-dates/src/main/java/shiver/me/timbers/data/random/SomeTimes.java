@@ -118,6 +118,36 @@ class SomeTimes implements Times {
         return thisMonthOnThe(date).addMonths(1);
     }
 
+    @Override
+    public RandomTimeBuilder someTimeLastYear() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public RandomTimeBuilder someTimeThisYear() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public RandomTimeBuilder someTimeNextYear() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public RandomTimeBuilder someTimeLastYearOnThe(int day) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public RandomTimeBuilder someTimeThisYearOnThe(int day) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public RandomTimeBuilder someTimeNextYearOnThe(int day) {
+        throw new UnsupportedOperationException();
+    }
+
     private RandomTimeBuilder now() {
         return randomTimeCreator.now();
     }
