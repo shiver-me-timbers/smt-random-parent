@@ -450,7 +450,7 @@ public class SomeTimesTest {
         given(randomTimeFactory.lastYearOnDay(day)).willReturn(expected);
 
         // When
-        final RandomTimeBuilder actual = times.someTimeLastYearOnThe(day);
+        final RandomTimeBuilder actual = times.someTimeLastYearOnDay(day);
 
         // Then
         assertThat(actual, is(expected));
@@ -467,7 +467,7 @@ public class SomeTimesTest {
         given(randomTimeFactory.thisYearOnDay(day)).willReturn(expected);
 
         // When
-        final RandomTimeBuilder actual = times.someTimeThisYearOnThe(day);
+        final RandomTimeBuilder actual = times.someTimeThisYearOnDay(day);
 
         // Then
         assertThat(actual, is(expected));
@@ -484,7 +484,7 @@ public class SomeTimesTest {
         given(randomTimeFactory.nextYearOnDay(day)).willReturn(expected);
 
         // When
-        final RandomTimeBuilder actual = times.someTimeNextYearOnThe(day);
+        final RandomTimeBuilder actual = times.someTimeNextYearOnDay(day);
 
         // Then
         assertThat(actual, is(expected));

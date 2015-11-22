@@ -22,19 +22,19 @@ import static shiver.me.timbers.data.random.RandomTimes.someTimeLastMonthOnThe;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastWeek;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastWeekOn;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastYear;
-import static shiver.me.timbers.data.random.RandomTimes.someTimeLastYearOnThe;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeLastYearOnDay;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextMonth;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextMonthOnThe;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextWeek;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextWeekOn;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextYear;
-import static shiver.me.timbers.data.random.RandomTimes.someTimeNextYearOnThe;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeNextYearOnDay;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisMonth;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisMonthOnThe;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisWeek;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisWeekOn;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisYear;
-import static shiver.me.timbers.data.random.RandomTimes.someTimeThisYearOnThe;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeThisYearOnDay;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeToday;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeTomorrow;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeYesterday;
@@ -355,7 +355,7 @@ public class RandomTimesTest {
         final Integer day = someIntegerBetween(1, 366);
 
         // When
-        final Date actual = someTimeLastYearOnThe(day);
+        final Date actual = someTimeLastYearOnDay(day);
 
         // Then
         assertThat(actual, isSometimeLastYearOnDay(day));
@@ -368,7 +368,7 @@ public class RandomTimesTest {
         final Integer day = someIntegerBetween(1, 366);
 
         // When
-        final Date actual = someTimeThisYearOnThe(day);
+        final Date actual = someTimeThisYearOnDay(day);
 
         // Then
         assertThat(actual, isSometimeThisYearOnDay(day));
@@ -381,7 +381,7 @@ public class RandomTimesTest {
         final Integer day = someIntegerBetween(1, 366);
 
         // When
-        final Date actual = someTimeNextYearOnThe(day);
+        final Date actual = someTimeNextYearOnDay(day);
 
         // Then
         assertThat(actual, isSometimeNextYearOnDay(day));

@@ -201,21 +201,21 @@ public class RandomTimes {
     /**
      * Generate a random time that could be any time between 00:00:00 and 23:59:59 of a given day last year.
      */
-    public static RandomTimeBuilder someTimeLastYearOnThe(int day) {
-        return times().someTimeLastYearOnThe(day);
+    public static RandomTimeBuilder someTimeLastYearOnDay(int day) {
+        return times().someTimeLastYearOnDay(day);
     }
 
     /**
      * Generate a random time that could be any time between 00:00:00 and 23:59:59 of a given day this year.
      */
-    public static RandomTimeBuilder someTimeThisYearOnThe(int day) {
-        return times().someTimeThisYearOnThe(day);
+    public static RandomTimeBuilder someTimeThisYearOnDay(int day) {
+        return times().someTimeThisYearOnDay(day);
     }
 
     /**
      * Generate a random time that could be any time between 00:00:00 and 23:59:59 of a given day next year.
      */
-    public static RandomTimeBuilder someTimeNextYearOnThe(int day) {
-        return times().someTimeNextYearOnThe(day);
+    public static RandomTimeBuilder someTimeNextYearOnDay(int day) {
+        return times().someTimeNextYearOnDay(day);
     }
 }

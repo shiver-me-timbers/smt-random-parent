@@ -134,17 +134,17 @@ class SomeTimes implements Times {
     }
 
     @Override
-    public RandomTimeBuilder someTimeLastYearOnThe(int day) {
+    public RandomTimeBuilder someTimeLastYearOnDay(int day) {
         return randomTimeFactory.lastYearOnDay(day);
     }
 
     @Override
-    public RandomTimeBuilder someTimeThisYearOnThe(int day) {
+    public RandomTimeBuilder someTimeThisYearOnDay(int day) {
         return thisYearOn(day);
     }
 
     @Override
-    public RandomTimeBuilder someTimeNextYearOnThe(int day) {
+    public RandomTimeBuilder someTimeNextYearOnDay(int day) {
         return randomTimeFactory.nextYearOnDay(day);
     }
 

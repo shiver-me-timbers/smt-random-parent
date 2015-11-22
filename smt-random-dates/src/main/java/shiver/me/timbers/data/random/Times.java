@@ -55,9 +55,9 @@ interface Times {
 
     RandomTimeBuilder someTimeNextYear();
 
-    RandomTimeBuilder someTimeLastYearOnThe(int day);
+    RandomTimeBuilder someTimeLastYearOnDay(int day);
 
-    RandomTimeBuilder someTimeThisYearOnThe(int day);
+    RandomTimeBuilder someTimeThisYearOnDay(int day);
 
-    RandomTimeBuilder someTimeNextYearOnThe(int day);
+    RandomTimeBuilder someTimeNextYearOnDay(int day);
 }
