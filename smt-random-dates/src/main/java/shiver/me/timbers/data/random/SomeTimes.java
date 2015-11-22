@@ -120,32 +120,32 @@ class SomeTimes implements Times {
 
     @Override
     public RandomTimeBuilder someTimeLastYear() {
-        throw new UnsupportedOperationException();
+        return thisYear().minusYears(1);
     }
 
     @Override
     public RandomTimeBuilder someTimeThisYear() {
-        throw new UnsupportedOperationException();
+        return thisYear();
     }
 
     @Override
     public RandomTimeBuilder someTimeNextYear() {
-        throw new UnsupportedOperationException();
+        return thisYear().addYears(1);
     }
 
     @Override
     public RandomTimeBuilder someTimeLastYearOnThe(int day) {
-        throw new UnsupportedOperationException();
+        return thisYearOn(day).minusYears(1);
     }
 
     @Override
     public RandomTimeBuilder someTimeThisYearOnThe(int day) {
-        throw new UnsupportedOperationException();
+        return thisYearOn(day);
     }
 
     @Override
     public RandomTimeBuilder someTimeNextYearOnThe(int day) {
-        throw new UnsupportedOperationException();
+        return thisYearOn(day).addYears(1);
     }
 
     private RandomTimeBuilder now() {
@@ -174,5 +174,13 @@ class SomeTimes implements Times {
 
     private RandomTimeBuilder thisMonthOnThe(int date) {
         return randomTimeCreator.thisMonthOnThe(date);
+    }
+
+    private RandomTimeBuilder thisYear() {
+        return randomTimeCreator.thisYear();
+    }
+
+    private RandomTimeBuilder thisYearOn(int day) {
+        return randomTimeCreator.thisYearOnDay(day);
     }
 }

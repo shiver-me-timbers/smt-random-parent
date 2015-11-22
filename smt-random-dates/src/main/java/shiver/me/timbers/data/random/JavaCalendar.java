@@ -63,6 +63,12 @@ class JavaCalendar implements Calendar {
     }
 
     @Override
+    public Calendar withDayOfYear(int day) {
+        calendar.set(java.util.Calendar.DAY_OF_YEAR, day);
+        return this;
+    }
+
+    @Override
     public Calendar minusMonths(int months) {
         calendar.add(java.util.Calendar.MONTH, -months);
         return this;
@@ -71,6 +77,18 @@ class JavaCalendar implements Calendar {
     @Override
     public Calendar addMonths(int months) {
         calendar.add(java.util.Calendar.MONTH, months);
+        return this;
+    }
+
+    @Override
+    public Calendar minusYears(int years) {
+        calendar.add(java.util.Calendar.YEAR, -years);
+        return this;
+    }
+
+    @Override
+    public Calendar addYears(int years) {
+        calendar.add(java.util.Calendar.YEAR, years);
         return this;
     }
 

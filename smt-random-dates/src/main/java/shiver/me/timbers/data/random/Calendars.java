@@ -10,4 +10,6 @@ interface Calendars {
     Calendar midnightToday();
 
     int daysThisMonth();
+
+    int daysThisYear();
 }

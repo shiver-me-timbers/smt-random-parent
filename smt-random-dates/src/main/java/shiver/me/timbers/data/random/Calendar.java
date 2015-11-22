@@ -17,9 +17,15 @@ interface Calendar {
 
     Calendar withDateOfMonth(int date);
 
+    Calendar withDayOfYear(int day);
+
     Calendar minusMonths(int months);
 
     Calendar addMonths(int months);
+
+    Calendar minusYears(int years);
+
+    Calendar addYears(int years);
 
     long toTime();
 }

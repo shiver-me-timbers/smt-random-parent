@@ -405,4 +405,112 @@ public class SomeTimesTest {
         // Then
         assertThat(actual, is(expected));
     }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_last_year() {
+
+        final RandomTimeBuilder thisYearBuilder = mock(RandomTimeBuilder.class);
+
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
+
+        // Given
+        given(randomTimeCreator.thisYear()).willReturn(thisYearBuilder);
+        given(thisYearBuilder.minusYears(1)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = times.someTimeLastYear();
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_this_year() {
+
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
+
+        // Given
+        given(randomTimeCreator.thisYear()).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = times.someTimeThisYear();
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_next_year() {
+
+        final RandomTimeBuilder thisYearBuilder = mock(RandomTimeBuilder.class);
+
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
+
+        // Given
+        given(randomTimeCreator.thisYear()).willReturn(thisYearBuilder);
+        given(thisYearBuilder.addYears(1)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = times.someTimeNextYear();
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_on_a_specific_day_last_year() {
+
+        final int day = someInteger();
+
+        final RandomTimeBuilder lastYearBuilder = mock(RandomTimeBuilder.class);
+
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
+
+        // Given
+        given(randomTimeCreator.thisYearOnDay(day)).willReturn(lastYearBuilder);
+        given(lastYearBuilder.minusYears(1)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = times.someTimeLastYearOnThe(day);
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_on_a_specific_day_this_year() {
+
+        final int day = someInteger();
+
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
+
+        // Given
+        given(randomTimeCreator.thisYearOnDay(day)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = times.someTimeThisYearOnThe(day);
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_on_a_specific_day_next_year() {
+
+        final int day = someInteger();
+
+        final RandomTimeBuilder nextYearBuilder = mock(RandomTimeBuilder.class);
+
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
+
+        // Given
+        given(randomTimeCreator.thisYearOnDay(day)).willReturn(nextYearBuilder);
+        given(nextYearBuilder.addYears(1)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = times.someTimeNextYearOnThe(day);
+
+        // Then
+        assertThat(actual, is(expected));
+    }
 }

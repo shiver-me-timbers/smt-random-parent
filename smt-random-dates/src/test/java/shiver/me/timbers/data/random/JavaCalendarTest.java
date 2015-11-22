@@ -129,6 +129,20 @@ public class JavaCalendarTest {
     }
 
     @Test
+    public void Can_set_the_day_of_the_year() {
+
+        // Given
+        final int day = someInteger();
+
+        // When
+        final Calendar actual = javaCalendar.withDayOfYear(day);
+
+        // Then
+        verify(calendar).set(java.util.Calendar.DAY_OF_YEAR, day);
+        assertThat(actual, is(javaCalendar));
+    }
+
+    @Test
     public void Can_minus_months() {
 
         // Given
@@ -153,6 +167,34 @@ public class JavaCalendarTest {
 
         // Then
         verify(calendar).add(java.util.Calendar.MONTH, months);
+        assertThat(actual, is(javaCalendar));
+    }
+
+    @Test
+    public void Can_minus_years() {
+
+        // Given
+        final int years = somePositiveInteger();
+
+        // When
+        final Calendar actual = javaCalendar.minusYears(years);
+
+        // Then
+        verify(calendar).add(java.util.Calendar.YEAR, -years);
+        assertThat(actual, is(javaCalendar));
+    }
+
+    @Test
+    public void Can_add_years() {
+
+        // Given
+        final int years = somePositiveInteger();
+
+        // When
+        final Calendar actual = javaCalendar.addYears(years);
+
+        // Then
+        verify(calendar).add(java.util.Calendar.YEAR, years);
         assertThat(actual, is(javaCalendar));
     }
 

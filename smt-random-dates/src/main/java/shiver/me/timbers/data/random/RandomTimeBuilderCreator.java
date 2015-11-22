@@ -23,8 +23,20 @@ class RandomTimeBuilderCreator implements RandomTimeCreator<RandomTimeBuilder> {
     }
 
     @Override
-    public RandomTimeBuilder random() {
-        return create(longs.someNumber());
+    public RandomTimeBuilder now() {
+        return create(timeStamps.now());
+    }
+
+    @Override
+    public RandomTimeBuilder between(Date min, Date max) {
+        final long minTime = min.getTime();
+        final long maxTime = max.getTime();
+        return create(longs.someNumberBetween(minTime, maxTime));
+    }
+
+    @Override
+    public RandomTimeBuilder today() {
+        return create(timeStamps.todayMidnight() + timeStamps.someTimeInADay());
     }
 
     @Override
@@ -48,20 +60,18 @@ class RandomTimeBuilderCreator implements RandomTimeCreator<RandomTimeBuilder> {
     }
 
     @Override
-    public RandomTimeBuilder today() {
-        return create(timeStamps.todayMidnight() + timeStamps.someTimeInADay());
+    public RandomTimeBuilder thisYear() {
+        return create(timeStamps.midnightThisYearOnDay(1) + timeStamps.someTimeInAYear());
     }
 
     @Override
-    public RandomTimeBuilder between(Date min, Date max) {
-        final long minTime = min.getTime();
-        final long maxTime = max.getTime();
-        return create(longs.someNumberBetween(minTime, maxTime));
+    public RandomTimeBuilder thisYearOnDay(int day) {
+        return create(timeStamps.midnightThisYearOnDay(day) + timeStamps.someTimeInADay());
     }
 
     @Override
-    public RandomTimeBuilder now() {
-        return create(timeStamps.now());
+    public RandomTimeBuilder random() {
+        return create(longs.someNumber());
     }
 
     private RandomTimeBuilder create(long time) {

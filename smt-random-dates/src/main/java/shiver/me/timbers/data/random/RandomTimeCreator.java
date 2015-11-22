@@ -9,7 +9,11 @@ interface RandomTimeCreator<D extends Date> {
 
     D create(Date date);
 
-    D random();
+    D now();
+
+    D between(Date min, Date max);
+
+    D today();
 
     D thisWeek();
 
@@ -19,9 +23,9 @@ interface RandomTimeCreator<D extends Date> {
 
     D thisMonthOnThe(int date);
 
-    D today();
+    D thisYear();
 
-    D between(Date min, Date max);
+    D thisYearOnDay(int day);
 
-    D now();
+    D random();
 }

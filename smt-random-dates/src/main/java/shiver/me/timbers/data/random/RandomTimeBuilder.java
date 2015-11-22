@@ -54,6 +54,16 @@ public class RandomTimeBuilder extends Date {
         return this;
     }
 
+    public RandomTimeBuilder minusYears(int years) {
+        setTime(timeStamps.minusYears(getTime(), years));
+        return this;
+    }
+
+    public RandomTimeBuilder addYears(int years) {
+        setTime(timeStamps.addYears(getTime(), years));
+        return this;
+    }
+
     private RandomTimeBuilder someTimeBefore(long time) {
         setTime(time + (longs.someNegativeNumber() - 1));
         return this;

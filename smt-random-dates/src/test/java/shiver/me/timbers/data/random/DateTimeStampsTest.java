@@ -24,7 +24,7 @@ public class DateTimeStampsTest {
     private static final int MILLISECONDS_IN_ONE_DAY = 86400000;
     private static final int MILLISECONDS_IN_ONE_WEEK = 604800000;
 
-    private Numbers<Integer> longs;
+    private Numbers<Integer> integers;
     private Calendars calendars;
 
     private DateTimeStamps timeStamps;
@@ -32,10 +32,10 @@ public class DateTimeStampsTest {
     @Before
     @SuppressWarnings("unchecked")
     public void setUp() {
-        longs = mock(Numbers.class);
+        integers = mock(Numbers.class);
         calendars = mock(Calendars.class);
 
-        timeStamps = new DateTimeStamps(longs, calendars);
+        timeStamps = new DateTimeStamps(integers, calendars);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class DateTimeStampsTest {
         final long expected = someInteger();
 
         // Given
-        given(longs.someNumberBetween(0, MILLISECONDS_IN_ONE_DAY)).willReturn((int) expected);
+        given(integers.someNumberBetween(0, MILLISECONDS_IN_ONE_DAY)).willReturn((int) expected);
 
         // When
         final long actual = timeStamps.someTimeInADay();
@@ -87,7 +87,7 @@ public class DateTimeStampsTest {
         final long expected = someInteger();
 
         // Given
-        given(longs.someNumberBetween(0, MILLISECONDS_IN_ONE_WEEK)).willReturn((int) expected);
+        given(integers.someNumberBetween(0, MILLISECONDS_IN_ONE_WEEK)).willReturn((int) expected);
 
         // When
         final long actual = timeStamps.someTimeInAWeek();
@@ -102,14 +102,33 @@ public class DateTimeStampsTest {
         final int daysThisMonth = someInteger();
         final int randomDayThisMonth = someInteger();
 
-        final long expected = (long) randomDayThisMonth * 24L * 60L * 60L * 1000;
+        final long expected = (long) randomDayThisMonth * MILLISECONDS_IN_ONE_DAY;
 
         // Given
         given(calendars.daysThisMonth()).willReturn(daysThisMonth);
-        given(longs.someNumberBetween(1, daysThisMonth)).willReturn(randomDayThisMonth);
+        given(integers.someNumberBetween(1, daysThisMonth)).willReturn(randomDayThisMonth);
 
         // When
         final long actual = timeStamps.someTimeInAMonth();
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_generate_some_random_time_stamp_that_falls_within_a_year() {
+
+        final int daysThisYear = someInteger();
+        final int randomDayThisYear = someInteger();
+
+        final long expected = (long) randomDayThisYear * MILLISECONDS_IN_ONE_DAY;
+
+        // Given
+        given(calendars.daysThisYear()).willReturn(daysThisYear);
+        given(integers.someNumberBetween(1, daysThisYear)).willReturn(randomDayThisYear);
+
+        // When
+        final long actual = timeStamps.someTimeInAYear();
 
         // Then
         assertThat(actual, is(expected));
@@ -154,6 +173,28 @@ public class DateTimeStampsTest {
 
         // When
         final long actual = timeStamps.midnightThisMonthOnThe(date);
+
+        // Then
+        assertThat(actual, equalTo(expected));
+    }
+
+    @Test
+    public void Can_get_the_time_for_a_specific_date_this_year_at_midnight() {
+
+        final int day = someInteger();
+
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar dayOfYearCalendar = mock(Calendar.class);
+
+        final long expected = someLong();
+
+        // Given
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.withDayOfYear(day)).willReturn(dayOfYearCalendar);
+        given(dayOfYearCalendar.toTime()).willReturn(expected);
+
+        // When
+        final long actual = timeStamps.midnightThisYearOnDay(day);
 
         // Then
         assertThat(actual, equalTo(expected));
@@ -292,6 +333,52 @@ public class DateTimeStampsTest {
 
         // When
         final long actual = timeStamps.addMonths(time, months);
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_minus_a_year_from_the_current_time() {
+
+        final long time = someLong();
+        final int years = someInteger();
+
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar minusYearsCalendar = mock(Calendar.class);
+
+        final long expected = someLong();
+
+        // Given
+        given(calendars.create(time)).willReturn(calendar);
+        given(calendar.minusYears(years)).willReturn(minusYearsCalendar);
+        given(minusYearsCalendar.toTime()).willReturn(expected);
+
+        // When
+        final long actual = timeStamps.minusYears(time, years);
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_add_a_year_to_the_current_time() {
+
+        final long time = someLong();
+        final int years = someInteger();
+
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar addYearsCalendar = mock(Calendar.class);
+
+        final long expected = someLong();
+
+        // Given
+        given(calendars.create(time)).willReturn(calendar);
+        given(calendar.addYears(years)).willReturn(addYearsCalendar);
+        given(addYearsCalendar.toTime()).willReturn(expected);
+
+        // When
+        final long actual = timeStamps.addYears(time, years);
 
         // Then
         assertThat(actual, is(expected));

@@ -46,15 +46,56 @@ public class RandomTimeBuilderCreatorTest {
     }
 
     @Test
-    public void Can_create_a_random_time_builder() {
+    public void Can_create_a_random_time_builder_for_now() {
 
         final Long expected = someLong();
 
         // Given
-        given(longs.someNumber()).willReturn(expected);
+        given(timeStamps.now()).willReturn(expected);
 
         // When
-        final RandomTimeBuilder actual = creator.random();
+        final RandomTimeBuilder actual = creator.now();
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
+    public void Can_create_a_random_time_builder_between_two_dates() {
+
+        final Date min = mock(Date.class);
+        final Date max = mock(Date.class);
+        final long minTime = someLong();
+        final long maxTime = someLong();
+
+        final Long expected = someLong();
+
+        // Given
+        given(min.getTime()).willReturn(minTime);
+        given(max.getTime()).willReturn(maxTime);
+        given(longs.someNumberBetween(minTime, maxTime)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = creator.between(min, max);
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
+    public void Can_create_a_random_time_builder_for_some_time_today() {
+
+        final long todayMidnight = someLong();
+        final long timeInADay = someLong();
+
+        final Long expected = todayMidnight + timeInADay;
+
+        // Given
+        given(timeStamps.todayMidnight()).willReturn(todayMidnight);
+        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
+
+        // When
+        final RandomTimeBuilder actual = creator.today();
 
         // Then
         assertThat(actual.getTime(), is(expected));
@@ -141,56 +182,55 @@ public class RandomTimeBuilderCreatorTest {
     }
 
     @Test
-    public void Can_create_a_random_time_builder_for_some_time_today() {
+    public void Can_create_a_random_time_builder_for_some_time_this_year() {
 
-        final long todayMidnight = someLong();
-        final long timeInADay = someLong();
+        final long midnightTheMonthOnDay1 = someLong();
+        final long timeInAYear = someLong();
 
-        final Long expected = todayMidnight + timeInADay;
+        final Long expected = midnightTheMonthOnDay1 + timeInAYear;
 
         // Given
-        given(timeStamps.todayMidnight()).willReturn(todayMidnight);
+        given(timeStamps.midnightThisYearOnDay(1)).willReturn(midnightTheMonthOnDay1);
+        given(timeStamps.someTimeInAYear()).willReturn(timeInAYear);
+
+        // When
+        final RandomTimeBuilder actual = creator.thisYear();
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
+    public void Can_create_a_random_time_builder_for_some_time_in_a_specific_day_this_year() {
+
+        final int day = someInteger();
+
+        final long midnightTheYearOnASpecificDay = someLong();
+        final long timeInADay = someLong();
+
+        final Long expected = midnightTheYearOnASpecificDay + timeInADay;
+
+        // Given
+        given(timeStamps.midnightThisYearOnDay(day)).willReturn(midnightTheYearOnASpecificDay);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
 
         // When
-        final RandomTimeBuilder actual = creator.today();
+        final RandomTimeBuilder actual = creator.thisYearOnDay(day);
 
         // Then
         assertThat(actual.getTime(), is(expected));
     }
 
     @Test
-    public void Can_create_a_random_time_builder_between_two_dates() {
-
-        final Date min = mock(Date.class);
-        final Date max = mock(Date.class);
-        final long minTime = someLong();
-        final long maxTime = someLong();
+    public void Can_create_a_random_time_builder() {
 
         final Long expected = someLong();
 
         // Given
-        given(min.getTime()).willReturn(minTime);
-        given(max.getTime()).willReturn(maxTime);
-        given(longs.someNumberBetween(minTime, maxTime)).willReturn(expected);
+        given(longs.someNumber()).willReturn(expected);
 
         // When
-        final RandomTimeBuilder actual = creator.between(min, max);
-
-        // Then
-        assertThat(actual.getTime(), is(expected));
-    }
-
-    @Test
-    public void Can_create_a_random_time_builder_for_now() {
-
-        final Long expected = someLong();
-
-        // Given
-        given(timeStamps.now()).willReturn(expected);
-
-        // When
-        final RandomTimeBuilder actual = creator.now();
+        final RandomTimeBuilder actual = creator.random();
 
         // Then
         assertThat(actual.getTime(), is(expected));

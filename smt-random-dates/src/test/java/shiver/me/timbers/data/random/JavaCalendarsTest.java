@@ -53,4 +53,14 @@ public class JavaCalendarsTest {
         // Then
         assertThat(actual, equalTo(LocalDate.now().dayOfMonth().getMaximumValue()));
     }
+
+    @Test
+    public void Can_get_the_number_of_days_in_the_current_year() {
+
+        // When
+        final int actual = calendars.daysThisYear();
+
+        // Then
+        assertThat(actual, equalTo(LocalDate.now().dayOfYear().getMaximumValue()));
+    }
 }

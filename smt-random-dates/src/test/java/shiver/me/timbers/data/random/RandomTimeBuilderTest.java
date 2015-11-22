@@ -163,4 +163,38 @@ public class RandomTimeBuilderTest {
         // Then
         assertThat(actual.getTime(), is(expected));
     }
+
+    @Test
+    public void Can_minus_some_years_off_the_random_time_builders_time() {
+
+        final int years = someInteger();
+
+        final long expected = someLong();
+
+        // Given
+        given(timeStamps.minusYears(initialTime, years)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = builder.minusYears(years);
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
+    public void Can_add_some_years_to_the_random_time_builders_time() {
+
+        final int years = someInteger();
+
+        final long expected = someLong();
+
+        // Given
+        given(timeStamps.addYears(initialTime, years)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = builder.addYears(years);
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
 }
