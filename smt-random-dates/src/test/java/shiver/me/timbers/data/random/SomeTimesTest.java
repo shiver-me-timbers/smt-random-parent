@@ -14,7 +14,7 @@ import static shiver.me.timbers.data.random.RandomIntegers.someInteger;
 
 public class SomeTimesTest {
 
-    private TimeStamps timeStamps;
+    private RandomDurations randomDurations;
     private Numbers<Long> longs;
     private RandomTimeFactory<RandomTimeBuilder> randomTimeFactory;
 
@@ -23,7 +23,7 @@ public class SomeTimesTest {
     @Before
     @SuppressWarnings("unchecked")
     public void setUp() {
-        timeStamps = mock(TimeStamps.class);
+        randomDurations = mock(RandomDurations.class);
         longs = mock(Numbers.class);
         randomTimeFactory = mock(RandomTimeFactory.class);
 

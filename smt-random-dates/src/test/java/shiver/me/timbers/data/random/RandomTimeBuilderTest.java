@@ -13,7 +13,7 @@ import static shiver.me.timbers.data.random.RandomLongs.someLong;
 public class RandomTimeBuilderTest {
 
     private Calendars calendars;
-    private TimeStamps timeStamps;
+    private RandomDurations randomDurations;
     private Numbers<Long> longs;
     private Long initialTime;
 
@@ -23,7 +23,7 @@ public class RandomTimeBuilderTest {
     @SuppressWarnings("unchecked")
     public void setUp() {
         calendars = mock(Calendars.class);
-        timeStamps = mock(TimeStamps.class);
+        randomDurations = mock(RandomDurations.class);
         longs = mock(Numbers.class);
         initialTime = someLong();
 

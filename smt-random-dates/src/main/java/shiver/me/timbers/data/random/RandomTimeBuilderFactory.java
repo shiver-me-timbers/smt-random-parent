@@ -10,12 +10,12 @@ import static shiver.me.timbers.data.random.WeekDay.MONDAY;
 class RandomTimeBuilderFactory implements RandomTimeFactory<RandomTimeBuilder> {
 
     private final Calendars calendars;
-    private final TimeStamps timeStamps;
+    private final RandomDurations randomDurations;
     private final Numbers<Long> longs;
 
-    public RandomTimeBuilderFactory(Calendars calendars, TimeStamps timeStamps, Numbers<Long> longs) {
+    public RandomTimeBuilderFactory(Calendars calendars, RandomDurations randomDurations, Numbers<Long> longs) {
         this.calendars = calendars;
-        this.timeStamps = timeStamps;
+        this.randomDurations = randomDurations;
         this.longs = longs;
     }
 
@@ -38,17 +38,17 @@ class RandomTimeBuilderFactory implements RandomTimeFactory<RandomTimeBuilder> {
 
     @Override
     public RandomTimeBuilder today() {
-        return create(calendars.midnightToday().toTime() + timeStamps.someTimeInADay());
+        return create(calendars.midnightToday().toTime() + randomDurations.someTimeInADay());
     }
 
     @Override
     public RandomTimeBuilder thisWeek() {
-        return create(dayInWeek(MONDAY) + timeStamps.someTimeInAWeek());
+        return create(dayInWeek(MONDAY) + randomDurations.someTimeInAWeek());
     }
 
     @Override
     public RandomTimeBuilder thisWeekOn(WeekDay weekDay) {
-        return create(dayInWeek(weekDay) + timeStamps.someTimeInADay());
+        return create(dayInWeek(weekDay) + randomDurations.someTimeInADay());
     }
 
     @Override
@@ -125,18 +125,18 @@ class RandomTimeBuilderFactory implements RandomTimeFactory<RandomTimeBuilder> {
     }
 
     private RandomTimeBuilder createWithinMonth(Calendar month) {
-        return create(month.withDateOfMonth(1).toTime() + timeStamps.someTimeInDays(month.daysInMonth()));
+        return create(month.withDateOfMonth(1).toTime() + randomDurations.someTimeInDays(month.daysInMonth()));
     }
 
     private RandomTimeBuilder createInMonthOnThe(Calendar month, int date) {
-        return create(month.withDateOfMonth(date).toTime() + timeStamps.someTimeInADay());
+        return create(month.withDateOfMonth(date).toTime() + randomDurations.someTimeInADay());
     }
 
     private RandomTimeBuilder createWithinYear(Calendar year) {
-        return create(year.withDayOfYear(1).toTime() + timeStamps.someTimeInDays(year.daysInYear()));
+        return create(year.withDayOfYear(1).toTime() + randomDurations.someTimeInDays(year.daysInYear()));
     }
 
     private RandomTimeBuilder createInYearOnDay(Calendar year, int day) {
-        return create(year.withDayOfYear(day).toTime() + timeStamps.someTimeInADay());
+        return create(year.withDayOfYear(day).toTime() + randomDurations.someTimeInADay());
     }
 }

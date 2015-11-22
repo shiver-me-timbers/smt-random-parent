@@ -17,11 +17,13 @@ public class RandomTimeBuilder extends Date {
     }
 
     RandomTimeBuilder inThePast() {
+        // longs.someNegativeNumber() may produce 0 so subtract 1 to make sure the time is in the past.
         setTime(getTime() + (longs.someNegativeNumber() - 1));
         return this;
     }
 
     RandomTimeBuilder inTheFuture() {
+        // longs.somePositiveNumber() may produce 0 so add 1 to make sure the time is in the future.
         setTime(getTime() + (longs.somePositiveNumber() + 1));
         return this;
     }
