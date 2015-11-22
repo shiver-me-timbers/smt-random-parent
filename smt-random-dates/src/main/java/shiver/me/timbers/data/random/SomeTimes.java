@@ -90,7 +90,7 @@ class SomeTimes implements Times {
 
     @Override
     public RandomTimeBuilder someTimeLastMonth() {
-        return thisMonth().minusMonths(1);
+        return randomTimeCreator.lastMonth();
     }
 
     @Override
@@ -100,12 +100,12 @@ class SomeTimes implements Times {
 
     @Override
     public RandomTimeBuilder someTimeNextMonth() {
-        return thisMonth().addMonths(1);
+        return randomTimeCreator.nextMonth();
     }
 
     @Override
     public RandomTimeBuilder someTimeLastMonthOnThe(int date) {
-        return thisMonthOnThe(date).minusMonths(1);
+        return randomTimeCreator.lastMonthOnThe(date);
     }
 
     @Override
@@ -115,12 +115,12 @@ class SomeTimes implements Times {
 
     @Override
     public RandomTimeBuilder someTimeNextMonthOnThe(int date) {
-        return thisMonthOnThe(date).addMonths(1);
+        return randomTimeCreator.nextMonthOnThe(date);
     }
 
     @Override
     public RandomTimeBuilder someTimeLastYear() {
-        return thisYear().minusYears(1);
+        return randomTimeCreator.lastYear();
     }
 
     @Override
@@ -130,12 +130,12 @@ class SomeTimes implements Times {
 
     @Override
     public RandomTimeBuilder someTimeNextYear() {
-        return thisYear().addYears(1);
+        return randomTimeCreator.nextYear();
     }
 
     @Override
     public RandomTimeBuilder someTimeLastYearOnThe(int day) {
-        return thisYearOn(day).minusYears(1);
+        return randomTimeCreator.lastYearOnDay(day);
     }
 
     @Override
@@ -145,7 +145,7 @@ class SomeTimes implements Times {
 
     @Override
     public RandomTimeBuilder someTimeNextYearOnThe(int day) {
-        return thisYearOn(day).addYears(1);
+        return randomTimeCreator.nextYearOnDay(day);
     }
 
     private RandomTimeBuilder now() {

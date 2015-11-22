@@ -19,9 +19,17 @@ interface TimeStamps {
 
     long midnightThisWeekOn(WeekDay weekDay);
 
+    long midnightLastMonthOnThe(int date);
+
     long midnightThisMonthOnThe(int date);
 
+    long midnightNextMonthOnThe(int date);
+
+    long midnightLastYearOnDay(int day);
+
     long midnightThisYearOnDay(int day);
+
+    long midnightNextYearOnDay(int day);
 
     long minusDays(long time, int days);
 

@@ -19,13 +19,29 @@ interface RandomTimeCreator<D extends Date> {
 
     D thisWeekOn(WeekDay weekDay);
 
+    D lastMonth();
+
     D thisMonth();
+
+    D nextMonth();
+
+    D lastMonthOnThe(int date);
 
     D thisMonthOnThe(int date);
 
+    D nextMonthOnThe(int date);
+
+    D lastYear();
+
     D thisYear();
 
+    D nextYear();
+
+    D lastYearOnDay(int day);
+
     D thisYearOnDay(int day);
+
+    D nextYearOnDay(int day);
 
     D random();
 }

@@ -227,7 +227,7 @@ public class DateMatchers {
     }
 
     private static LocalDate lastMonth(int date) {
-        return thisMonth(date).minusMonths(1);
+        return today().minusMonths(1).withDayOfMonth(date);
     }
 
     private static LocalDate thisMonth(int date) {
@@ -235,11 +235,11 @@ public class DateMatchers {
     }
 
     private static LocalDate nextMonth(int date) {
-        return thisMonth(date).plusMonths(1);
+        return today().plusMonths(1).withDayOfMonth(date);
     }
 
     private static LocalDate lastYear(int day) {
-        return thisYear(day).minusYears(1);
+        return today().minusYears(1).withDayOfYear(day);
     }
 
     private static LocalDate thisYear(int day) {
@@ -247,7 +247,8 @@ public class DateMatchers {
     }
 
     private static LocalDate nextYear(int day) {
-        return thisYear(day).plusYears(1);
+        System.out.println("Day: " + day);
+        return today().plusYears(1).withDayOfYear(day);
     }
 
     public static int maxDaysLastMoneth() {

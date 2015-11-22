@@ -142,15 +142,34 @@ public class RandomTimeBuilderCreatorTest {
     }
 
     @Test
-    public void Can_create_a_random_time_builder_for_some_time_this_month() {
+    public void Can_create_a_random_time_builder_for_some_time_last_month() {
 
-        final long midnightTheMonthOnThe1st = someLong();
+        final long midnightLastMonthOnThe1st = someLong();
         final long timeInAMonth = someLong();
 
-        final Long expected = midnightTheMonthOnThe1st + timeInAMonth;
+        final Long expected = midnightLastMonthOnThe1st + timeInAMonth;
 
         // Given
-        given(timeStamps.midnightThisMonthOnThe(1)).willReturn(midnightTheMonthOnThe1st);
+        given(timeStamps.midnightLastMonthOnThe(1)).willReturn(midnightLastMonthOnThe1st);
+        given(timeStamps.someTimeInAMonth()).willReturn(timeInAMonth);
+
+        // When
+        final RandomTimeBuilder actual = creator.lastMonth();
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
+    public void Can_create_a_random_time_builder_for_some_time_this_month() {
+
+        final long midnightThisMonthOnThe1st = someLong();
+        final long timeInAMonth = someLong();
+
+        final Long expected = midnightThisMonthOnThe1st + timeInAMonth;
+
+        // Given
+        given(timeStamps.midnightThisMonthOnThe(1)).willReturn(midnightThisMonthOnThe1st);
         given(timeStamps.someTimeInAMonth()).willReturn(timeInAMonth);
 
         // When
@@ -161,17 +180,57 @@ public class RandomTimeBuilderCreatorTest {
     }
 
     @Test
+    public void Can_create_a_random_time_builder_for_some_time_next_month() {
+
+        final long midnightNextMonthOnThe1st = someLong();
+        final long timeInAMonth = someLong();
+
+        final Long expected = midnightNextMonthOnThe1st + timeInAMonth;
+
+        // Given
+        given(timeStamps.midnightNextMonthOnThe(1)).willReturn(midnightNextMonthOnThe1st);
+        given(timeStamps.someTimeInAMonth()).willReturn(timeInAMonth);
+
+        // When
+        final RandomTimeBuilder actual = creator.nextMonth();
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
+    public void Can_create_a_random_time_builder_for_some_time_in_a_specific_date_last_month() {
+
+        final int date = someInteger();
+
+        final long midnightLastMonthOnThe1st = someLong();
+        final long timeInADay = someLong();
+
+        final Long expected = midnightLastMonthOnThe1st + timeInADay;
+
+        // Given
+        given(timeStamps.midnightLastMonthOnThe(date)).willReturn(midnightLastMonthOnThe1st);
+        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
+
+        // When
+        final RandomTimeBuilder actual = creator.lastMonthOnThe(date);
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
     public void Can_create_a_random_time_builder_for_some_time_in_a_specific_date_this_month() {
 
         final int date = someInteger();
 
-        final long midnightTheMonthOnThe1st = someLong();
+        final long midnightThisMonthOnThe1st = someLong();
         final long timeInADay = someLong();
 
-        final Long expected = midnightTheMonthOnThe1st + timeInADay;
+        final Long expected = midnightThisMonthOnThe1st + timeInADay;
 
         // Given
-        given(timeStamps.midnightThisMonthOnThe(date)).willReturn(midnightTheMonthOnThe1st);
+        given(timeStamps.midnightThisMonthOnThe(date)).willReturn(midnightThisMonthOnThe1st);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
 
         // When
@@ -182,15 +241,55 @@ public class RandomTimeBuilderCreatorTest {
     }
 
     @Test
-    public void Can_create_a_random_time_builder_for_some_time_this_year() {
+    public void Can_create_a_random_time_builder_for_some_time_in_a_specific_date_next_month() {
 
-        final long midnightTheMonthOnDay1 = someLong();
-        final long timeInAYear = someLong();
+        final int date = someInteger();
 
-        final Long expected = midnightTheMonthOnDay1 + timeInAYear;
+        final long midnightNextMonthOnThe1st = someLong();
+        final long timeInADay = someLong();
+
+        final Long expected = midnightNextMonthOnThe1st + timeInADay;
 
         // Given
-        given(timeStamps.midnightThisYearOnDay(1)).willReturn(midnightTheMonthOnDay1);
+        given(timeStamps.midnightNextMonthOnThe(date)).willReturn(midnightNextMonthOnThe1st);
+        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
+
+        // When
+        final RandomTimeBuilder actual = creator.nextMonthOnThe(date);
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
+    public void Can_create_a_random_time_builder_for_some_time_last_year() {
+
+        final long midnightLastYearOnDay1 = someLong();
+        final long timeInAYear = someLong();
+
+        final Long expected = midnightLastYearOnDay1 + timeInAYear;
+
+        // Given
+        given(timeStamps.midnightLastYearOnDay(1)).willReturn(midnightLastYearOnDay1);
+        given(timeStamps.someTimeInAYear()).willReturn(timeInAYear);
+
+        // When
+        final RandomTimeBuilder actual = creator.lastYear();
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
+    public void Can_create_a_random_time_builder_for_some_time_this_year() {
+
+        final long midnightThisYearOnDay1 = someLong();
+        final long timeInAYear = someLong();
+
+        final Long expected = midnightThisYearOnDay1 + timeInAYear;
+
+        // Given
+        given(timeStamps.midnightThisYearOnDay(1)).willReturn(midnightThisYearOnDay1);
         given(timeStamps.someTimeInAYear()).willReturn(timeInAYear);
 
         // When
@@ -201,21 +300,82 @@ public class RandomTimeBuilderCreatorTest {
     }
 
     @Test
+    public void Can_create_a_random_time_builder_for_some_time_next_year() {
+
+        final long midnightNextYearOnDay1 = someLong();
+        final long timeInAYear = someLong();
+
+        final Long expected = midnightNextYearOnDay1 + timeInAYear;
+
+        // Given
+        given(timeStamps.midnightNextYearOnDay(1)).willReturn(midnightNextYearOnDay1);
+        given(timeStamps.someTimeInAYear()).willReturn(timeInAYear);
+
+        // When
+        final RandomTimeBuilder actual = creator.nextYear();
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
+    public void Can_create_a_random_time_builder_for_some_time_in_a_specific_day_last_year() {
+
+        final int day = someInteger();
+
+        final long midnightLastYearOnASpecificDay = someLong();
+        final long timeInADay = someLong();
+
+        final Long expected = midnightLastYearOnASpecificDay + timeInADay;
+
+        // Given
+        given(timeStamps.midnightLastYearOnDay(day)).willReturn(midnightLastYearOnASpecificDay);
+        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
+
+        // When
+        final RandomTimeBuilder actual = creator.lastYearOnDay(day);
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
     public void Can_create_a_random_time_builder_for_some_time_in_a_specific_day_this_year() {
 
         final int day = someInteger();
 
-        final long midnightTheYearOnASpecificDay = someLong();
+        final long midnightThisYearOnASpecificDay = someLong();
         final long timeInADay = someLong();
 
-        final Long expected = midnightTheYearOnASpecificDay + timeInADay;
+        final Long expected = midnightThisYearOnASpecificDay + timeInADay;
 
         // Given
-        given(timeStamps.midnightThisYearOnDay(day)).willReturn(midnightTheYearOnASpecificDay);
+        given(timeStamps.midnightThisYearOnDay(day)).willReturn(midnightThisYearOnASpecificDay);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
 
         // When
         final RandomTimeBuilder actual = creator.thisYearOnDay(day);
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
+    public void Can_create_a_random_time_builder_for_some_time_in_a_specific_day_next_year() {
+
+        final int day = someInteger();
+
+        final long midnightNextYearOnASpecificDay = someLong();
+        final long timeInADay = someLong();
+
+        final Long expected = midnightNextYearOnASpecificDay + timeInADay;
+
+        // Given
+        given(timeStamps.midnightNextYearOnDay(day)).willReturn(midnightNextYearOnASpecificDay);
+        given(timeStamps.someTimeInADay()).willReturn(timeInADay);
+
+        // When
+        final RandomTimeBuilder actual = creator.nextYearOnDay(day);
 
         // Then
         assertThat(actual.getTime(), is(expected));

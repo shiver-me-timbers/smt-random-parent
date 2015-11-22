@@ -157,6 +157,30 @@ public class DateTimeStampsTest {
     }
 
     @Test
+    public void Can_get_the_time_for_a_specific_date_last_month_at_midnight() {
+
+        final int date = someInteger();
+
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar lastMonthCalendar = mock(Calendar.class);
+        final Calendar dateOfMonthCalendar = mock(Calendar.class);
+
+        final long expected = someLong();
+
+        // Given
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.minusMonths(1)).willReturn(lastMonthCalendar);
+        given(lastMonthCalendar.withDateOfMonth(date)).willReturn(dateOfMonthCalendar);
+        given(dateOfMonthCalendar.toTime()).willReturn(expected);
+
+        // When
+        final long actual = timeStamps.midnightLastMonthOnThe(date);
+
+        // Then
+        assertThat(actual, equalTo(expected));
+    }
+
+    @Test
     public void Can_get_the_time_for_a_specific_date_this_month_at_midnight() {
 
         final int date = someInteger();
@@ -179,6 +203,54 @@ public class DateTimeStampsTest {
     }
 
     @Test
+    public void Can_get_the_time_for_a_specific_date_next_month_at_midnight() {
+
+        final int date = someInteger();
+
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar nextMonthCalendar = mock(Calendar.class);
+        final Calendar dateOfMonthCalendar = mock(Calendar.class);
+
+        final long expected = someLong();
+
+        // Given
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.addMonths(1)).willReturn(nextMonthCalendar);
+        given(nextMonthCalendar.withDateOfMonth(date)).willReturn(dateOfMonthCalendar);
+        given(dateOfMonthCalendar.toTime()).willReturn(expected);
+
+        // When
+        final long actual = timeStamps.midnightNextMonthOnThe(date);
+
+        // Then
+        assertThat(actual, equalTo(expected));
+    }
+
+    @Test
+    public void Can_get_the_time_for_a_specific_date_last_year_at_midnight() {
+
+        final int day = someInteger();
+
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar lastYearCalendar = mock(Calendar.class);
+        final Calendar dayOfYearCalendar = mock(Calendar.class);
+
+        final long expected = someLong();
+
+        // Given
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.minusYears(1)).willReturn(lastYearCalendar);
+        given(lastYearCalendar.withDayOfYear(day)).willReturn(dayOfYearCalendar);
+        given(dayOfYearCalendar.toTime()).willReturn(expected);
+
+        // When
+        final long actual = timeStamps.midnightLastYearOnDay(day);
+
+        // Then
+        assertThat(actual, equalTo(expected));
+    }
+
+    @Test
     public void Can_get_the_time_for_a_specific_date_this_year_at_midnight() {
 
         final int day = someInteger();
@@ -195,6 +267,30 @@ public class DateTimeStampsTest {
 
         // When
         final long actual = timeStamps.midnightThisYearOnDay(day);
+
+        // Then
+        assertThat(actual, equalTo(expected));
+    }
+
+    @Test
+    public void Can_get_the_time_for_a_specific_date_next_year_at_midnight() {
+
+        final int day = someInteger();
+
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar nextYearCalendar = mock(Calendar.class);
+        final Calendar dayOfYearCalendar = mock(Calendar.class);
+
+        final long expected = someLong();
+
+        // Given
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.addYears(1)).willReturn(nextYearCalendar);
+        given(nextYearCalendar.withDayOfYear(day)).willReturn(dayOfYearCalendar);
+        given(dayOfYearCalendar.toTime()).willReturn(expected);
+
+        // When
+        final long actual = timeStamps.midnightNextYearOnDay(day);
 
         // Then
         assertThat(actual, equalTo(expected));

@@ -54,13 +54,33 @@ class DateTimeStamps implements TimeStamps {
     }
 
     @Override
+    public long midnightLastMonthOnThe(int date) {
+        return calendars.midnightToday().minusMonths(1).withDateOfMonth(date).toTime();
+    }
+
+    @Override
     public long midnightThisMonthOnThe(int date) {
         return calendars.midnightToday().withDateOfMonth(date).toTime();
     }
 
     @Override
+    public long midnightNextMonthOnThe(int date) {
+        return calendars.midnightToday().addMonths(1).withDateOfMonth(date).toTime();
+    }
+
+    @Override
+    public long midnightLastYearOnDay(int day) {
+        return calendars.midnightToday().minusYears(1).withDayOfYear(day).toTime();
+    }
+
+    @Override
     public long midnightThisYearOnDay(int day) {
         return calendars.midnightToday().withDayOfYear(day).toTime();
+    }
+
+    @Override
+    public long midnightNextYearOnDay(int day) {
+        return calendars.midnightToday().addYears(1).withDayOfYear(day).toTime();
     }
 
     @Override

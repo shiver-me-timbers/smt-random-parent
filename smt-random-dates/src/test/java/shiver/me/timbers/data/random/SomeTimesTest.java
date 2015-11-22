@@ -301,13 +301,10 @@ public class SomeTimesTest {
     @Test
     public void Can_generate_a_random_time_that_falls_last_month() {
 
-        final RandomTimeBuilder thisMonthBuilder = mock(RandomTimeBuilder.class);
-
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisMonth()).willReturn(thisMonthBuilder);
-        given(thisMonthBuilder.minusMonths(1)).willReturn(expected);
+        given(randomTimeCreator.lastMonth()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeLastMonth();
@@ -334,13 +331,10 @@ public class SomeTimesTest {
     @Test
     public void Can_generate_a_random_time_that_falls_next_month() {
 
-        final RandomTimeBuilder thisMonthBuilder = mock(RandomTimeBuilder.class);
-
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisMonth()).willReturn(thisMonthBuilder);
-        given(thisMonthBuilder.addMonths(1)).willReturn(expected);
+        given(randomTimeCreator.nextMonth()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeNextMonth();
@@ -354,13 +348,10 @@ public class SomeTimesTest {
 
         final int date = someInteger();
 
-        final RandomTimeBuilder lastMonthBuilder = mock(RandomTimeBuilder.class);
-
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisMonthOnThe(date)).willReturn(lastMonthBuilder);
-        given(lastMonthBuilder.minusMonths(1)).willReturn(expected);
+        given(randomTimeCreator.lastMonthOnThe(date)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeLastMonthOnThe(date);
@@ -391,13 +382,10 @@ public class SomeTimesTest {
 
         final int date = someInteger();
 
-        final RandomTimeBuilder nextMonthBuilder = mock(RandomTimeBuilder.class);
-
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisMonthOnThe(date)).willReturn(nextMonthBuilder);
-        given(nextMonthBuilder.addMonths(1)).willReturn(expected);
+        given(randomTimeCreator.nextMonthOnThe(date)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeNextMonthOnThe(date);
@@ -409,13 +397,10 @@ public class SomeTimesTest {
     @Test
     public void Can_generate_a_random_time_that_falls_last_year() {
 
-        final RandomTimeBuilder thisYearBuilder = mock(RandomTimeBuilder.class);
-
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisYear()).willReturn(thisYearBuilder);
-        given(thisYearBuilder.minusYears(1)).willReturn(expected);
+        given(randomTimeCreator.lastYear()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeLastYear();
@@ -442,13 +427,10 @@ public class SomeTimesTest {
     @Test
     public void Can_generate_a_random_time_that_falls_next_year() {
 
-        final RandomTimeBuilder thisYearBuilder = mock(RandomTimeBuilder.class);
-
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisYear()).willReturn(thisYearBuilder);
-        given(thisYearBuilder.addYears(1)).willReturn(expected);
+        given(randomTimeCreator.nextYear()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeNextYear();
@@ -462,13 +444,10 @@ public class SomeTimesTest {
 
         final int day = someInteger();
 
-        final RandomTimeBuilder lastYearBuilder = mock(RandomTimeBuilder.class);
-
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisYearOnDay(day)).willReturn(lastYearBuilder);
-        given(lastYearBuilder.minusYears(1)).willReturn(expected);
+        given(randomTimeCreator.lastYearOnDay(day)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeLastYearOnThe(day);
@@ -499,13 +478,10 @@ public class SomeTimesTest {
 
         final int day = someInteger();
 
-        final RandomTimeBuilder nextYearBuilder = mock(RandomTimeBuilder.class);
-
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisYearOnDay(day)).willReturn(nextYearBuilder);
-        given(nextYearBuilder.addYears(1)).willReturn(expected);
+        given(randomTimeCreator.nextYearOnDay(day)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeNextYearOnThe(day);
