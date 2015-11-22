@@ -7,12 +7,12 @@ import static shiver.me.timbers.data.random.WeekDay.MONDAY;
 /**
  * @author Karl Bennett
  */
-class RandomTimeBuilderCreator implements RandomTimeCreator<RandomTimeBuilder> {
+class RandomTimeBuilderFactory implements RandomTimeFactory<RandomTimeBuilder> {
 
     private final TimeStamps timeStamps;
     private final Numbers<Long> longs;
 
-    public RandomTimeBuilderCreator(TimeStamps timeStamps, Numbers<Long> longs) {
+    public RandomTimeBuilderFactory(TimeStamps timeStamps, Numbers<Long> longs) {
         this.timeStamps = timeStamps;
         this.longs = longs;
     }

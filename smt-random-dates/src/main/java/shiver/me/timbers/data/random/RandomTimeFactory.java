@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * @author Karl Bennett
  */
-interface RandomTimeCreator<D extends Date> {
+interface RandomTimeFactory<D extends Date> {
 
     D create(Date date);
 

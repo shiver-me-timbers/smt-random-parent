@@ -17,7 +17,7 @@ public class RandomTimes {
         final Random random = ThreadLocalRandom.current();
 
         return new SomeTimes(
-            new RandomTimeBuilderCreator(
+            new RandomTimeBuilderFactory(
                 new DateTimeStamps(
                     new BoundNumbers<>(Integer.class, new IntegerOperations(random), RETRY_AMOUNT, random),
                     new JavaCalendars()

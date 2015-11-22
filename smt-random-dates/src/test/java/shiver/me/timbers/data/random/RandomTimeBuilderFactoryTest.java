@@ -14,18 +14,18 @@ import static shiver.me.timbers.data.random.RandomIntegers.someInteger;
 import static shiver.me.timbers.data.random.RandomLongs.someLong;
 import static shiver.me.timbers.data.random.WeekDay.MONDAY;
 
-public class RandomTimeBuilderCreatorTest {
+public class RandomTimeBuilderFactoryTest {
 
     private TimeStamps timeStamps;
     private Numbers<Long> longs;
-    private RandomTimeBuilderCreator creator;
+    private RandomTimeBuilderFactory creator;
 
     @Before
     @SuppressWarnings("unchecked")
     public void setUp() {
         timeStamps = mock(TimeStamps.class);
         longs = mock(Numbers.class);
-        creator = new RandomTimeBuilderCreator(timeStamps, longs);
+        creator = new RandomTimeBuilderFactory(timeStamps, longs);
     }
 
     @Test

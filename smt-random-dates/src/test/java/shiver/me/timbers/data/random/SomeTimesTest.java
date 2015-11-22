@@ -16,7 +16,7 @@ public class SomeTimesTest {
 
     private TimeStamps timeStamps;
     private Numbers<Long> longs;
-    private RandomTimeCreator<RandomTimeBuilder> randomTimeCreator;
+    private RandomTimeFactory<RandomTimeBuilder> randomTimeFactory;
 
     private SomeTimes times;
 
@@ -25,9 +25,9 @@ public class SomeTimesTest {
     public void setUp() {
         timeStamps = mock(TimeStamps.class);
         longs = mock(Numbers.class);
-        randomTimeCreator = mock(RandomTimeCreator.class);
+        randomTimeFactory = mock(RandomTimeFactory.class);
 
-        times = new SomeTimes(randomTimeCreator);
+        times = new SomeTimes(randomTimeFactory);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.random()).willReturn(expected);
+        given(randomTimeFactory.random()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTime();
@@ -53,7 +53,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.now()).willReturn(nowBuilder);
+        given(randomTimeFactory.now()).willReturn(nowBuilder);
         given(nowBuilder.inThePast()).willReturn(expected);
 
         // When
@@ -71,7 +71,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.now()).willReturn(nowBuilder);
+        given(randomTimeFactory.now()).willReturn(nowBuilder);
         given(nowBuilder.inTheFuture()).willReturn(expected);
 
         // When
@@ -91,7 +91,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.create(date)).willReturn(dateBuilder);
+        given(randomTimeFactory.create(date)).willReturn(dateBuilder);
         given(dateBuilder.inThePast()).willReturn(expected);
 
         // When
@@ -111,7 +111,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.create(date)).willReturn(dateBuilder);
+        given(randomTimeFactory.create(date)).willReturn(dateBuilder);
         given(dateBuilder.inTheFuture()).willReturn(expected);
 
         // When
@@ -130,7 +130,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.between(min, max)).willReturn(expected);
+        given(randomTimeFactory.between(min, max)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeBetween(min, max);
@@ -147,7 +147,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.today()).willReturn(todayBuilder);
+        given(randomTimeFactory.today()).willReturn(todayBuilder);
         given(todayBuilder.minusDays(1)).willReturn(expected);
 
         // When
@@ -163,7 +163,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.today()).willReturn(expected);
+        given(randomTimeFactory.today()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeToday();
@@ -180,7 +180,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.today()).willReturn(todayBuilder);
+        given(randomTimeFactory.today()).willReturn(todayBuilder);
         given(todayBuilder.addDays(1)).willReturn(expected);
 
         // When
@@ -198,7 +198,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisWeek()).willReturn(thisWeekBuilder);
+        given(randomTimeFactory.thisWeek()).willReturn(thisWeekBuilder);
         given(thisWeekBuilder.minusWeeks(1)).willReturn(expected);
 
         // When
@@ -214,7 +214,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisWeek()).willReturn(expected);
+        given(randomTimeFactory.thisWeek()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeThisWeek();
@@ -231,7 +231,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisWeek()).willReturn(thisWeekBuilder);
+        given(randomTimeFactory.thisWeek()).willReturn(thisWeekBuilder);
         given(thisWeekBuilder.addWeeks(1)).willReturn(expected);
 
         // When
@@ -251,7 +251,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisWeekOn(weekDay)).willReturn(lastWeekBuilder);
+        given(randomTimeFactory.thisWeekOn(weekDay)).willReturn(lastWeekBuilder);
         given(lastWeekBuilder.minusWeeks(1)).willReturn(expected);
 
         // When
@@ -269,7 +269,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisWeekOn(weekDay)).willReturn(expected);
+        given(randomTimeFactory.thisWeekOn(weekDay)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeThisWeekOn(weekDay);
@@ -288,7 +288,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisWeekOn(weekDay)).willReturn(nextWeekBuilder);
+        given(randomTimeFactory.thisWeekOn(weekDay)).willReturn(nextWeekBuilder);
         given(nextWeekBuilder.addWeeks(1)).willReturn(expected);
 
         // When
@@ -304,7 +304,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.lastMonth()).willReturn(expected);
+        given(randomTimeFactory.lastMonth()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeLastMonth();
@@ -319,7 +319,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisMonth()).willReturn(expected);
+        given(randomTimeFactory.thisMonth()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeThisMonth();
@@ -334,7 +334,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.nextMonth()).willReturn(expected);
+        given(randomTimeFactory.nextMonth()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeNextMonth();
@@ -351,7 +351,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.lastMonthOnThe(date)).willReturn(expected);
+        given(randomTimeFactory.lastMonthOnThe(date)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeLastMonthOnThe(date);
@@ -368,7 +368,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisMonthOnThe(date)).willReturn(expected);
+        given(randomTimeFactory.thisMonthOnThe(date)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeThisMonthOnThe(date);
@@ -385,7 +385,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.nextMonthOnThe(date)).willReturn(expected);
+        given(randomTimeFactory.nextMonthOnThe(date)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeNextMonthOnThe(date);
@@ -400,7 +400,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.lastYear()).willReturn(expected);
+        given(randomTimeFactory.lastYear()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeLastYear();
@@ -415,7 +415,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisYear()).willReturn(expected);
+        given(randomTimeFactory.thisYear()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeThisYear();
@@ -430,7 +430,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.nextYear()).willReturn(expected);
+        given(randomTimeFactory.nextYear()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeNextYear();
@@ -447,7 +447,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.lastYearOnDay(day)).willReturn(expected);
+        given(randomTimeFactory.lastYearOnDay(day)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeLastYearOnThe(day);
@@ -464,7 +464,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.thisYearOnDay(day)).willReturn(expected);
+        given(randomTimeFactory.thisYearOnDay(day)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeThisYearOnThe(day);
@@ -481,7 +481,7 @@ public class SomeTimesTest {
         final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
 
         // Given
-        given(randomTimeCreator.nextYearOnDay(day)).willReturn(expected);
+        given(randomTimeFactory.nextYearOnDay(day)).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = times.someTimeNextYearOnThe(day);

@@ -7,15 +7,15 @@ import java.util.Date;
  */
 class SomeTimes implements Times {
 
-    private final RandomTimeCreator<RandomTimeBuilder> randomTimeCreator;
+    private final RandomTimeFactory<RandomTimeBuilder> randomTimeFactory;
 
-    public SomeTimes(RandomTimeCreator<RandomTimeBuilder> randomTimeCreator) {
-        this.randomTimeCreator = randomTimeCreator;
+    public SomeTimes(RandomTimeFactory<RandomTimeBuilder> randomTimeFactory) {
+        this.randomTimeFactory = randomTimeFactory;
     }
 
     @Override
     public RandomTimeBuilder someTime() {
-        return randomTimeCreator.random();
+        return randomTimeFactory.random();
     }
 
     @Override
@@ -40,7 +40,7 @@ class SomeTimes implements Times {
 
     @Override
     public RandomTimeBuilder someTimeBetween(Date min, Date max) {
-        return randomTimeCreator.between(min, max);
+        return randomTimeFactory.between(min, max);
     }
 
     @Override
@@ -90,7 +90,7 @@ class SomeTimes implements Times {
 
     @Override
     public RandomTimeBuilder someTimeLastMonth() {
-        return randomTimeCreator.lastMonth();
+        return randomTimeFactory.lastMonth();
     }
 
     @Override
@@ -100,12 +100,12 @@ class SomeTimes implements Times {
 
     @Override
     public RandomTimeBuilder someTimeNextMonth() {
-        return randomTimeCreator.nextMonth();
+        return randomTimeFactory.nextMonth();
     }
 
     @Override
     public RandomTimeBuilder someTimeLastMonthOnThe(int date) {
-        return randomTimeCreator.lastMonthOnThe(date);
+        return randomTimeFactory.lastMonthOnThe(date);
     }
 
     @Override
@@ -115,12 +115,12 @@ class SomeTimes implements Times {
 
     @Override
     public RandomTimeBuilder someTimeNextMonthOnThe(int date) {
-        return randomTimeCreator.nextMonthOnThe(date);
+        return randomTimeFactory.nextMonthOnThe(date);
     }
 
     @Override
     public RandomTimeBuilder someTimeLastYear() {
-        return randomTimeCreator.lastYear();
+        return randomTimeFactory.lastYear();
     }
 
     @Override
@@ -130,12 +130,12 @@ class SomeTimes implements Times {
 
     @Override
     public RandomTimeBuilder someTimeNextYear() {
-        return randomTimeCreator.nextYear();
+        return randomTimeFactory.nextYear();
     }
 
     @Override
     public RandomTimeBuilder someTimeLastYearOnThe(int day) {
-        return randomTimeCreator.lastYearOnDay(day);
+        return randomTimeFactory.lastYearOnDay(day);
     }
 
     @Override
@@ -145,42 +145,42 @@ class SomeTimes implements Times {
 
     @Override
     public RandomTimeBuilder someTimeNextYearOnThe(int day) {
-        return randomTimeCreator.nextYearOnDay(day);
+        return randomTimeFactory.nextYearOnDay(day);
     }
 
     private RandomTimeBuilder now() {
-        return randomTimeCreator.now();
+        return randomTimeFactory.now();
     }
 
     private RandomTimeBuilder create(Date date) {
-        return randomTimeCreator.create(date);
+        return randomTimeFactory.create(date);
     }
 
     private RandomTimeBuilder today() {
-        return randomTimeCreator.today();
+        return randomTimeFactory.today();
     }
 
     private RandomTimeBuilder thisWeek() {
-        return randomTimeCreator.thisWeek();
+        return randomTimeFactory.thisWeek();
     }
 
     private RandomTimeBuilder thisWeekOn(WeekDay weekDay) {
-        return randomTimeCreator.thisWeekOn(weekDay);
+        return randomTimeFactory.thisWeekOn(weekDay);
     }
 
     private RandomTimeBuilder thisMonth() {
-        return randomTimeCreator.thisMonth();
+        return randomTimeFactory.thisMonth();
     }
 
     private RandomTimeBuilder thisMonthOnThe(int date) {
-        return randomTimeCreator.thisMonthOnThe(date);
+        return randomTimeFactory.thisMonthOnThe(date);
     }
 
     private RandomTimeBuilder thisYear() {
-        return randomTimeCreator.thisYear();
+        return randomTimeFactory.thisYear();
     }
 
     private RandomTimeBuilder thisYearOn(int day) {
-        return randomTimeCreator.thisYearOnDay(day);
+        return randomTimeFactory.thisYearOnDay(day);
     }
 }
