@@ -39,6 +39,11 @@ class DateTimeStamps implements TimeStamps {
     }
 
     @Override
+    public long someTimeInDays(int days) {
+        return (long) integers.someNumberBetween(0, days) * MILLISECONDS_IN_ONE_DAY;
+    }
+
+    @Override
     public long someTimeInAMonth() {
         return daysToMilliseconds(integers.someNumberBetween(1, calendars.daysThisMonth()));
     }

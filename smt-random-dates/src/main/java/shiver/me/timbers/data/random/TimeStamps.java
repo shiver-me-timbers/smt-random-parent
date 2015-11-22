@@ -13,6 +13,8 @@ interface TimeStamps {
 
     long someTimeInAWeek();
 
+    long someTimeInDays(int days);
+
     long someTimeInAMonth();
 
     long someTimeInAYear();

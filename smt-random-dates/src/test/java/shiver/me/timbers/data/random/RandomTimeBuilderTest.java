@@ -12,6 +12,7 @@ import static shiver.me.timbers.data.random.RandomLongs.someLong;
 
 public class RandomTimeBuilderTest {
 
+    private Calendars calendars;
     private TimeStamps timeStamps;
     private Numbers<Long> longs;
     private Long initialTime;
@@ -21,11 +22,12 @@ public class RandomTimeBuilderTest {
     @Before
     @SuppressWarnings("unchecked")
     public void setUp() {
+        calendars = mock(Calendars.class);
         timeStamps = mock(TimeStamps.class);
         longs = mock(Numbers.class);
         initialTime = someLong();
 
-        builder = new RandomTimeBuilder(timeStamps, longs, initialTime);
+        builder = new RandomTimeBuilder(calendars, longs, initialTime);
     }
 
     @Test
@@ -67,10 +69,15 @@ public class RandomTimeBuilderTest {
 
         final int days = someInteger();
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar minusDaysCalendar = mock(Calendar.class);
+
         final long expected = someLong();
 
         // Given
-        given(timeStamps.minusDays(initialTime, days)).willReturn(expected);
+        given(calendars.create(initialTime)).willReturn(calendar);
+        given(calendar.minusDays(days)).willReturn(minusDaysCalendar);
+        given(minusDaysCalendar.toTime()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = builder.minusDays(days);
@@ -84,10 +91,15 @@ public class RandomTimeBuilderTest {
 
         final int days = someInteger();
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar addDaysCalendar = mock(Calendar.class);
+
         final long expected = someLong();
 
         // Given
-        given(timeStamps.addDays(initialTime, days)).willReturn(expected);
+        given(calendars.create(initialTime)).willReturn(calendar);
+        given(calendar.addDays(days)).willReturn(addDaysCalendar);
+        given(addDaysCalendar.toTime()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = builder.addDays(days);
@@ -101,10 +113,15 @@ public class RandomTimeBuilderTest {
 
         final int weeks = someInteger();
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar minusWeeksCalendar = mock(Calendar.class);
+
         final long expected = someLong();
 
         // Given
-        given(timeStamps.minusWeeks(initialTime, weeks)).willReturn(expected);
+        given(calendars.create(initialTime)).willReturn(calendar);
+        given(calendar.minusWeeks(weeks)).willReturn(minusWeeksCalendar);
+        given(minusWeeksCalendar.toTime()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = builder.minusWeeks(weeks);
@@ -118,10 +135,15 @@ public class RandomTimeBuilderTest {
 
         final int weeks = someInteger();
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar addWeeksCalendar = mock(Calendar.class);
+
         final long expected = someLong();
 
         // Given
-        given(timeStamps.addWeeks(initialTime, weeks)).willReturn(expected);
+        given(calendars.create(initialTime)).willReturn(calendar);
+        given(calendar.addWeeks(weeks)).willReturn(addWeeksCalendar);
+        given(addWeeksCalendar.toTime()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = builder.addWeeks(weeks);
@@ -135,10 +157,15 @@ public class RandomTimeBuilderTest {
 
         final int months = someInteger();
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar minusMonthsCalendar = mock(Calendar.class);
+
         final long expected = someLong();
 
         // Given
-        given(timeStamps.minusMonths(initialTime, months)).willReturn(expected);
+        given(calendars.create(initialTime)).willReturn(calendar);
+        given(calendar.minusMonths(months)).willReturn(minusMonthsCalendar);
+        given(minusMonthsCalendar.toTime()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = builder.minusMonths(months);
@@ -152,10 +179,15 @@ public class RandomTimeBuilderTest {
 
         final int months = someInteger();
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar addMonthsCalendar = mock(Calendar.class);
+
         final long expected = someLong();
 
         // Given
-        given(timeStamps.addMonths(initialTime, months)).willReturn(expected);
+        given(calendars.create(initialTime)).willReturn(calendar);
+        given(calendar.addMonths(months)).willReturn(addMonthsCalendar);
+        given(addMonthsCalendar.toTime()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = builder.addMonths(months);
@@ -169,10 +201,15 @@ public class RandomTimeBuilderTest {
 
         final int years = someInteger();
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar minusYearsCalendar = mock(Calendar.class);
+
         final long expected = someLong();
 
         // Given
-        given(timeStamps.minusYears(initialTime, years)).willReturn(expected);
+        given(calendars.create(initialTime)).willReturn(calendar);
+        given(calendar.minusYears(years)).willReturn(minusYearsCalendar);
+        given(minusYearsCalendar.toTime()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = builder.minusYears(years);
@@ -186,10 +223,15 @@ public class RandomTimeBuilderTest {
 
         final int years = someInteger();
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar addYearsCalendar = mock(Calendar.class);
+
         final long expected = someLong();
 
         // Given
-        given(timeStamps.addYears(initialTime, years)).willReturn(expected);
+        given(calendars.create(initialTime)).willReturn(calendar);
+        given(calendar.addYears(years)).willReturn(addYearsCalendar);
+        given(addYearsCalendar.toTime()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = builder.addYears(years);

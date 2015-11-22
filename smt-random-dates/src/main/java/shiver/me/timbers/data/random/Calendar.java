@@ -27,5 +27,9 @@ interface Calendar {
 
     Calendar addYears(int years);
 
+    int daysInMonth();
+
+    int daysInYear();
+
     long toTime();
 }

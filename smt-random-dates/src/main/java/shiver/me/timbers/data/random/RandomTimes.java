@@ -18,6 +18,7 @@ public class RandomTimes {
 
         return new SomeTimes(
             new RandomTimeBuilderFactory(
+                new JavaCalendars(),
                 new DateTimeStamps(
                     new BoundNumbers<>(Integer.class, new IntegerOperations(random), RETRY_AMOUNT, random),
                     new JavaCalendars()

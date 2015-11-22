@@ -6,6 +6,19 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.util.Calendar.DAY_OF_MONTH;
+import static java.util.Calendar.DAY_OF_WEEK;
+import static java.util.Calendar.DAY_OF_YEAR;
+import static java.util.Calendar.FRIDAY;
+import static java.util.Calendar.MONDAY;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.SATURDAY;
+import static java.util.Calendar.SUNDAY;
+import static java.util.Calendar.THURSDAY;
+import static java.util.Calendar.TUESDAY;
+import static java.util.Calendar.WEDNESDAY;
+import static java.util.Calendar.WEEK_OF_YEAR;
+import static java.util.Calendar.YEAR;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -32,7 +45,7 @@ public class JavaCalendarTest {
 
     @Test
     public void Monday_is_always_the_first_day_of_the_week() {
-        verify(calendar).setFirstDayOfWeek(java.util.Calendar.MONDAY);
+        verify(calendar).setFirstDayOfWeek(MONDAY);
     }
 
     @Test
@@ -45,7 +58,7 @@ public class JavaCalendarTest {
         final Calendar actual = javaCalendar.minusDays(days);
 
         // Then
-        verify(calendar).add(java.util.Calendar.DAY_OF_MONTH, -days);
+        verify(calendar).add(DAY_OF_MONTH, -days);
         assertThat(actual, is(javaCalendar));
     }
 
@@ -59,7 +72,7 @@ public class JavaCalendarTest {
         final Calendar actual = javaCalendar.addDays(days);
 
         // Then
-        verify(calendar).add(java.util.Calendar.DAY_OF_MONTH, days);
+        verify(calendar).add(DAY_OF_MONTH, days);
         assertThat(actual, is(javaCalendar));
     }
 
@@ -69,20 +82,20 @@ public class JavaCalendarTest {
         // Given
         final WeekDay weekDay = someEnum(WeekDay.class);
         final Map<WeekDay, Integer> weekDayMap = new HashMap<WeekDay, Integer>() {{
-            put(WeekDay.MONDAY, java.util.Calendar.MONDAY);
-            put(WeekDay.TUESDAY, java.util.Calendar.TUESDAY);
-            put(WeekDay.WEDNESDAY, java.util.Calendar.WEDNESDAY);
-            put(WeekDay.THURSDAY, java.util.Calendar.THURSDAY);
-            put(WeekDay.FRIDAY, java.util.Calendar.FRIDAY);
-            put(WeekDay.SATURDAY, java.util.Calendar.SATURDAY);
-            put(WeekDay.SUNDAY, java.util.Calendar.SUNDAY);
+            put(WeekDay.MONDAY, MONDAY);
+            put(WeekDay.TUESDAY, TUESDAY);
+            put(WeekDay.WEDNESDAY, WEDNESDAY);
+            put(WeekDay.THURSDAY, THURSDAY);
+            put(WeekDay.FRIDAY, FRIDAY);
+            put(WeekDay.SATURDAY, SATURDAY);
+            put(WeekDay.SUNDAY, SUNDAY);
         }};
 
         // When
         final Calendar actual = javaCalendar.withDayOfWeek(weekDay);
 
         // Then
-        verify(calendar).set(java.util.Calendar.DAY_OF_WEEK, weekDayMap.get(weekDay));
+        verify(calendar).set(DAY_OF_WEEK, weekDayMap.get(weekDay));
         assertThat(actual, is(javaCalendar));
     }
 
@@ -96,7 +109,7 @@ public class JavaCalendarTest {
         final Calendar actual = javaCalendar.minusWeeks(weeks);
 
         // Then
-        verify(calendar).add(java.util.Calendar.WEEK_OF_YEAR, -weeks);
+        verify(calendar).add(WEEK_OF_YEAR, -weeks);
         assertThat(actual, is(javaCalendar));
     }
 
@@ -110,7 +123,7 @@ public class JavaCalendarTest {
         final Calendar actual = javaCalendar.addWeeks(weeks);
 
         // Then
-        verify(calendar).add(java.util.Calendar.WEEK_OF_YEAR, weeks);
+        verify(calendar).add(WEEK_OF_YEAR, weeks);
         assertThat(actual, is(javaCalendar));
     }
 
@@ -124,7 +137,7 @@ public class JavaCalendarTest {
         final Calendar actual = javaCalendar.withDateOfMonth(date);
 
         // Then
-        verify(calendar).set(java.util.Calendar.DAY_OF_MONTH, date);
+        verify(calendar).set(DAY_OF_MONTH, date);
         assertThat(actual, is(javaCalendar));
     }
 
@@ -138,7 +151,7 @@ public class JavaCalendarTest {
         final Calendar actual = javaCalendar.withDayOfYear(day);
 
         // Then
-        verify(calendar).set(java.util.Calendar.DAY_OF_YEAR, day);
+        verify(calendar).set(DAY_OF_YEAR, day);
         assertThat(actual, is(javaCalendar));
     }
 
@@ -152,7 +165,7 @@ public class JavaCalendarTest {
         final Calendar actual = javaCalendar.minusMonths(months);
 
         // Then
-        verify(calendar).add(java.util.Calendar.MONTH, -months);
+        verify(calendar).add(MONTH, -months);
         assertThat(actual, is(javaCalendar));
     }
 
@@ -166,7 +179,7 @@ public class JavaCalendarTest {
         final Calendar actual = javaCalendar.addMonths(months);
 
         // Then
-        verify(calendar).add(java.util.Calendar.MONTH, months);
+        verify(calendar).add(MONTH, months);
         assertThat(actual, is(javaCalendar));
     }
 
@@ -180,7 +193,7 @@ public class JavaCalendarTest {
         final Calendar actual = javaCalendar.minusYears(years);
 
         // Then
-        verify(calendar).add(java.util.Calendar.YEAR, -years);
+        verify(calendar).add(YEAR, -years);
         assertThat(actual, is(javaCalendar));
     }
 
@@ -194,8 +207,38 @@ public class JavaCalendarTest {
         final Calendar actual = javaCalendar.addYears(years);
 
         // Then
-        verify(calendar).add(java.util.Calendar.YEAR, years);
+        verify(calendar).add(YEAR, years);
         assertThat(actual, is(javaCalendar));
+    }
+
+    @Test
+    public void Can_get_the_number_of_days_in_the_current_month() {
+
+        final Integer expected = someInteger();
+
+        // Given
+        given(calendar.getActualMaximum(DAY_OF_MONTH)).willReturn(expected);
+
+        // When
+        final int actual = javaCalendar.daysInMonth();
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_get_the_number_of_days_in_the_current_year() {
+
+        final Integer expected = someInteger();
+
+        // Given
+        given(calendar.getActualMaximum(DAY_OF_YEAR)).willReturn(expected);
+
+        // When
+        final int actual = javaCalendar.daysInYear();
+
+        // Then
+        assertThat(actual, is(expected));
     }
 
     @Test

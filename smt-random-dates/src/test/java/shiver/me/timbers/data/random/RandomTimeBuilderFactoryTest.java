@@ -16,6 +16,7 @@ import static shiver.me.timbers.data.random.WeekDay.MONDAY;
 
 public class RandomTimeBuilderFactoryTest {
 
+    private Calendars calendars;
     private TimeStamps timeStamps;
     private Numbers<Long> longs;
     private RandomTimeBuilderFactory creator;
@@ -23,9 +24,10 @@ public class RandomTimeBuilderFactoryTest {
     @Before
     @SuppressWarnings("unchecked")
     public void setUp() {
+        calendars = mock(Calendars.class);
         timeStamps = mock(TimeStamps.class);
         longs = mock(Numbers.class);
-        creator = new RandomTimeBuilderFactory(timeStamps, longs);
+        creator = new RandomTimeBuilderFactory(calendars, timeStamps, longs);
     }
 
     @Test
@@ -48,10 +50,13 @@ public class RandomTimeBuilderFactoryTest {
     @Test
     public void Can_create_a_random_time_builder_for_now() {
 
+        final Calendar calendar = mock(Calendar.class);
+
         final Long expected = someLong();
 
         // Given
-        given(timeStamps.now()).willReturn(expected);
+        given(calendars.now()).willReturn(calendar);
+        given(calendar.toTime()).willReturn(expected);
 
         // When
         final RandomTimeBuilder actual = creator.now();
@@ -85,13 +90,15 @@ public class RandomTimeBuilderFactoryTest {
     @Test
     public void Can_create_a_random_time_builder_for_some_time_today() {
 
-        final long todayMidnight = someLong();
+        final Calendar calendar = mock(Calendar.class);
+        final long midnightToday = someLong();
         final long timeInADay = someLong();
 
-        final Long expected = todayMidnight + timeInADay;
+        final Long expected = midnightToday + timeInADay;
 
         // Given
-        given(timeStamps.todayMidnight()).willReturn(todayMidnight);
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.toTime()).willReturn(midnightToday);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
 
         // When
@@ -104,13 +111,17 @@ public class RandomTimeBuilderFactoryTest {
     @Test
     public void Can_create_a_random_time_builder_for_some_time_this_week() {
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar mondayCalendar = mock(Calendar.class);
         final long midnightMondayThisWeek = someLong();
         final long timeInAWeek = someLong();
 
         final Long expected = midnightMondayThisWeek + timeInAWeek;
 
         // Given
-        given(timeStamps.midnightThisWeekOn(MONDAY)).willReturn(midnightMondayThisWeek);
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.withDayOfWeek(MONDAY)).willReturn(mondayCalendar);
+        given(mondayCalendar.toTime()).willReturn(midnightMondayThisWeek);
         given(timeStamps.someTimeInAWeek()).willReturn(timeInAWeek);
 
         // When
@@ -125,13 +136,17 @@ public class RandomTimeBuilderFactoryTest {
 
         final WeekDay weekDay = someEnum(WeekDay.class);
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar dayOfWeekCalendar = mock(Calendar.class);
         final long midnightMondayThisWeek = someLong();
         final long timeInADay = someLong();
 
         final Long expected = midnightMondayThisWeek + timeInADay;
 
         // Given
-        given(timeStamps.midnightThisWeekOn(weekDay)).willReturn(midnightMondayThisWeek);
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.withDayOfWeek(weekDay)).willReturn(dayOfWeekCalendar);
+        given(dayOfWeekCalendar.toTime()).willReturn(midnightMondayThisWeek);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
 
         // When
@@ -144,14 +159,22 @@ public class RandomTimeBuilderFactoryTest {
     @Test
     public void Can_create_a_random_time_builder_for_some_time_last_month() {
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar lastMonthCalendar = mock(Calendar.class);
+        final Calendar dateOfMonthCalendar = mock(Calendar.class);
         final long midnightLastMonthOnThe1st = someLong();
+        final int daysInMonth = someInteger();
         final long timeInAMonth = someLong();
 
         final Long expected = midnightLastMonthOnThe1st + timeInAMonth;
 
         // Given
-        given(timeStamps.midnightLastMonthOnThe(1)).willReturn(midnightLastMonthOnThe1st);
-        given(timeStamps.someTimeInAMonth()).willReturn(timeInAMonth);
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.minusMonths(1)).willReturn(lastMonthCalendar);
+        given(lastMonthCalendar.withDateOfMonth(1)).willReturn(dateOfMonthCalendar);
+        given(dateOfMonthCalendar.toTime()).willReturn(midnightLastMonthOnThe1st);
+        given(lastMonthCalendar.daysInMonth()).willReturn(daysInMonth);
+        given(timeStamps.someTimeInDays(daysInMonth)).willReturn(timeInAMonth);
 
         // When
         final RandomTimeBuilder actual = creator.lastMonth();
@@ -163,14 +186,20 @@ public class RandomTimeBuilderFactoryTest {
     @Test
     public void Can_create_a_random_time_builder_for_some_time_this_month() {
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar dateOfMonthCalendar = mock(Calendar.class);
         final long midnightThisMonthOnThe1st = someLong();
+        final int daysInMonth = someInteger();
         final long timeInAMonth = someLong();
 
         final Long expected = midnightThisMonthOnThe1st + timeInAMonth;
 
         // Given
-        given(timeStamps.midnightThisMonthOnThe(1)).willReturn(midnightThisMonthOnThe1st);
-        given(timeStamps.someTimeInAMonth()).willReturn(timeInAMonth);
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.withDateOfMonth(1)).willReturn(dateOfMonthCalendar);
+        given(dateOfMonthCalendar.toTime()).willReturn(midnightThisMonthOnThe1st);
+        given(calendar.daysInMonth()).willReturn(daysInMonth);
+        given(timeStamps.someTimeInDays(daysInMonth)).willReturn(timeInAMonth);
 
         // When
         final RandomTimeBuilder actual = creator.thisMonth();
@@ -182,14 +211,22 @@ public class RandomTimeBuilderFactoryTest {
     @Test
     public void Can_create_a_random_time_builder_for_some_time_next_month() {
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar nextMonthCalendar = mock(Calendar.class);
+        final Calendar dateOfMonthCalendar = mock(Calendar.class);
         final long midnightNextMonthOnThe1st = someLong();
+        final int daysInMonth = someInteger();
         final long timeInAMonth = someLong();
 
         final Long expected = midnightNextMonthOnThe1st + timeInAMonth;
 
         // Given
-        given(timeStamps.midnightNextMonthOnThe(1)).willReturn(midnightNextMonthOnThe1st);
-        given(timeStamps.someTimeInAMonth()).willReturn(timeInAMonth);
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.addMonths(1)).willReturn(nextMonthCalendar);
+        given(nextMonthCalendar.withDateOfMonth(1)).willReturn(dateOfMonthCalendar);
+        given(dateOfMonthCalendar.toTime()).willReturn(midnightNextMonthOnThe1st);
+        given(nextMonthCalendar.daysInMonth()).willReturn(daysInMonth);
+        given(timeStamps.someTimeInDays(daysInMonth)).willReturn(timeInAMonth);
 
         // When
         final RandomTimeBuilder actual = creator.nextMonth();
@@ -203,13 +240,19 @@ public class RandomTimeBuilderFactoryTest {
 
         final int date = someInteger();
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar lastMonthCalendar = mock(Calendar.class);
+        final Calendar dateOfMonthCalendar = mock(Calendar.class);
         final long midnightLastMonthOnThe1st = someLong();
         final long timeInADay = someLong();
 
         final Long expected = midnightLastMonthOnThe1st + timeInADay;
 
         // Given
-        given(timeStamps.midnightLastMonthOnThe(date)).willReturn(midnightLastMonthOnThe1st);
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.minusMonths(1)).willReturn(lastMonthCalendar);
+        given(lastMonthCalendar.withDateOfMonth(date)).willReturn(dateOfMonthCalendar);
+        given(dateOfMonthCalendar.toTime()).willReturn(midnightLastMonthOnThe1st);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
 
         // When
@@ -224,13 +267,17 @@ public class RandomTimeBuilderFactoryTest {
 
         final int date = someInteger();
 
-        final long midnightThisMonthOnThe1st = someLong();
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar dateOfMonthCalendar = mock(Calendar.class);
+        final long midnightThisMonthOnDate = someLong();
         final long timeInADay = someLong();
 
-        final Long expected = midnightThisMonthOnThe1st + timeInADay;
+        final Long expected = midnightThisMonthOnDate + timeInADay;
 
         // Given
-        given(timeStamps.midnightThisMonthOnThe(date)).willReturn(midnightThisMonthOnThe1st);
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.withDateOfMonth(date)).willReturn(dateOfMonthCalendar);
+        given(dateOfMonthCalendar.toTime()).willReturn(midnightThisMonthOnDate);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
 
         // When
@@ -245,13 +292,19 @@ public class RandomTimeBuilderFactoryTest {
 
         final int date = someInteger();
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar nextMonthCalendar = mock(Calendar.class);
+        final Calendar dateOfMonthCalendar = mock(Calendar.class);
         final long midnightNextMonthOnThe1st = someLong();
         final long timeInADay = someLong();
 
         final Long expected = midnightNextMonthOnThe1st + timeInADay;
 
         // Given
-        given(timeStamps.midnightNextMonthOnThe(date)).willReturn(midnightNextMonthOnThe1st);
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.addMonths(1)).willReturn(nextMonthCalendar);
+        given(nextMonthCalendar.withDateOfMonth(date)).willReturn(dateOfMonthCalendar);
+        given(dateOfMonthCalendar.toTime()).willReturn(midnightNextMonthOnThe1st);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
 
         // When
@@ -264,14 +317,22 @@ public class RandomTimeBuilderFactoryTest {
     @Test
     public void Can_create_a_random_time_builder_for_some_time_last_year() {
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar lastYearCalendar = mock(Calendar.class);
+        final Calendar dayOfYearCalendar = mock(Calendar.class);
         final long midnightLastYearOnDay1 = someLong();
+        final int daysInYear = someInteger();
         final long timeInAYear = someLong();
 
         final Long expected = midnightLastYearOnDay1 + timeInAYear;
 
         // Given
-        given(timeStamps.midnightLastYearOnDay(1)).willReturn(midnightLastYearOnDay1);
-        given(timeStamps.someTimeInAYear()).willReturn(timeInAYear);
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.minusYears(1)).willReturn(lastYearCalendar);
+        given(lastYearCalendar.withDayOfYear(1)).willReturn(dayOfYearCalendar);
+        given(dayOfYearCalendar.toTime()).willReturn(midnightLastYearOnDay1);
+        given(lastYearCalendar.daysInYear()).willReturn(daysInYear);
+        given(timeStamps.someTimeInDays(daysInYear)).willReturn(timeInAYear);
 
         // When
         final RandomTimeBuilder actual = creator.lastYear();
@@ -283,14 +344,20 @@ public class RandomTimeBuilderFactoryTest {
     @Test
     public void Can_create_a_random_time_builder_for_some_time_this_year() {
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar dayOfYearCalendar = mock(Calendar.class);
         final long midnightThisYearOnDay1 = someLong();
+        final int daysInYear = someInteger();
         final long timeInAYear = someLong();
 
         final Long expected = midnightThisYearOnDay1 + timeInAYear;
 
         // Given
-        given(timeStamps.midnightThisYearOnDay(1)).willReturn(midnightThisYearOnDay1);
-        given(timeStamps.someTimeInAYear()).willReturn(timeInAYear);
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.withDayOfYear(1)).willReturn(dayOfYearCalendar);
+        given(dayOfYearCalendar.toTime()).willReturn(midnightThisYearOnDay1);
+        given(calendar.daysInYear()).willReturn(daysInYear);
+        given(timeStamps.someTimeInDays(daysInYear)).willReturn(timeInAYear);
 
         // When
         final RandomTimeBuilder actual = creator.thisYear();
@@ -302,14 +369,22 @@ public class RandomTimeBuilderFactoryTest {
     @Test
     public void Can_create_a_random_time_builder_for_some_time_next_year() {
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar nextYearCalendar = mock(Calendar.class);
+        final Calendar dayOfYearCalendar = mock(Calendar.class);
         final long midnightNextYearOnDay1 = someLong();
+        final int daysInYear = someInteger();
         final long timeInAYear = someLong();
 
         final Long expected = midnightNextYearOnDay1 + timeInAYear;
 
         // Given
-        given(timeStamps.midnightNextYearOnDay(1)).willReturn(midnightNextYearOnDay1);
-        given(timeStamps.someTimeInAYear()).willReturn(timeInAYear);
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.addYears(1)).willReturn(nextYearCalendar);
+        given(nextYearCalendar.withDayOfYear(1)).willReturn(dayOfYearCalendar);
+        given(dayOfYearCalendar.toTime()).willReturn(midnightNextYearOnDay1);
+        given(nextYearCalendar.daysInYear()).willReturn(daysInYear);
+        given(timeStamps.someTimeInDays(daysInYear)).willReturn(timeInAYear);
 
         // When
         final RandomTimeBuilder actual = creator.nextYear();
@@ -323,13 +398,19 @@ public class RandomTimeBuilderFactoryTest {
 
         final int day = someInteger();
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar lastYearCalendar = mock(Calendar.class);
+        final Calendar dayOfYearCalendar = mock(Calendar.class);
         final long midnightLastYearOnASpecificDay = someLong();
         final long timeInADay = someLong();
 
         final Long expected = midnightLastYearOnASpecificDay + timeInADay;
 
         // Given
-        given(timeStamps.midnightLastYearOnDay(day)).willReturn(midnightLastYearOnASpecificDay);
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.minusYears(1)).willReturn(lastYearCalendar);
+        given(lastYearCalendar.withDayOfYear(day)).willReturn(dayOfYearCalendar);
+        given(dayOfYearCalendar.toTime()).willReturn(midnightLastYearOnASpecificDay);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
 
         // When
@@ -344,13 +425,17 @@ public class RandomTimeBuilderFactoryTest {
 
         final int day = someInteger();
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar dayOfYearCalendar = mock(Calendar.class);
         final long midnightThisYearOnASpecificDay = someLong();
         final long timeInADay = someLong();
 
         final Long expected = midnightThisYearOnASpecificDay + timeInADay;
 
         // Given
-        given(timeStamps.midnightThisYearOnDay(day)).willReturn(midnightThisYearOnASpecificDay);
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.withDayOfYear(day)).willReturn(dayOfYearCalendar);
+        given(dayOfYearCalendar.toTime()).willReturn(midnightThisYearOnASpecificDay);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
 
         // When
@@ -365,13 +450,19 @@ public class RandomTimeBuilderFactoryTest {
 
         final int day = someInteger();
 
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar nextYearCalendar = mock(Calendar.class);
+        final Calendar dayOfYearCalendar = mock(Calendar.class);
         final long midnightNextYearOnASpecificDay = someLong();
         final long timeInADay = someLong();
 
         final Long expected = midnightNextYearOnASpecificDay + timeInADay;
 
         // Given
-        given(timeStamps.midnightNextYearOnDay(day)).willReturn(midnightNextYearOnASpecificDay);
+        given(calendars.midnightToday()).willReturn(calendar);
+        given(calendar.addYears(1)).willReturn(nextYearCalendar);
+        given(nextYearCalendar.withDayOfYear(day)).willReturn(dayOfYearCalendar);
+        given(dayOfYearCalendar.toTime()).willReturn(midnightNextYearOnASpecificDay);
         given(timeStamps.someTimeInADay()).willReturn(timeInADay);
 
         // When

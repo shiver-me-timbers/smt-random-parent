@@ -97,6 +97,24 @@ public class DateTimeStampsTest {
     }
 
     @Test
+    public void Can_generate_some_random_time_stamp_that_falls_within_a_given_number_of_days() {
+
+        final int days = someInteger();
+        final int randomDays = someInteger();
+
+        final long expected = (long) randomDays * MILLISECONDS_IN_ONE_DAY;
+
+        // Given
+        given(integers.someNumberBetween(0, days)).willReturn(randomDays);
+
+        // When
+        final long actual = timeStamps.someTimeInDays(days);
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
     public void Can_generate_some_random_time_stamp_that_falls_within_a_month() {
 
         final int daysThisMonth = someInteger();

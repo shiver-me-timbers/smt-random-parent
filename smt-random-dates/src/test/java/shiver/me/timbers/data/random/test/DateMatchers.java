@@ -247,7 +247,6 @@ public class DateMatchers {
     }
 
     private static LocalDate nextYear(int day) {
-        System.out.println("Day: " + day);
         return today().plusYears(1).withDayOfYear(day);
     }
 

@@ -23,6 +23,11 @@ class JavaCalendars implements Calendars {
     }
 
     @Override
+    public Calendar now() {
+        return new JavaCalendar(new GregorianCalendar());
+    }
+
+    @Override
     public Calendar midnightToday() {
         java.util.Calendar midnight = new GregorianCalendar();
         midnight.set(HOUR_OF_DAY, 0);

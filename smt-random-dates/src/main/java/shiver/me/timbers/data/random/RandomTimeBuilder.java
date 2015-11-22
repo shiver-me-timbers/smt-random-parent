@@ -7,70 +7,63 @@ import java.util.Date;
  */
 public class RandomTimeBuilder extends Date {
 
-    private final TimeStamps timeStamps;
+    private final Calendars calendars;
     private final Numbers<Long> longs;
 
-    RandomTimeBuilder(TimeStamps timeStamps, Numbers<Long> longs, long time) {
+    RandomTimeBuilder(Calendars calendars, Numbers<Long> longs, long time) {
         super(time);
-        this.timeStamps = timeStamps;
+        this.calendars = calendars;
         this.longs = longs;
     }
 
     RandomTimeBuilder inThePast() {
-        return someTimeBefore(getTime());
+        setTime(getTime() + (longs.someNegativeNumber() - 1));
+        return this;
     }
 
     RandomTimeBuilder inTheFuture() {
-        return someTimeAfter(getTime());
+        setTime(getTime() + (longs.somePositiveNumber() + 1));
+        return this;
     }
 
     public RandomTimeBuilder minusDays(int days) {
-        setTime(timeStamps.minusDays(getTime(), days));
+        setTime(calendars.create(getTime()).minusDays(days).toTime());
         return this;
     }
 
     public RandomTimeBuilder addDays(int days) {
-        setTime(timeStamps.addDays(getTime(), days));
+        setTime(calendars.create(getTime()).addDays(days).toTime());
         return this;
     }
 
     public RandomTimeBuilder minusWeeks(int weeks) {
-        setTime(timeStamps.minusWeeks(getTime(), weeks));
+        setTime(calendars.create(getTime()).minusWeeks(weeks).toTime());
         return this;
     }
 
     public RandomTimeBuilder addWeeks(int weeks) {
-        setTime(timeStamps.addWeeks(getTime(), weeks));
+        setTime(calendars.create(getTime()).addWeeks(weeks).toTime());
         return this;
     }
 
     public RandomTimeBuilder minusMonths(int months) {
-        setTime(timeStamps.minusMonths(getTime(), months));
+        setTime(calendars.create(getTime()).minusMonths(months).toTime());
         return this;
     }
 
     public RandomTimeBuilder addMonths(int months) {
-        setTime(timeStamps.addMonths(getTime(), months));
+        setTime(calendars.create(getTime()).addMonths(months).toTime());
         return this;
     }
 
     public RandomTimeBuilder minusYears(int years) {
-        setTime(timeStamps.minusYears(getTime(), years));
+        setTime(calendars.create(getTime()).minusYears(years).toTime());
         return this;
     }
 
     public RandomTimeBuilder addYears(int years) {
-        setTime(timeStamps.addYears(getTime(), years));
+        setTime(calendars.create(getTime()).addYears(years).toTime());
         return this;
     }
 
-    private RandomTimeBuilder someTimeBefore(long time) {
-        setTime(time + (longs.someNegativeNumber() - 1));
-        return this;
-    }
-
-    private RandomTimeBuilder someTimeAfter(long time) {
-        setTime(time + (longs.somePositiveNumber() + 1));
-        return this;
-    }
 }
