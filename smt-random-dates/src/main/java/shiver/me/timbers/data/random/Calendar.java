@@ -17,11 +17,11 @@ interface Calendar {
 
     Calendar withDateOfMonth(int date);
 
-    Calendar withDayOfYear(int day);
-
     Calendar minusMonths(int months);
 
     Calendar addMonths(int months);
+
+    Calendar withDayOfYear(int day);
 
     Calendar minusYears(int years);
 

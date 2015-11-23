@@ -10,8 +10,4 @@ interface Calendars {
     Calendar now();
 
     Calendar midnightToday();
-
-    int daysThisMonth();
-
-    int daysThisYear();
 }
