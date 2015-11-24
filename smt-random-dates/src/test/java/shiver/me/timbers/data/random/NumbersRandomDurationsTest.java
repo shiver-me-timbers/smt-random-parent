@@ -14,8 +14,9 @@ import static shiver.me.timbers.data.random.RandomIntegers.someInteger;
  */
 public class NumbersRandomDurationsTest {
 
-    private static final int MILLISECONDS_IN_ONE_DAY = 86400000;
-    private static final int MILLISECONDS_IN_ONE_WEEK = 604800000;
+    private static final int MILLISECONDS_IN_ONE_HOUR = 3600000;
+    private static final int MILLISECONDS_IN_ONE_DAY = MILLISECONDS_IN_ONE_HOUR * 24;
+    private static final int MILLISECONDS_IN_ONE_WEEK = MILLISECONDS_IN_ONE_DAY * 7;
 
     private Numbers<Integer> integers;
 
@@ -27,6 +28,21 @@ public class NumbersRandomDurationsTest {
         integers = mock(Numbers.class);
 
         timeStamps = new NumbersRandomDurations(integers);
+    }
+
+    @Test
+    public void Can_generate_some_random_time_stamp_that_falls_within_an_hour() {
+
+        final long expected = someInteger();
+
+        // Given
+        given(integers.someNumberBetween(0, MILLISECONDS_IN_ONE_HOUR)).willReturn((int) expected);
+
+        // When
+        final long actual = timeStamps.someTimeInAnHour();
+
+        // Then
+        assertThat(actual, is(expected));
     }
 
     @Test

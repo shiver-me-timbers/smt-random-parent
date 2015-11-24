@@ -28,44 +28,53 @@ public class RandomTimeBuilder extends Date {
         return this;
     }
 
+    public RandomTimeBuilder minusHours(int hours) {
+        setTime(calendars.create(getTime()).minusHours(hours).getTime());
+        return this;
+    }
+
+    public RandomTimeBuilder addHours(int hours) {
+        setTime(calendars.create(getTime()).addHours(hours).getTime());
+        return this;
+    }
+
     public RandomTimeBuilder minusDays(int days) {
-        setTime(calendars.create(getTime()).minusDays(days).toTime());
+        setTime(calendars.create(getTime()).minusDays(days).getTime());
         return this;
     }
 
     public RandomTimeBuilder addDays(int days) {
-        setTime(calendars.create(getTime()).addDays(days).toTime());
+        setTime(calendars.create(getTime()).addDays(days).getTime());
         return this;
     }
 
     public RandomTimeBuilder minusWeeks(int weeks) {
-        setTime(calendars.create(getTime()).minusWeeks(weeks).toTime());
+        setTime(calendars.create(getTime()).minusWeeks(weeks).getTime());
         return this;
     }
 
     public RandomTimeBuilder addWeeks(int weeks) {
-        setTime(calendars.create(getTime()).addWeeks(weeks).toTime());
+        setTime(calendars.create(getTime()).addWeeks(weeks).getTime());
         return this;
     }
 
     public RandomTimeBuilder minusMonths(int months) {
-        setTime(calendars.create(getTime()).minusMonths(months).toTime());
+        setTime(calendars.create(getTime()).minusMonths(months).getTime());
         return this;
     }
 
     public RandomTimeBuilder addMonths(int months) {
-        setTime(calendars.create(getTime()).addMonths(months).toTime());
+        setTime(calendars.create(getTime()).addMonths(months).getTime());
         return this;
     }
 
     public RandomTimeBuilder minusYears(int years) {
-        setTime(calendars.create(getTime()).minusYears(years).toTime());
+        setTime(calendars.create(getTime()).minusYears(years).getTime());
         return this;
     }
 
     public RandomTimeBuilder addYears(int years) {
-        setTime(calendars.create(getTime()).addYears(years).toTime());
+        setTime(calendars.create(getTime()).addYears(years).getTime());
         return this;
     }
-
 }

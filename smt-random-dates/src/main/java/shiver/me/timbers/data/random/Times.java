@@ -19,6 +19,12 @@ interface Times {
 
     RandomTimeBuilder someTimeBetween(Date min, Date max);
 
+    RandomTimeBuilder someTimeLastHour();
+
+    RandomTimeBuilder someTimeThisHour();
+
+    RandomTimeBuilder someTimeNextHour();
+
     RandomTimeBuilder someTimeYesterday();
 
     RandomTimeBuilder someTimeToday();

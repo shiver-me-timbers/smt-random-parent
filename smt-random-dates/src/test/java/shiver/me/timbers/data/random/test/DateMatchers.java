@@ -3,6 +3,7 @@ package shiver.me.timbers.data.random.test;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 import java.util.Date;
@@ -20,6 +21,18 @@ public class DateMatchers {
 
     public static Matcher<Date> isBetween(Date min, Date max) {
         return new BetweenDateMatcher(min, max);
+    }
+
+    public static Matcher<Date> isSometimeLastHour() {
+        return new LastHourMatcher();
+    }
+
+    public static Matcher<Date> isSometimeThisHour() {
+        return new ThisHourMatcher();
+    }
+
+    public static Matcher<Date> isSometimeNextHour() {
+        return new NextHourMatcher();
     }
 
     public static Matcher<Date> isSometimeYesterday() {
@@ -104,6 +117,22 @@ public class DateMatchers {
 
     public static Matcher<Date> isSometimeNextYearOnDay(int day) {
         return new NextYearDayMatcher(day);
+    }
+
+    private static Date startOfLastHour() {
+        return thisHour().minusHours(1).toDate();
+    }
+
+    private static Date startOfThisHour() {
+        return thisHour().toDate();
+    }
+
+    private static Date startOfNextHour() {
+        return thisHour().plusHours(1).toDate();
+    }
+
+    private static Date startOfTheHourAfterNext() {
+        return thisHour().plusHours(2).toDate();
     }
 
     private static Date yesterdayMidnight() {
@@ -204,6 +233,10 @@ public class DateMatchers {
 
     private static Date nextYearMidnight(int day) {
         return nextYear(day).toDate();
+    }
+
+    private static DateTime thisHour() {
+        return DateTime.now().withMinuteOfHour(0).withSecondOfMinute(0).withMillisOfSecond(0);
     }
 
     private static LocalDate today() {
@@ -313,6 +346,24 @@ public class DateMatchers {
         @Override
         public void describeTo(Description description) {
             description.appendText(String.format("between: %s and %s", min, max));
+        }
+    }
+
+    private static class LastHourMatcher extends BetweenDateMatcher {
+        public LastHourMatcher() {
+            super(startOfLastHour(), startOfThisHour());
+        }
+    }
+
+    private static class ThisHourMatcher extends BetweenDateMatcher {
+        public ThisHourMatcher() {
+            super(startOfThisHour(), startOfNextHour());
+        }
+    }
+
+    private static class NextHourMatcher extends BetweenDateMatcher {
+        public NextHourMatcher() {
+            super(startOfNextHour(), startOfTheHourAfterNext());
         }
     }
 

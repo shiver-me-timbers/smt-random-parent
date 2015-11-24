@@ -140,6 +140,57 @@ public class SomeTimesTest {
     }
 
     @Test
+    public void Can_generate_a_random_time_that_falls_last_hour() {
+
+        final RandomTimeBuilder todayBuilder = mock(RandomTimeBuilder.class);
+
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
+
+        // Given
+        given(randomTimeFactory.thisHour()).willReturn(todayBuilder);
+        given(todayBuilder.minusHours(1)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = times.someTimeLastHour();
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_this_hour() {
+
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
+
+        // Given
+        given(randomTimeFactory.thisHour()).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = times.someTimeThisHour();
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_next_hour() {
+
+        final RandomTimeBuilder todayBuilder = mock(RandomTimeBuilder.class);
+
+        final RandomTimeBuilder expected = mock(RandomTimeBuilder.class);
+
+        // Given
+        given(randomTimeFactory.thisHour()).willReturn(todayBuilder);
+        given(todayBuilder.addHours(1)).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = times.someTimeNextHour();
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
     public void Can_generate_a_random_time_that_falls_yesterday() {
 
         final RandomTimeBuilder todayBuilder = mock(RandomTimeBuilder.class);

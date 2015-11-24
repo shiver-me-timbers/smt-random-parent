@@ -1,5 +1,6 @@
 package shiver.me.timbers.data.random;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class JavaCalendarsTest {
         final Calendar actual = calendars.create(expected);
 
         // Then
-        assertThat(actual.toTime(), is(expected));
+        assertThat(actual.getTime(), is(expected));
     }
 
     @Test
@@ -45,7 +46,20 @@ public class JavaCalendarsTest {
         final Calendar actual = calendars.now();
 
         // Then
-        assertThat(new Date(actual.toTime()), isOn(new Date()).within(10, MILLISECONDS));
+        assertThat(new Date(actual.getTime()), isOn(new Date()).within(10, MILLISECONDS));
+    }
+
+    @Test
+    public void Can_create_a_calendar_for_the_start_of_this_hour() {
+
+        // When
+        final Calendar actual = calendars.startOfThisHour();
+
+        // Then
+        assertThat(
+            actual.getTime(),
+            equalTo(DateTime.now().withMinuteOfHour(0).withSecondOfMinute(0).withMillisOfSecond(0).toDate().getTime())
+        );
     }
 
     @Test
@@ -55,6 +69,6 @@ public class JavaCalendarsTest {
         final Calendar actual = calendars.midnightToday();
 
         // Then
-        assertThat(actual.toTime(), equalTo(LocalDate.now().toDate().getTime()));
+        assertThat(actual.getTime(), equalTo(LocalDate.now().toDate().getTime()));
     }
 }

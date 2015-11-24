@@ -26,7 +26,7 @@ class RandomTimeBuilderFactory implements RandomTimeFactory<RandomTimeBuilder> {
 
     @Override
     public RandomTimeBuilder now() {
-        return create(calendars.now().toTime());
+        return create(calendars.now().getTime());
     }
 
     @Override
@@ -38,7 +38,7 @@ class RandomTimeBuilderFactory implements RandomTimeFactory<RandomTimeBuilder> {
 
     @Override
     public RandomTimeBuilder today() {
-        return create(calendars.midnightToday().toTime() + randomDurations.someTimeInADay());
+        return create(calendars.midnightToday().getTime() + randomDurations.someTimeInADay());
     }
 
     @Override
@@ -116,27 +116,32 @@ class RandomTimeBuilderFactory implements RandomTimeFactory<RandomTimeBuilder> {
         return create(longs.someNumber());
     }
 
+    @Override
+    public RandomTimeBuilder thisHour() {
+        return create(calendars.startOfThisHour().getTime() + randomDurations.someTimeInAnHour());
+    }
+
     private RandomTimeBuilder create(long time) {
         return new RandomTimeBuilder(calendars, longs, time);
     }
 
     private long dayInWeek(WeekDay weekDay) {
-        return calendars.midnightToday().withDayOfWeek(weekDay).toTime();
+        return calendars.midnightToday().withDayOfWeek(weekDay).getTime();
     }
 
     private RandomTimeBuilder createWithinMonth(Calendar month) {
-        return create(month.withDateOfMonth(1).toTime() + randomDurations.someTimeInDays(month.daysInMonth()));
+        return create(month.withDateOfMonth(1).getTime() + randomDurations.someTimeInDays(month.daysInMonth()));
     }
 
     private RandomTimeBuilder createInMonthOnThe(Calendar month, int date) {
-        return create(month.withDateOfMonth(date).toTime() + randomDurations.someTimeInADay());
+        return create(month.withDateOfMonth(date).getTime() + randomDurations.someTimeInADay());
     }
 
     private RandomTimeBuilder createWithinYear(Calendar year) {
-        return create(year.withDayOfYear(1).toTime() + randomDurations.someTimeInDays(year.daysInYear()));
+        return create(year.withDayOfYear(1).getTime() + randomDurations.someTimeInDays(year.daysInYear()));
     }
 
     private RandomTimeBuilder createInYearOnDay(Calendar year, int day) {
-        return create(year.withDayOfYear(day).toTime() + randomDurations.someTimeInADay());
+        return create(year.withDayOfYear(day).getTime() + randomDurations.someTimeInADay());
     }
 }

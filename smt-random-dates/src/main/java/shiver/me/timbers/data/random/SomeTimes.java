@@ -44,6 +44,25 @@ class SomeTimes implements Times {
     }
 
     @Override
+    public RandomTimeBuilder someTimeLastHour() {
+        return thisHour().minusHours(1);
+    }
+
+    private RandomTimeBuilder thisHour() {
+        return randomTimeFactory.thisHour();
+    }
+
+    @Override
+    public RandomTimeBuilder someTimeThisHour() {
+        return thisHour();
+    }
+
+    @Override
+    public RandomTimeBuilder someTimeNextHour() {
+        return thisHour().addHours(1);
+    }
+
+    @Override
     public RandomTimeBuilder someTimeYesterday() {
         return today().minusDays(1);
     }

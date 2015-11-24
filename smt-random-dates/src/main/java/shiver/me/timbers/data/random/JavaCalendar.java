@@ -1,12 +1,13 @@
 package shiver.me.timbers.data.random;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.DAY_OF_WEEK;
 import static java.util.Calendar.DAY_OF_YEAR;
 import static java.util.Calendar.FRIDAY;
+import static java.util.Calendar.HOUR_OF_DAY;
 import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SATURDAY;
@@ -16,13 +17,14 @@ import static java.util.Calendar.TUESDAY;
 import static java.util.Calendar.WEDNESDAY;
 import static java.util.Calendar.WEEK_OF_YEAR;
 import static java.util.Calendar.YEAR;
+import static java.util.Collections.unmodifiableMap;
 
 /**
  * @author Karl Bennett
  */
 class JavaCalendar implements Calendar {
 
-    private static final Map<WeekDay, Integer> WEEK_DAY_MAP = new ConcurrentHashMap<WeekDay, Integer>() {{
+    private static final Map<WeekDay, Integer> WEEK_DAY_MAP = unmodifiableMap(new HashMap<WeekDay, Integer>() {{
         put(WeekDay.MONDAY, MONDAY);
         put(WeekDay.TUESDAY, TUESDAY);
         put(WeekDay.WEDNESDAY, WEDNESDAY);
@@ -30,7 +32,7 @@ class JavaCalendar implements Calendar {
         put(WeekDay.FRIDAY, FRIDAY);
         put(WeekDay.SATURDAY, SATURDAY);
         put(WeekDay.SUNDAY, SUNDAY);
-    }};
+    }});
 
     private final java.util.Calendar calendar;
 
@@ -38,6 +40,17 @@ class JavaCalendar implements Calendar {
         this.calendar = calendar;
         // The week should start with Monday: https://www.cl.cam.ac.uk/~mgk25/iso-time.html
         calendar.setFirstDayOfWeek(MONDAY);
+    }
+
+    @Override
+    public Calendar minusHours(int hours) {
+        return addHours(-hours);
+    }
+
+    @Override
+    public Calendar addHours(int hours) {
+        calendar.add(HOUR_OF_DAY, hours);
+        return this;
     }
 
     @Override
@@ -113,7 +126,7 @@ class JavaCalendar implements Calendar {
     }
 
     @Override
-    public long toTime() {
+    public long getTime() {
         return calendar.getTimeInMillis();
     }
 }

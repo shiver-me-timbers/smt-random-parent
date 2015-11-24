@@ -5,13 +5,19 @@ package shiver.me.timbers.data.random;
  */
 class NumbersRandomDurations implements RandomDurations {
 
-    private static final int MILLISECONDS_IN_ONE_DAY = 86400000;
-    private static final int MILLISECONDS_IN_ONE_WEEK = 604800000;
+    private static final int MILLISECONDS_IN_ONE_HOUR = 3600000;
+    private static final int MILLISECONDS_IN_ONE_DAY = MILLISECONDS_IN_ONE_HOUR * 24;
+    private static final int MILLISECONDS_IN_ONE_WEEK = MILLISECONDS_IN_ONE_DAY * 7;
 
     private final Numbers<Integer> integers;
 
     public NumbersRandomDurations(Numbers<Integer> integers) {
         this.integers = integers;
+    }
+
+    @Override
+    public long someTimeInAnHour() {
+        return integers.someNumberBetween(0, MILLISECONDS_IN_ONE_HOUR);
     }
 
     @Override

@@ -10,6 +10,7 @@ import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.DAY_OF_WEEK;
 import static java.util.Calendar.DAY_OF_YEAR;
 import static java.util.Calendar.FRIDAY;
+import static java.util.Calendar.HOUR_OF_DAY;
 import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SATURDAY;
@@ -46,6 +47,34 @@ public class JavaCalendarTest {
     @Test
     public void Monday_is_always_the_first_day_of_the_week() {
         verify(calendar).setFirstDayOfWeek(MONDAY);
+    }
+
+    @Test
+    public void Can_minus_hours() {
+
+        // Given
+        final int hours = somePositiveInteger();
+
+        // When
+        final Calendar actual = javaCalendar.minusHours(hours);
+
+        // Then
+        verify(calendar).add(HOUR_OF_DAY, -hours);
+        assertThat(actual, is(javaCalendar));
+    }
+
+    @Test
+    public void Can_add_hours() {
+
+        // Given
+        final int hours = somePositiveInteger();
+
+        // When
+        final Calendar actual = javaCalendar.addHours(hours);
+
+        // Then
+        verify(calendar).add(HOUR_OF_DAY, hours);
+        assertThat(actual, is(javaCalendar));
     }
 
     @Test
@@ -250,7 +279,7 @@ public class JavaCalendarTest {
         given(calendar.getTimeInMillis()).willReturn(expected);
 
         // When
-        final long actual = javaCalendar.toTime();
+        final long actual = javaCalendar.getTime();
 
         // Then
         assertThat(actual, is(expected));
