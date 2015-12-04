@@ -8,6 +8,7 @@ import static java.util.Calendar.DAY_OF_WEEK;
 import static java.util.Calendar.DAY_OF_YEAR;
 import static java.util.Calendar.FRIDAY;
 import static java.util.Calendar.HOUR_OF_DAY;
+import static java.util.Calendar.MINUTE;
 import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SATURDAY;
@@ -40,6 +41,17 @@ class JavaCalendar implements Calendar {
         this.calendar = calendar;
         // The week should start with Monday: https://www.cl.cam.ac.uk/~mgk25/iso-time.html
         calendar.setFirstDayOfWeek(MONDAY);
+    }
+
+    @Override
+    public Calendar minusMinutes(int minutes) {
+        return addMinutes(-minutes);
+    }
+
+    @Override
+    public Calendar addMinutes(int minutes) {
+        calendar.add(MINUTE, minutes);
+        return this;
     }
 
     @Override

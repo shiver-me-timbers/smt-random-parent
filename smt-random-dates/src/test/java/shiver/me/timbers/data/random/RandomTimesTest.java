@@ -18,6 +18,7 @@ import static shiver.me.timbers.data.random.RandomTimes.someTimeBetween;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeInTheFuture;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeInThePast;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastHour;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeLastMinute;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastMonth;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastMonthOnThe;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastWeek;
@@ -25,6 +26,7 @@ import static shiver.me.timbers.data.random.RandomTimes.someTimeLastWeekOn;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastYear;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastYearOnDay;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextHour;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeNextMinute;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextMonth;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextMonthOnThe;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextWeek;
@@ -32,6 +34,7 @@ import static shiver.me.timbers.data.random.RandomTimes.someTimeNextWeekOn;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextYear;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextYearOnDay;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisHour;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeThisMinute;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisMonth;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisMonthOnThe;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisWeek;
@@ -43,6 +46,7 @@ import static shiver.me.timbers.data.random.RandomTimes.someTimeTomorrow;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeYesterday;
 import static shiver.me.timbers.data.random.test.DateMatchers.isBetween;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastHour;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastMinute;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastMonth;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastMonthOnThe;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastWeek;
@@ -50,6 +54,7 @@ import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastWeek
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastYear;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeLastYearOnDay;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextHour;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextMinute;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextMonth;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextMonthOnThe;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextWeek;
@@ -57,6 +62,7 @@ import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextWeek
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextYear;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeNextYearOnDay;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisHour;
+import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisMinute;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisMonth;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisMonthOnThe;
 import static shiver.me.timbers.data.random.test.DateMatchers.isSometimeThisWeek;
@@ -153,6 +159,36 @@ public class RandomTimesTest {
 
         // Then
         assertThat(actual, isBetween(min, max));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_last_minute() {
+
+        // When
+        final Date actual = someTimeLastMinute();
+
+        // Then
+        assertThat(actual, isSometimeLastMinute());
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_this_minute() {
+
+        // When
+        final Date actual = someTimeThisMinute();
+
+        // Then
+        assertThat(actual, isSometimeThisMinute());
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_next_minute() {
+
+        // When
+        final Date actual = someTimeNextMinute();
+
+        // Then
+        assertThat(actual, isSometimeNextMinute());
     }
 
     @Test

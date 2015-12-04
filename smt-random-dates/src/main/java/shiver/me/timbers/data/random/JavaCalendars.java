@@ -26,6 +26,11 @@ class JavaCalendars implements Calendars {
     }
 
     @Override
+    public Calendar startOfThisMinute() {
+        return new JavaCalendar(startOfThisMinute(new GregorianCalendar()));
+    }
+
+    @Override
     public Calendar startOfThisHour() {
         return new JavaCalendar(startOfThisHour(new GregorianCalendar()));
     }
@@ -39,7 +44,13 @@ class JavaCalendars implements Calendars {
     }
 
     private java.util.Calendar startOfThisHour(java.util.Calendar calendar) {
-        calendar.set(MINUTE, 0);
+        final java.util.Calendar startOfThisHour = startOfThisMinute(calendar);
+        startOfThisHour.set(MINUTE, 0);
+
+        return startOfThisHour;
+    }
+
+    private java.util.Calendar startOfThisMinute(java.util.Calendar calendar) {
         calendar.set(SECOND, 0);
         calendar.set(MILLISECOND, 0);
 

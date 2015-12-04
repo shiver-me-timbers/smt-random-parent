@@ -50,6 +50,19 @@ public class JavaCalendarsTest {
     }
 
     @Test
+    public void Can_create_a_calendar_for_the_start_of_this_minute() {
+
+        // When
+        final Calendar actual = calendars.startOfThisMinute();
+
+        // Then
+        assertThat(
+            actual.getTime(),
+            equalTo(DateTime.now().withSecondOfMinute(0).withMillisOfSecond(0).toDate().getTime())
+        );
+    }
+
+    @Test
     public void Can_create_a_calendar_for_the_start_of_this_hour() {
 
         // When

@@ -5,6 +5,10 @@ package shiver.me.timbers.data.random;
  */
 interface Calendar {
 
+    Calendar minusMinutes(int minutes);
+
+    Calendar addMinutes(int minutes);
+
     Calendar minusHours(int hours);
 
     Calendar addHours(int hours);

@@ -23,6 +23,18 @@ public class DateMatchers {
         return new BetweenDateMatcher(min, max);
     }
 
+    public static Matcher<Date> isSometimeLastMinute() {
+        return new LastMinuteMatcher();
+    }
+
+    public static Matcher<Date> isSometimeThisMinute() {
+        return new ThisMinuteMatcher();
+    }
+
+    public static Matcher<Date> isSometimeNextMinute() {
+        return new NextMinuteMatcher();
+    }
+
     public static Matcher<Date> isSometimeLastHour() {
         return new LastHourMatcher();
     }
@@ -117,6 +129,22 @@ public class DateMatchers {
 
     public static Matcher<Date> isSometimeNextYearOnDay(int day) {
         return new NextYearDayMatcher(day);
+    }
+
+    private static Date startOfLastMinute() {
+        return thisMinute().minusMinutes(1).toDate();
+    }
+
+    private static Date startOfThisMinute() {
+        return thisMinute().toDate();
+    }
+
+    private static Date startOfNextMinute() {
+        return thisMinute().plusMinutes(1).toDate();
+    }
+
+    private static Date startOfTheMinuteAfterNext() {
+        return thisMinute().plusMinutes(2).toDate();
     }
 
     private static Date startOfLastHour() {
@@ -235,8 +263,12 @@ public class DateMatchers {
         return nextYear(day).toDate();
     }
 
+    private static DateTime thisMinute() {
+        return DateTime.now().withSecondOfMinute(0).withMillisOfSecond(0);
+    }
+
     private static DateTime thisHour() {
-        return DateTime.now().withMinuteOfHour(0).withSecondOfMinute(0).withMillisOfSecond(0);
+        return thisMinute().withMinuteOfHour(0);
     }
 
     private static LocalDate today() {
@@ -346,6 +378,24 @@ public class DateMatchers {
         @Override
         public void describeTo(Description description) {
             description.appendText(String.format("between: %s and %s", min, max));
+        }
+    }
+
+    private static class LastMinuteMatcher extends BetweenDateMatcher {
+        public LastMinuteMatcher() {
+            super(startOfLastMinute(), startOfThisMinute());
+        }
+    }
+
+    private static class ThisMinuteMatcher extends BetweenDateMatcher {
+        public ThisMinuteMatcher() {
+            super(startOfThisMinute(), startOfNextMinute());
+        }
+    }
+
+    private static class NextMinuteMatcher extends BetweenDateMatcher {
+        public NextMinuteMatcher() {
+            super(startOfNextMinute(), startOfTheMinuteAfterNext());
         }
     }
 

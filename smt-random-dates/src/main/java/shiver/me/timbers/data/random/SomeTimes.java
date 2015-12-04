@@ -44,67 +44,78 @@ class SomeTimes implements Times {
     }
 
     @Override
-    public RandomTimeBuilder someTimeLastHour() {
-        return thisHour().minusHours(1);
+    public RandomTimeBuilder someTimeLastMinute() {
+        return someTimeThisMinute().minusMinutes(1);
     }
 
-    private RandomTimeBuilder thisHour() {
-        return randomTimeFactory.thisHour();
+    @Override
+    public RandomTimeBuilder someTimeThisMinute() {
+        return randomTimeFactory.thisMinute();
+    }
+
+    @Override
+    public RandomTimeBuilder someTimeNextMinute() {
+        return someTimeThisMinute().addMinutes(1);
+    }
+
+    @Override
+    public RandomTimeBuilder someTimeLastHour() {
+        return someTimeThisHour().minusHours(1);
     }
 
     @Override
     public RandomTimeBuilder someTimeThisHour() {
-        return thisHour();
+        return randomTimeFactory.thisHour();
     }
 
     @Override
     public RandomTimeBuilder someTimeNextHour() {
-        return thisHour().addHours(1);
+        return someTimeThisHour().addHours(1);
     }
 
     @Override
     public RandomTimeBuilder someTimeYesterday() {
-        return today().minusDays(1);
+        return someTimeToday().minusDays(1);
     }
 
     @Override
     public RandomTimeBuilder someTimeToday() {
-        return today();
+        return randomTimeFactory.today();
     }
 
     @Override
     public RandomTimeBuilder someTimeTomorrow() {
-        return today().addDays(1);
+        return someTimeToday().addDays(1);
     }
 
     @Override
     public RandomTimeBuilder someTimeLastWeek() {
-        return thisWeek().minusWeeks(1);
+        return someTimeThisWeek().minusWeeks(1);
     }
 
     @Override
     public RandomTimeBuilder someTimeThisWeek() {
-        return thisWeek();
+        return randomTimeFactory.thisWeek();
     }
 
     @Override
     public RandomTimeBuilder someTimeNextWeek() {
-        return thisWeek().addWeeks(1);
+        return someTimeThisWeek().addWeeks(1);
     }
 
     @Override
     public RandomTimeBuilder someTimeLastWeekOn(WeekDay weekDay) {
-        return thisWeekOn(weekDay).minusWeeks(1);
+        return someTimeThisWeekOn(weekDay).minusWeeks(1);
     }
 
     @Override
     public RandomTimeBuilder someTimeThisWeekOn(WeekDay weekDay) {
-        return thisWeekOn(weekDay);
+        return randomTimeFactory.thisWeekOn(weekDay);
     }
 
     @Override
     public RandomTimeBuilder someTimeNextWeekOn(WeekDay weekDay) {
-        return thisWeekOn(weekDay).addWeeks(1);
+        return someTimeThisWeekOn(weekDay).addWeeks(1);
     }
 
     @Override
@@ -114,7 +125,7 @@ class SomeTimes implements Times {
 
     @Override
     public RandomTimeBuilder someTimeThisMonth() {
-        return thisMonth();
+        return randomTimeFactory.thisMonth();
     }
 
     @Override
@@ -129,7 +140,7 @@ class SomeTimes implements Times {
 
     @Override
     public RandomTimeBuilder someTimeThisMonthOnThe(int date) {
-        return thisMonthOnThe(date);
+        return randomTimeFactory.thisMonthOnThe(date);
     }
 
     @Override
@@ -144,7 +155,7 @@ class SomeTimes implements Times {
 
     @Override
     public RandomTimeBuilder someTimeThisYear() {
-        return thisYear();
+        return randomTimeFactory.thisYear();
     }
 
     @Override
@@ -159,7 +170,7 @@ class SomeTimes implements Times {
 
     @Override
     public RandomTimeBuilder someTimeThisYearOnDay(int day) {
-        return thisYearOn(day);
+        return randomTimeFactory.thisYearOnDay(day);
     }
 
     @Override
@@ -175,31 +186,4 @@ class SomeTimes implements Times {
         return randomTimeFactory.create(date);
     }
 
-    private RandomTimeBuilder today() {
-        return randomTimeFactory.today();
-    }
-
-    private RandomTimeBuilder thisWeek() {
-        return randomTimeFactory.thisWeek();
-    }
-
-    private RandomTimeBuilder thisWeekOn(WeekDay weekDay) {
-        return randomTimeFactory.thisWeekOn(weekDay);
-    }
-
-    private RandomTimeBuilder thisMonth() {
-        return randomTimeFactory.thisMonth();
-    }
-
-    private RandomTimeBuilder thisMonthOnThe(int date) {
-        return randomTimeFactory.thisMonthOnThe(date);
-    }
-
-    private RandomTimeBuilder thisYear() {
-        return randomTimeFactory.thisYear();
-    }
-
-    private RandomTimeBuilder thisYearOn(int day) {
-        return randomTimeFactory.thisYearOnDay(day);
-    }
 }

@@ -37,6 +37,16 @@ class RandomTimeBuilderFactory implements RandomTimeFactory<RandomTimeBuilder> {
     }
 
     @Override
+    public RandomTimeBuilder thisMinute() {
+        return create(calendars.startOfThisMinute().getTime() + randomDurations.someTimeInAMinute());
+    }
+
+    @Override
+    public RandomTimeBuilder thisHour() {
+        return create(calendars.startOfThisHour().getTime() + randomDurations.someTimeInAnHour());
+    }
+
+    @Override
     public RandomTimeBuilder today() {
         return create(calendars.midnightToday().getTime() + randomDurations.someTimeInADay());
     }
@@ -114,11 +124,6 @@ class RandomTimeBuilderFactory implements RandomTimeFactory<RandomTimeBuilder> {
     @Override
     public RandomTimeBuilder random() {
         return create(longs.someNumber());
-    }
-
-    @Override
-    public RandomTimeBuilder thisHour() {
-        return create(calendars.startOfThisHour().getTime() + randomDurations.someTimeInAnHour());
     }
 
     private RandomTimeBuilder create(long time) {

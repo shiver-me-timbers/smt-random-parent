@@ -65,6 +65,50 @@ public class RandomTimeBuilderTest {
     }
 
     @Test
+    public void Can_minus_some_minutes_off_the_random_time_builders_time() {
+
+        final int minutes = someInteger();
+
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar minusMinutesCalendar = mock(Calendar.class);
+
+        final long expected = someLong();
+
+        // Given
+        given(calendars.create(initialTime)).willReturn(calendar);
+        given(calendar.minusMinutes(minutes)).willReturn(minusMinutesCalendar);
+        given(minusMinutesCalendar.getTime()).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = builder.minusMinutes(minutes);
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
+    public void Can_add_some_minutes_off_the_random_time_builders_time() {
+
+        final int minutes = someInteger();
+
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar addMinutesCalendar = mock(Calendar.class);
+
+        final long expected = someLong();
+
+        // Given
+        given(calendars.create(initialTime)).willReturn(calendar);
+        given(calendar.addMinutes(minutes)).willReturn(addMinutesCalendar);
+        given(addMinutesCalendar.getTime()).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = builder.addMinutes(minutes);
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
     public void Can_minus_some_hours_off_the_random_time_builders_time() {
 
         final int hours = someInteger();

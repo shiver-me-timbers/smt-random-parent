@@ -88,17 +88,38 @@ public class RandomTimeBuilderFactoryTest {
     }
 
     @Test
+    public void Can_create_a_random_time_builder_for_some_time_this_minute() {
+
+        final Calendar calendar = mock(Calendar.class);
+        final long startOfThisMinute = someLong();
+        final long timeInAMinute = someLong();
+
+        final Long expected = startOfThisMinute + timeInAMinute;
+
+        // Given
+        given(calendars.startOfThisMinute()).willReturn(calendar);
+        given(calendar.getTime()).willReturn(startOfThisMinute);
+        given(randomDurations.someTimeInAMinute()).willReturn(timeInAMinute);
+
+        // When
+        final RandomTimeBuilder actual = creator.thisMinute();
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
     public void Can_create_a_random_time_builder_for_some_time_this_hour() {
 
         final Calendar calendar = mock(Calendar.class);
-        final long midnightToday = someLong();
+        final long startOfThisHour = someLong();
         final long timeInADay = someLong();
 
-        final Long expected = midnightToday + timeInADay;
+        final Long expected = startOfThisHour + timeInADay;
 
         // Given
         given(calendars.startOfThisHour()).willReturn(calendar);
-        given(calendar.getTime()).willReturn(midnightToday);
+        given(calendar.getTime()).willReturn(startOfThisHour);
         given(randomDurations.someTimeInAnHour()).willReturn(timeInADay);
 
         // When

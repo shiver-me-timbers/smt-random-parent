@@ -9,6 +9,8 @@ interface Calendars {
 
     Calendar now();
 
+    Calendar startOfThisMinute();
+
     Calendar startOfThisHour();
 
     Calendar midnightToday();
