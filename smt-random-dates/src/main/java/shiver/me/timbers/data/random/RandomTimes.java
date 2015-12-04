@@ -72,6 +72,27 @@ public class RandomTimes {
     /**
      * Generate a random time that could be any time between 00:00:00 and 00:00:59 last minute.
      */
+    public static RandomTimeBuilder someTimeLastSecond() {
+        return times().someTimeLastSecond();
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 and 00:00:59 this minute.
+     */
+    public static RandomTimeBuilder someTimeThisSecond() {
+        return times().someTimeThisSecond();
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 and 00:00:59 next minute.
+     */
+    public static RandomTimeBuilder someTimeNextSecond() {
+        return times().someTimeNextSecond();
+    }
+
+    /**
+     * Generate a random time that could be any time between 00:00:00 and 00:00:59 last minute.
+     */
     public static RandomTimeBuilder someTimeLastMinute() {
         return times().someTimeLastMinute();
     }

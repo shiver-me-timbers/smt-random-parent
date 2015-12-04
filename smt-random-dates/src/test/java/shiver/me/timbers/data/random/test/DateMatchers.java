@@ -23,6 +23,18 @@ public class DateMatchers {
         return new BetweenDateMatcher(min, max);
     }
 
+    public static Matcher<Date> isSometimeLastSecond() {
+        return new LastSecondMatcher();
+    }
+
+    public static Matcher<Date> isSometimeThisSecond() {
+        return new ThisSecondMatcher();
+    }
+
+    public static Matcher<Date> isSometimeNextSecond() {
+        return new NextSecondMatcher();
+    }
+
     public static Matcher<Date> isSometimeLastMinute() {
         return new LastMinuteMatcher();
     }
@@ -129,6 +141,22 @@ public class DateMatchers {
 
     public static Matcher<Date> isSometimeNextYearOnDay(int day) {
         return new NextYearDayMatcher(day);
+    }
+
+    private static Date startOfLastSecond() {
+        return thisSecond().minusMinutes(1).toDate();
+    }
+
+    private static Date startOfThisSecond() {
+        return thisSecond().toDate();
+    }
+
+    private static Date startOfNextSecond() {
+        return thisSecond().plusSeconds(1).toDate();
+    }
+
+    private static Date startOfTheSecondAfterNext() {
+        return thisSecond().plusSeconds(2).toDate();
     }
 
     private static Date startOfLastMinute() {
@@ -263,8 +291,12 @@ public class DateMatchers {
         return nextYear(day).toDate();
     }
 
+    private static DateTime thisSecond() {
+        return DateTime.now().withMillisOfSecond(0);
+    }
+
     private static DateTime thisMinute() {
-        return DateTime.now().withSecondOfMinute(0).withMillisOfSecond(0);
+        return thisSecond().withSecondOfMinute(0);
     }
 
     private static DateTime thisHour() {
@@ -378,6 +410,24 @@ public class DateMatchers {
         @Override
         public void describeTo(Description description) {
             description.appendText(String.format("between: %s and %s", min, max));
+        }
+    }
+
+    private static class LastSecondMatcher extends BetweenDateMatcher {
+        public LastSecondMatcher() {
+            super(startOfLastSecond(), startOfThisSecond());
+        }
+    }
+
+    private static class ThisSecondMatcher extends BetweenDateMatcher {
+        public ThisSecondMatcher() {
+            super(startOfThisSecond(), startOfNextSecond());
+        }
+    }
+
+    private static class NextSecondMatcher extends BetweenDateMatcher {
+        public NextSecondMatcher() {
+            super(startOfNextSecond(), startOfTheSecondAfterNext());
         }
     }
 

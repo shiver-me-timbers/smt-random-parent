@@ -18,6 +18,11 @@ class NumbersRandomDurations implements RandomDurations {
     }
 
     @Override
+    public long someTimeInASecond() {
+        return integers.someNumberBetween(0, MILLISECONDS_IN_ONE_SECOND);
+    }
+
+    @Override
     public long someTimeInAMinute() {
         return integers.someNumberBetween(0, MILLISECONDS_IN_ONE_MINUTE);
     }

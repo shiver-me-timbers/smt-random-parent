@@ -1,6 +1,7 @@
 package shiver.me.timbers.data.random;
 
 import org.junit.Test;
+import shiver.me.timbers.data.random.test.DateMatchers;
 import shiver.me.timbers.data.random.test.MatcherWeekDay;
 
 import java.util.Date;
@@ -21,6 +22,7 @@ import static shiver.me.timbers.data.random.RandomTimes.someTimeLastHour;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastMinute;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastMonth;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastMonthOnThe;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeLastSecond;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastWeek;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastWeekOn;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeLastYear;
@@ -29,6 +31,7 @@ import static shiver.me.timbers.data.random.RandomTimes.someTimeNextHour;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextMinute;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextMonth;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextMonthOnThe;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeNextSecond;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextWeek;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextWeekOn;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeNextYear;
@@ -37,6 +40,7 @@ import static shiver.me.timbers.data.random.RandomTimes.someTimeThisHour;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisMinute;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisMonth;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisMonthOnThe;
+import static shiver.me.timbers.data.random.RandomTimes.someTimeThisSecond;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisWeek;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisWeekOn;
 import static shiver.me.timbers.data.random.RandomTimes.someTimeThisYear;
@@ -159,6 +163,36 @@ public class RandomTimesTest {
 
         // Then
         assertThat(actual, isBetween(min, max));
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_last_second() {
+
+        // When
+        final Date actual = someTimeLastSecond();
+
+        // Then
+        assertThat(actual, DateMatchers.isSometimeLastSecond());
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_this_second() {
+
+        // When
+        final Date actual = someTimeThisSecond();
+
+        // Then
+        assertThat(actual, DateMatchers.isSometimeThisSecond());
+    }
+
+    @Test
+    public void Can_generate_a_random_time_that_falls_next_second() {
+
+        // When
+        final Date actual = someTimeNextSecond();
+
+        // Then
+        assertThat(actual, DateMatchers.isSometimeNextSecond());
     }
 
     @Test

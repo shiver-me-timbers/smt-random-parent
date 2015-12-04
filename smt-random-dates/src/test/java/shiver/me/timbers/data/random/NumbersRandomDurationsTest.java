@@ -14,7 +14,9 @@ import static shiver.me.timbers.data.random.RandomIntegers.someInteger;
  */
 public class NumbersRandomDurationsTest {
 
-    private static final int MILLISECONDS_IN_ONE_HOUR = 3600000;
+    private static final int MILLISECONDS_IN_ONE_SECOND = 1000;
+    private static final int MILLISECONDS_IN_ONE_MINUTE = MILLISECONDS_IN_ONE_SECOND * 60;
+    private static final int MILLISECONDS_IN_ONE_HOUR = MILLISECONDS_IN_ONE_MINUTE * 60;
     private static final int MILLISECONDS_IN_ONE_DAY = MILLISECONDS_IN_ONE_HOUR * 24;
     private static final int MILLISECONDS_IN_ONE_WEEK = MILLISECONDS_IN_ONE_DAY * 7;
 
@@ -28,6 +30,36 @@ public class NumbersRandomDurationsTest {
         integers = mock(Numbers.class);
 
         timeStamps = new NumbersRandomDurations(integers);
+    }
+
+    @Test
+    public void Can_generate_some_random_time_stamp_that_falls_within_a_second() {
+
+        final long expected = someInteger();
+
+        // Given
+        given(integers.someNumberBetween(0, MILLISECONDS_IN_ONE_SECOND)).willReturn((int) expected);
+
+        // When
+        final long actual = timeStamps.someTimeInASecond();
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void Can_generate_some_random_time_stamp_that_falls_within_a_minute() {
+
+        final long expected = someInteger();
+
+        // Given
+        given(integers.someNumberBetween(0, MILLISECONDS_IN_ONE_MINUTE)).willReturn((int) expected);
+
+        // When
+        final long actual = timeStamps.someTimeInAMinute();
+
+        // Then
+        assertThat(actual, is(expected));
     }
 
     @Test

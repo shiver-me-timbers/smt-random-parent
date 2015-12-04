@@ -37,6 +37,11 @@ class RandomTimeBuilderFactory implements RandomTimeFactory<RandomTimeBuilder> {
     }
 
     @Override
+    public RandomTimeBuilder thisSecond() {
+        return create(calendars.startOfThisSecond().getTime() + randomDurations.someTimeInASecond());
+    }
+
+    @Override
     public RandomTimeBuilder thisMinute() {
         return create(calendars.startOfThisMinute().getTime() + randomDurations.someTimeInAMinute());
     }

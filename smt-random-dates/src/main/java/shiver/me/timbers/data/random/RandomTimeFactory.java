@@ -13,6 +13,8 @@ interface RandomTimeFactory<D extends Date> {
 
     D between(Date min, Date max);
 
+    D thisSecond();
+
     D thisMinute();
 
     D thisHour();

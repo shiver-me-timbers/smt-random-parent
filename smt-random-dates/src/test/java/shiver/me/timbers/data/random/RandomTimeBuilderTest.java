@@ -65,6 +65,50 @@ public class RandomTimeBuilderTest {
     }
 
     @Test
+    public void Can_minus_some_seconds_off_the_random_time_builders_time() {
+
+        final int seconds = someInteger();
+
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar minusSecondsCalendar = mock(Calendar.class);
+
+        final long expected = someLong();
+
+        // Given
+        given(calendars.create(initialTime)).willReturn(calendar);
+        given(calendar.minusSeconds(seconds)).willReturn(minusSecondsCalendar);
+        given(minusSecondsCalendar.getTime()).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = builder.minusSecond(seconds);
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
+    public void Can_add_some_seconds_to_the_random_time_builders_time() {
+
+        final int seconds = someInteger();
+
+        final Calendar calendar = mock(Calendar.class);
+        final Calendar addSecondsCalendar = mock(Calendar.class);
+
+        final long expected = someLong();
+
+        // Given
+        given(calendars.create(initialTime)).willReturn(calendar);
+        given(calendar.addSeconds(seconds)).willReturn(addSecondsCalendar);
+        given(addSecondsCalendar.getTime()).willReturn(expected);
+
+        // When
+        final RandomTimeBuilder actual = builder.addSecond(seconds);
+
+        // Then
+        assertThat(actual.getTime(), is(expected));
+    }
+
+    @Test
     public void Can_minus_some_minutes_off_the_random_time_builders_time() {
 
         final int minutes = someInteger();
@@ -87,7 +131,7 @@ public class RandomTimeBuilderTest {
     }
 
     @Test
-    public void Can_add_some_minutes_off_the_random_time_builders_time() {
+    public void Can_add_some_minutes_to_the_random_time_builders_time() {
 
         final int minutes = someInteger();
 
@@ -131,7 +175,7 @@ public class RandomTimeBuilderTest {
     }
 
     @Test
-    public void Can_add_some_hours_off_the_random_time_builders_time() {
+    public void Can_add_some_hours_to_the_random_time_builders_time() {
 
         final int hours = someInteger();
 
@@ -175,7 +219,7 @@ public class RandomTimeBuilderTest {
     }
 
     @Test
-    public void Can_add_some_days_off_the_random_time_builders_time() {
+    public void Can_add_some_days_to_the_random_time_builders_time() {
 
         final int days = someInteger();
 

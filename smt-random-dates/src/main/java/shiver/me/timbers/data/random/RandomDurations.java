@@ -5,6 +5,8 @@ package shiver.me.timbers.data.random;
  */
 interface RandomDurations {
 
+    long someTimeInASecond();
+
     long someTimeInAMinute();
 
     long someTimeInAnHour();

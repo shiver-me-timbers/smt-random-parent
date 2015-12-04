@@ -28,6 +28,16 @@ public class RandomTimeBuilder extends Date {
         return this;
     }
 
+    public RandomTimeBuilder minusSecond(int seconds) {
+        setTime(calendars.create(getTime()).minusSeconds(seconds).getTime());
+        return this;
+    }
+
+    public RandomTimeBuilder addSecond(int seconds) {
+        setTime(calendars.create(getTime()).addSeconds(seconds).getTime());
+        return this;
+    }
+
     public RandomTimeBuilder minusMinutes(int minutes) {
         setTime(calendars.create(getTime()).minusMinutes(minutes).getTime());
         return this;

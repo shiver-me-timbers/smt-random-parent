@@ -12,6 +12,7 @@ import static java.util.Calendar.MINUTE;
 import static java.util.Calendar.MONDAY;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.SATURDAY;
+import static java.util.Calendar.SECOND;
 import static java.util.Calendar.SUNDAY;
 import static java.util.Calendar.THURSDAY;
 import static java.util.Calendar.TUESDAY;
@@ -41,6 +42,17 @@ class JavaCalendar implements Calendar {
         this.calendar = calendar;
         // The week should start with Monday: https://www.cl.cam.ac.uk/~mgk25/iso-time.html
         calendar.setFirstDayOfWeek(MONDAY);
+    }
+
+    @Override
+    public Calendar minusSeconds(int seconds) {
+        return addSeconds(-seconds);
+    }
+
+    @Override
+    public Calendar addSeconds(int seconds) {
+        calendar.add(SECOND, seconds);
+        return this;
     }
 
     @Override

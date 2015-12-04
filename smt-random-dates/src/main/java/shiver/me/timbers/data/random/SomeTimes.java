@@ -44,6 +44,21 @@ class SomeTimes implements Times {
     }
 
     @Override
+    public RandomTimeBuilder someTimeLastSecond() {
+        return someTimeThisSecond().minusSecond(1);
+    }
+
+    @Override
+    public RandomTimeBuilder someTimeThisSecond() {
+        return randomTimeFactory.thisSecond();
+    }
+
+    @Override
+    public RandomTimeBuilder someTimeNextSecond() {
+        return someTimeThisSecond().addSecond(1);
+    }
+
+    @Override
     public RandomTimeBuilder someTimeLastMinute() {
         return someTimeThisMinute().minusMinutes(1);
     }
