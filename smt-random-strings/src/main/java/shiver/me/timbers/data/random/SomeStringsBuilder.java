@@ -99,6 +99,11 @@ class SomeStringsBuilder implements StringsBuilder {
         return strings.someString();
     }
 
+    @Override
+    public String toString() {
+        return build();
+    }
+
     private Strings strings() {
 
         if (characters.length() > 0) {

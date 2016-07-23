@@ -65,6 +65,22 @@ public class SomeStringsBuilderTest {
     }
 
     @Test
+    public void Can_build_a_random_string_with_to_string() {
+
+        final String expected = "random string";
+
+        // Given
+        given(stringsFactory.strings()).willReturn(strings);
+        given(strings.someString()).willReturn(expected);
+
+        // When
+        final String actual = builder.toString();
+
+        // Then
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void Can_build_a_string_with_a_length_less_than_a_specific_value() {
 
         final int length = 32;

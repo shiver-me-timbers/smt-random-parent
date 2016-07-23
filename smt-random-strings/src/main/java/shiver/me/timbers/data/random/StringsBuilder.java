@@ -67,4 +67,9 @@ public interface StringsBuilder {
      * Build the final string.
      */
     String build();
+
+    /**
+     * Build the final string.
+     */
+    String toString();
 }
