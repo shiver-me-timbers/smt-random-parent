@@ -20,6 +20,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
+import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.equalTo;
 
 public class StringMatchers {
@@ -46,6 +47,10 @@ public class StringMatchers {
 
     public static Matcher<Character> isNumeric() {
         return new NumericAsciiMatcher();
+    }
+
+    public static Matcher<Character> isAlphanumeric() {
+        return anyOf(isAlpha(), isNumeric());
     }
 
     public static Matcher<Character> isOneOf(String characters) {

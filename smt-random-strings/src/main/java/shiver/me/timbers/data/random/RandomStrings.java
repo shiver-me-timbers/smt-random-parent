@@ -52,6 +52,14 @@ public class RandomStrings {
     }
 
     /**
+     * Generate a random string with a length between the provided range, inclusive of the min and max values. It can
+     * contain any of the printable ASCII characters: Decimal 32 - 126
+     */
+    public static String someString(int min, int max) {
+        return stringsBuilder().withLengthBetween(min, max).build();
+    }
+
+    /**
      * Generate a random string from a specific set of characters with a random length no longer than 1024 characters.
      */
     public static String someString(CharSequence characters) {
@@ -80,6 +88,13 @@ public class RandomStrings {
     }
 
     /**
+     * Generate a random alpha string with a length between the provided range, inclusive of the min and max values.
+     */
+    public static String someAlphaString(int min, int max) {
+        return stringsBuilder().withLengthBetween(min, max).thatContainsAlphaCharacters().build();
+    }
+
+    /**
      * Generate a random numeric string.
      */
     public static String someNumericString() {
@@ -94,17 +109,31 @@ public class RandomStrings {
     }
 
     /**
+     * Generate a random numeric string with a length between the provided range, inclusive of the min and max values.
+     */
+    public static String someNumericString(int min, int max) {
+        return stringsBuilder().withLengthBetween(min, max).thatContainsNumericCharacters().build();
+    }
+
+    /**
      * Generate a random alphanumeric string.
      */
-    public static String someAlphaNumericString() {
+    public static String someAlphanumericString() {
         return buildSomeString().thatContainsAlphanumericCharacters().build();
     }
 
     /**
      * Generate a random alphanumeric string with a specific length.
      */
-    public static String someAlphaNumericString(int length) {
+    public static String someAlphanumericString(int length) {
         return buildSomeString().thatContainsAlphanumericCharacters().withLength(length).build();
+    }
+
+    /**
+     * Generate a random alphanumeric string with a specific length.
+     */
+    public static String someAlphanumericString(int min, int max) {
+        return stringsBuilder().withLengthBetween(min, max).thatContainsAlphanumericCharacters().build();
     }
 
     /**

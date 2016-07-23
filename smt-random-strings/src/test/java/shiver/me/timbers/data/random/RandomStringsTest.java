@@ -25,13 +25,14 @@ import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static shiver.me.timbers.data.random.RandomStrings.buildSomeString;
-import static shiver.me.timbers.data.random.RandomStrings.someAlphaNumericString;
 import static shiver.me.timbers.data.random.RandomStrings.someAlphaString;
+import static shiver.me.timbers.data.random.RandomStrings.someAlphanumericString;
 import static shiver.me.timbers.data.random.RandomStrings.someNumericString;
 import static shiver.me.timbers.data.random.RandomStrings.someString;
 import static shiver.me.timbers.data.random.test.StringMatchers.eachChar;
 import static shiver.me.timbers.data.random.test.StringMatchers.hasLength;
 import static shiver.me.timbers.data.random.test.StringMatchers.isAlpha;
+import static shiver.me.timbers.data.random.test.StringMatchers.isAlphanumeric;
 import static shiver.me.timbers.data.random.test.StringMatchers.isNumeric;
 import static shiver.me.timbers.data.random.test.StringMatchers.isOneOf;
 import static shiver.me.timbers.data.random.test.StringMatchers.isPrintableAscii;
@@ -149,10 +150,10 @@ public class RandomStringsTest {
     public void A_random_alpha_numeric_string_can_be_generated() {
 
         // When
-        final String actual = someAlphaNumericString();
+        final String actual = someAlphanumericString();
 
         // Then
-        assertThat(actual, eachChar(anyOf(isAlpha(), isNumeric())));
+        assertThat(actual, eachChar(isAlphanumeric()));
     }
 
     @Test
@@ -162,11 +163,11 @@ public class RandomStringsTest {
         final int length = 72;
 
         // When
-        final String actual = someAlphaNumericString(length);
+        final String actual = someAlphanumericString(length);
 
         // Then
         assertThat(actual, hasLength(length));
-        assertThat(actual, eachChar(anyOf(isAlpha(), isNumeric())));
+        assertThat(actual, eachChar(isAlphanumeric()));
     }
 
     @Test
@@ -260,7 +261,7 @@ public class RandomStringsTest {
         final String actual = buildSomeString().thatContainsAlphanumericCharacters().build();
 
         // Then
-        assertThat(actual, eachChar(anyOf(isAlpha(), isNumeric())));
+        assertThat(actual, eachChar(isAlphanumeric()));
     }
 
     @Test
@@ -404,5 +405,65 @@ public class RandomStringsTest {
         // Then
         assertThat(actual, hasLength(length));
         assertThat(actual, eachChar(isOneOf(characters)));
+    }
+
+    @Test
+    public void A_random_string_can_be_generated_with_a_length_between_a_range() {
+
+        // Given
+        final int minLength = 202;
+        final int maxLength = 212;
+
+        // When
+        final String actual = someString(minLength, maxLength);
+
+        // Then
+        assertThat(actual, hasLength(allOf(greaterThanOrEqualTo(minLength), lessThanOrEqualTo(maxLength))));
+        assertThat(actual, eachChar(isPrintableAscii()));
+    }
+
+    @Test
+    public void A_random_alpha_string_can_be_generated_with_a_length_between_a_range() {
+
+        // Given
+        final int minLength = 222;
+        final int maxLength = 232;
+
+        // When
+        final String actual = someAlphaString(minLength, maxLength);
+
+        // Then
+        assertThat(actual, hasLength(allOf(greaterThanOrEqualTo(minLength), lessThanOrEqualTo(maxLength))));
+        assertThat(actual, eachChar(isAlpha()));
+    }
+
+    @Test
+    public void A_random_numeric_string_can_be_generated_with_a_length_between_a_range() {
+
+        // Given
+        final int minLength = 242;
+        final int maxLength = 252;
+
+        // When
+        final String actual = someNumericString(minLength, maxLength);
+
+        // Then
+        assertThat(actual, hasLength(allOf(greaterThanOrEqualTo(minLength), lessThanOrEqualTo(maxLength))));
+        assertThat(actual, eachChar(isNumeric()));
+    }
+
+    @Test
+    public void A_random_alpha_numeric_string_can_be_generated_with_a_length_between_a_range() {
+
+        // Given
+        final int minLength = 262;
+        final int maxLength = 272;
+
+        // When
+        final String actual = someAlphanumericString(minLength, maxLength);
+
+        // Then
+        assertThat(actual, hasLength(allOf(greaterThanOrEqualTo(minLength), lessThanOrEqualTo(maxLength))));
+        assertThat(actual, eachChar(isAlphanumeric()));
     }
 }
