@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Karl Bennett
+ * Copyright 2016 Karl Bennett
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,34 +16,38 @@
 
 package shiver.me.timbers.data.random;
 
+import shiver.me.timbers.building.AtomicBlock;
+
 import java.util.Random;
+
+import static shiver.me.timbers.data.random.Constants.DEFAULT_MAX_ARRAY_SIZE;
 
 /**
  * @author Karl Bennett
  */
-class SomeThings implements Things {
+class RandomBlock extends AtomicBlock<Object> {
 
     private final Random random;
-    private final RandomIterables randomIterables;
 
-    public SomeThings(Random random, RandomIterables randomIterables) {
+    public RandomBlock(Random random) {
         this.random = random;
-        this.randomIterables = randomIterables;
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <T> T someThing(T... things) {
-        if (things.length == 0) {
-            return (T) someThings().withLength(1).list().get(0);
-        }
+    protected Object build() {
+        final byte[] bytesValue = new byte[DEFAULT_MAX_ARRAY_SIZE];
+        random.nextBytes(bytesValue);
 
-        return things[random.nextInt(things.length)];
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <T> RandomIterable<T> someThings(T... things) {
-        return randomIterables.thatContains(things);
+        final Object[] randomValues = {
+            new Object(),
+            random.nextBoolean(),
+            bytesValue,
+            random.nextInt(),
+            random.nextFloat(),
+            random.nextLong(),
+            random.nextDouble(),
+            "a random string"
+        };
+        return randomValues[random.nextInt(randomValues.length)];
     }
 }

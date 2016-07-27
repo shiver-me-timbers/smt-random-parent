@@ -22,9 +22,8 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Random;
 
-import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -33,15 +32,17 @@ public class SomeThingsTest {
 
     private Random random;
     private SomeThings someThings;
+    private RandomIterables randomIterables;
 
     @Before
     public void setUp() {
         random = mock(Random.class);
-        someThings = new SomeThings(random);
+        randomIterables = mock(RandomIterables.class);
+        someThings = new SomeThings(random, randomIterables);
     }
 
     @Test
-    public void Can_generate_some_thing_a_single_thing() {
+    public void Can_generate_a_single_thing() {
 
         final Object expected = new Object();
         final Object[] things = {expected};
@@ -57,7 +58,7 @@ public class SomeThingsTest {
     }
 
     @Test
-    public void Can_generate_some_thing_from_a_some_things() {
+    public void Can_generate_a_single_thing_from_some_things() {
 
         final Object expected = new Object();
         final Object[] things = {1, expected, "three"};
@@ -73,57 +74,43 @@ public class SomeThingsTest {
     }
 
     @Test
-    public void Can_generate_some_things_from_a_single_thing() {
+    @SuppressWarnings("unchecked")
+    public void Can_generate_a_random_thing() {
+
+        final RandomIterable<Object> randomIterable = mock(RandomIterable.class);
+        final RandomIterable<Object> randomIterableWithLength = mock(RandomIterable.class);
+        final List<Object> randomList = mock(List.class);
 
         final Object expected = new Object();
-        final Object[] things = {expected};
 
         // Given
-        given(random.nextInt(1024)).willReturn(2);
-        given(random.nextInt(things.length)).willReturn(0);
+        given(randomIterables.thatContains()).willReturn(randomIterable);
+        given(randomIterable.withLength(1)).willReturn(randomIterableWithLength);
+        given(randomIterableWithLength.list()).willReturn(randomList);
+        given(randomList.get(0)).willReturn(expected);
 
         // When
-        final List<Object> actual = someThings.someThings(things);
+        final Object actual = someThings.someThing();
 
         // Then
-        assertThat(actual, equalTo(asList(expected, expected)));
+        assertThat(actual, equalTo(expected));
     }
 
     @Test
-    public void Can_generate_some_things_from_multiple_things() {
+    @SuppressWarnings("unchecked")
+    public void Can_generate_some_things_from_some_things() {
 
-        final Object zero = new Object();
-        final Object one = 1;
-        final Object two = "two";
-        final Object[] things = {zero, one, two};
+        final Object[] things = {};
 
-        // Given
-        given(random.nextInt(1024)).willReturn(4);
-        given(random.nextInt(things.length)).willReturn(1, 0, 2, 0);
-
-        // When
-        final List<Object> actual = someThings.someThings(things);
-
-        // Then
-        assertThat(actual, equalTo(asList(one, zero, two, zero)));
-    }
-
-    @Test
-    public void Can_generate_a_fixed_number_of_things() {
-
-        final int size = 3;
-        final Object zero = new Object();
-        final Object one = "one";
-        final Object[] things = {zero, one};
+        final RandomIterable<Object> expected = mock(RandomIterable.class);
 
         // Given
-        given(random.nextInt(things.length)).willReturn(1, 0, 1);
+        given(randomIterables.thatContains(things)).willReturn(expected);
 
         // When
-        final List<Object> actual = someThings.someThings(size, things);
+        final RandomIterable<Object> actual = someThings.someThings(things);
 
         // Then
-        assertThat(actual, hasSize(size));
-        assertThat(actual, equalTo(asList(one, zero, one)));
+        assertThat(actual, is(expected));
     }
 }

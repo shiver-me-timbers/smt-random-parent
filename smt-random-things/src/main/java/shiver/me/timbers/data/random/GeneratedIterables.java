@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Karl Bennett
+ * Copyright 2016 Karl Bennett
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,9 @@ package shiver.me.timbers.data.random;
 /**
  * @author Karl Bennett
  */
-interface Things {
+interface GeneratedIterables {
 
-    @SuppressWarnings("unchecked")
-    <T> T someThing(T... things);
+    GeneratedIterable create();
 
-    @SuppressWarnings("unchecked")
-    <T> RandomIterable<T> someThings(T... things);
+    <T> GeneratedIterable<T> create(Class<T> type);
 }

@@ -16,7 +16,6 @@
 
 package shiver.me.timbers.data.random;
 
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -27,7 +26,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class RandomThings {
 
     private static Things things() {
-        return new SomeThings(ThreadLocalRandom.current());
+        final ThreadLocalRandom random = ThreadLocalRandom.current();
+        return new SomeThings(random, new SomeRandomIterables(new LazyGeneratedIterables(random, new RandomBlock(random))));
     }
 
     /**
@@ -43,15 +43,7 @@ public class RandomThings {
      * objects.
      */
     @SafeVarargs
-    public static <T> List<T> someThings(T... things) {
+    public static <T> RandomIterable<T> someThings(T... things) {
         return things().someThings(things);
-    }
-
-    /**
-     * Generates a list with fixed a random length that is populated with random amounts of any of the supplied objects.
-     */
-    @SafeVarargs
-    public static <T> List<T> someThings(int length, T... things) {
-        return things().someThings(length, things);
     }
 }

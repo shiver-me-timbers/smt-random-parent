@@ -21,9 +21,13 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.isOneOf;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static shiver.me.timbers.data.random.RandomThings.someThing;
 import static shiver.me.timbers.data.random.RandomThings.someThings;
@@ -37,7 +41,17 @@ public class RandomThingsTest {
     }
 
     @Test
-    public void Can_generate_some_thing() {
+    public void Can_generate_some_random_thing() {
+
+        // When
+        final Object actual = someThing();
+
+        // Then
+        assertThat(actual, not(nullValue()));
+    }
+
+    @Test
+    public void Can_generate_some_specific_thing() {
 
         // Given
         final Object zero = new Object();
@@ -52,7 +66,18 @@ public class RandomThingsTest {
     }
 
     @Test
-    public void Can_generate_some_things() {
+    public void Can_generate_some_random_things() {
+
+        // When
+        final List<Object> actual = someThings().list();
+
+        // Then
+        assertThat(actual, not(nullValue()));
+        assertThat(actual, hasSize(greaterThan(0)));
+    }
+
+    @Test
+    public void Can_generate_some_specific_things() {
 
         // Given
         final Object zero = new Object();
@@ -60,7 +85,7 @@ public class RandomThingsTest {
         final Object two = "two";
 
         // When
-        final List<Object> actual = someThings(zero, one, two);
+        final List<Object> actual = someThings(zero, one, two).list();
 
         // Then
         assertThat(actual, anyOf(hasItem(zero), hasItem(one), hasItem(two)));
@@ -72,14 +97,14 @@ public class RandomThingsTest {
         // Given
         final int size = 5;
         final Object zero = new Object();
-        final Object one = 1;
-        final Object two = "two";
+        final int one = 1;
+        final String two = "two";
 
         // When
-        final List<Object> actual = someThings(size, new Object[]{zero, one, two});
+        final List<Object> actual = someThings(zero, one, two).withLength(size).list();
 
         // Then
         assertThat(actual, hasSize(size));
-        assertThat(actual, anyOf(hasItem(zero), hasItem(one), hasItem(two)));
+        assertThat(actual, contains(zero, one, two, zero, one));
     }
 }

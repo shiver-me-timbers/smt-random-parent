@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Karl Bennett
+ * Copyright 2016 Karl Bennett
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,31 @@
 
 package shiver.me.timbers.data.random;
 
+import shiver.me.timbers.building.Block;
+
+import java.util.Random;
+
 /**
  * @author Karl Bennett
  */
-interface Things {
+class LazyGeneratedIterables implements GeneratedIterables {
+
+    private final Random random;
+    private final Block defaultGenerator;
+
+    public LazyGeneratedIterables(Random random, Block defaultGenerator) {
+        this.random = random;
+        this.defaultGenerator = defaultGenerator;
+    }
+
+    @Override
+    public GeneratedIterable create() {
+        return create(Object.class);
+    }
 
     @SuppressWarnings("unchecked")
-    <T> T someThing(T... things);
-
-    @SuppressWarnings("unchecked")
-    <T> RandomIterable<T> someThings(T... things);
+    @Override
+    public <T> GeneratedIterable<T> create(Class<T> type) {
+        return new LazyGeneratedIterable<>(type, random, defaultGenerator);
+    }
 }
