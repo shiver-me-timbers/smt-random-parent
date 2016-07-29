@@ -71,6 +71,21 @@ public class RandomStringsTest {
     }
 
     @Test
+    public void A_random_string_can_be_generated_with_a_length_between_a_range() {
+
+        // Given
+        final int minLength = 202;
+        final int maxLength = 212;
+
+        // When
+        final String actual = someString(minLength, maxLength);
+
+        // Then
+        assertThat(actual, hasLength(allOf(greaterThanOrEqualTo(minLength), lessThanOrEqualTo(maxLength))));
+        assertThat(actual, eachChar(isPrintableAscii()));
+    }
+
+    @Test
     public void A_random_string_can_be_generated_from_specific_characters() {
 
         // Given
@@ -99,6 +114,22 @@ public class RandomStringsTest {
     }
 
     @Test
+    public void A_random_string_can_be_generated_from_specific_characters_and_with_a_length_between_a_range() {
+
+        // Given
+        final int minLength = 202;
+        final int maxLength = 212;
+        final String characters = "fghij";
+
+        // When
+        final String actual = someString(minLength, maxLength, characters);
+
+        // Then
+        assertThat(actual, hasLength(allOf(greaterThanOrEqualTo(minLength), lessThanOrEqualTo(maxLength))));
+        assertThat(actual, eachChar(isOneOf(characters)));
+    }
+
+    @Test
     public void A_random_alpha_string_can_be_generated() {
 
         // When
@@ -119,6 +150,21 @@ public class RandomStringsTest {
 
         // Then
         assertThat(actual, hasLength(length));
+        assertThat(actual, eachChar(isAlpha()));
+    }
+
+    @Test
+    public void A_random_alpha_string_can_be_generated_with_a_length_between_a_range() {
+
+        // Given
+        final int minLength = 222;
+        final int maxLength = 232;
+
+        // When
+        final String actual = someAlphaString(minLength, maxLength);
+
+        // Then
+        assertThat(actual, hasLength(allOf(greaterThanOrEqualTo(minLength), lessThanOrEqualTo(maxLength))));
         assertThat(actual, eachChar(isAlpha()));
     }
 
@@ -147,6 +193,21 @@ public class RandomStringsTest {
     }
 
     @Test
+    public void A_random_numeric_string_can_be_generated_with_a_length_between_a_range() {
+
+        // Given
+        final int minLength = 242;
+        final int maxLength = 252;
+
+        // When
+        final String actual = someNumericString(minLength, maxLength);
+
+        // Then
+        assertThat(actual, hasLength(allOf(greaterThanOrEqualTo(minLength), lessThanOrEqualTo(maxLength))));
+        assertThat(actual, eachChar(isNumeric()));
+    }
+
+    @Test
     public void A_random_alpha_numeric_string_can_be_generated() {
 
         // When
@@ -167,6 +228,21 @@ public class RandomStringsTest {
 
         // Then
         assertThat(actual, hasLength(length));
+        assertThat(actual, eachChar(isAlphanumeric()));
+    }
+
+    @Test
+    public void A_random_alpha_numeric_string_can_be_generated_with_a_length_between_a_range() {
+
+        // Given
+        final int minLength = 262;
+        final int maxLength = 272;
+
+        // When
+        final String actual = someAlphanumericString(minLength, maxLength);
+
+        // Then
+        assertThat(actual, hasLength(allOf(greaterThanOrEqualTo(minLength), lessThanOrEqualTo(maxLength))));
         assertThat(actual, eachChar(isAlphanumeric()));
     }
 
@@ -405,65 +481,5 @@ public class RandomStringsTest {
         // Then
         assertThat(actual, hasLength(length));
         assertThat(actual, eachChar(isOneOf(characters)));
-    }
-
-    @Test
-    public void A_random_string_can_be_generated_with_a_length_between_a_range() {
-
-        // Given
-        final int minLength = 202;
-        final int maxLength = 212;
-
-        // When
-        final String actual = someString(minLength, maxLength);
-
-        // Then
-        assertThat(actual, hasLength(allOf(greaterThanOrEqualTo(minLength), lessThanOrEqualTo(maxLength))));
-        assertThat(actual, eachChar(isPrintableAscii()));
-    }
-
-    @Test
-    public void A_random_alpha_string_can_be_generated_with_a_length_between_a_range() {
-
-        // Given
-        final int minLength = 222;
-        final int maxLength = 232;
-
-        // When
-        final String actual = someAlphaString(minLength, maxLength);
-
-        // Then
-        assertThat(actual, hasLength(allOf(greaterThanOrEqualTo(minLength), lessThanOrEqualTo(maxLength))));
-        assertThat(actual, eachChar(isAlpha()));
-    }
-
-    @Test
-    public void A_random_numeric_string_can_be_generated_with_a_length_between_a_range() {
-
-        // Given
-        final int minLength = 242;
-        final int maxLength = 252;
-
-        // When
-        final String actual = someNumericString(minLength, maxLength);
-
-        // Then
-        assertThat(actual, hasLength(allOf(greaterThanOrEqualTo(minLength), lessThanOrEqualTo(maxLength))));
-        assertThat(actual, eachChar(isNumeric()));
-    }
-
-    @Test
-    public void A_random_alpha_numeric_string_can_be_generated_with_a_length_between_a_range() {
-
-        // Given
-        final int minLength = 262;
-        final int maxLength = 272;
-
-        // When
-        final String actual = someAlphanumericString(minLength, maxLength);
-
-        // Then
-        assertThat(actual, hasLength(allOf(greaterThanOrEqualTo(minLength), lessThanOrEqualTo(maxLength))));
-        assertThat(actual, eachChar(isAlphanumeric()));
     }
 }

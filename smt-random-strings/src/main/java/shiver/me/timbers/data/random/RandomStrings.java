@@ -74,6 +74,14 @@ public class RandomStrings {
     }
 
     /**
+     * Generate a random string from a specific set of characters with a length between the provided range, inclusive
+     * of the min and max values.
+     */
+    public static String someString(int min, int max, CharSequence characters) {
+        return buildSomeString().withLengthBetween(min, max).thatContains(characters).build();
+    }
+
+    /**
      * Generate a random alpha string.
      */
     public static String someAlphaString() {

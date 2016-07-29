@@ -39,34 +39,45 @@ with [Mockist TDD](http://martinfowler.com/articles/mocksArentStubs.html#Classic
 
 ```java
 someString(); // A random ASCII string of any length up to 1024 characters.
-
 someString(2); // A random string that has a length of 2 characters.
-
-// A random string of any length up to 1024 characters that will only contains the characters 'a', 'b', 'c', '1', '2', or '3'.
+someString(3, 4); // A random string that has a length between 3 to 4 characters.
+// A random string of any length up to 1024 characters that will only contains the characters 'a', 'b', 'c',
+// '1', '2', or '3'.
 someString("abc123");
+// A random string that has a length of 5 characters and will only contain the characters '6', '5', '4', 'g',
+// 'f', or 'e'.
+someString(5, "654gfe");
+// A random string that has a length between 6 to 7 characters and will only contain the characters 'h', 
+// 'i', 'j', '7', '8', or '9'.
+someString(6, 7, "hij789");
 
-// A random string that has a length of 3 characters and will only contain the characters '6', '5', '4', 'g', 'f', or 'e'.
-someString(3, "654gfe");
+// A random string that only contains alphabet characters of any length up to 1024 characters.
+someAlphaString();
+// A random string that only contains alphabet characters that has a length of 8 characters.
+someAlphaString(8);
+// A random string that only contains alphabet characters that has a length between 9 to 10 characters.
+someAlphaString(9, 10);
 
-someAlphaString(); // A random string that only contains alphabet characters of any length up to 1024 characters.
-
-someAlphaString(3); // A random string that only contains alphabet characters that has a length of 3 characters.
-
-someNumericString(); // A random string that only contains number characters of any length up to 1024 characters.
-
-someNumericString(4); // A random string that only contains number characters that has a length of 4 characters.
+// A random string that only contains number characters of any length up to 1024 characters.
+someNumericString(); 
+// A random string that only contains number characters that has a length of 11 characters.
+someNumericString(11); 
+// A random string that only contains number characters that has a length between 12 to 13 characters.
+someNumericString(12, 13); 
 
 // A random string that only contains number and alphabet characters of any length up to 1024 characters.
 someAlphaNumericString();
-
-// A random string that only contains number and alphabet characters that has a length of 5 characters.
-someAlphaNumericString(5);
+// A random string that only contains number and alphabet characters that has a length of 14 characters.
+someAlphaNumericString(14);
+// A random string that only contains number and alphabet characters that has a length between 15 to 16
+// characters.
+someAlphaNumericString(15, 16);
 ```
 
 There is also a builder method that allows for generating more complex strings.
 
 ```java
-// A random string that has a length between 6 to 10 characters and that can also contain all the alphabet characters
-// along with the '_' and '-' characters.
-buildSomeString().withLengthBetween(6, 10).thatContainsAlphaCharacters().thatContains("_-").build();
+// A random string that has a length between 17 to 18 characters and that can also contain all the alphabet
+// characters // along with the '_' and '-' characters.
+buildSomeString().withLengthBetween(17, 18).thatContainsAlphaCharacters().thatContains("_-").build();
 ```
