@@ -16,9 +16,8 @@
 
 package shiver.me.timbers.data.random;
 
-import shiver.me.timbers.building.ItemBlock;
-
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Karl Bennett
@@ -27,11 +26,10 @@ class SomeRandomIterable<T> implements RandomIterable<T> {
 
     private final GeneratedIterable<T> generatedIterable;
 
-    public SomeRandomIterable(GeneratedIterable<T> generatedIterable, T... elements) {
+    public SomeRandomIterable(GeneratedIterable<T> generatedIterable, Random random, T... elements) {
         this.generatedIterable = generatedIterable;
-        for (T element : elements) {
-            // TODO: These should be random blocks created from the elements.
-            generatedIterable.withGenerator(new ItemBlock<>(element));
+        if (elements.length > 0) {
+            generatedIterable.withGenerator(new RandomBlock<>(random, elements));
         }
     }
 

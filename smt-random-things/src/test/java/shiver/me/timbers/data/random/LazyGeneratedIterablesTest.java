@@ -20,78 +20,58 @@ import org.junit.Before;
 import org.junit.Test;
 import shiver.me.timbers.building.Block;
 
-import java.lang.reflect.Field;
-import java.util.Random;
-
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
-import static shiver.me.timbers.data.random.Constants.DEFAULT_MAX_ARRAY_SIZE;
+import static shiver.me.timbers.data.random.TestUtils.extractField;
 
 public class LazyGeneratedIterablesTest {
 
-    private Random random;
     private Block block;
     private LazyGeneratedIterables iterables;
 
     @Before
     public void setUp() {
-        random = mock(Random.class);
         block = mock(Block.class);
-        iterables = new LazyGeneratedIterables(random, block);
+        iterables = new LazyGeneratedIterables(block);
     }
 
     @Test
     public void Can_create_a_typed_lazy_generated_iterable() throws NoSuchFieldException, IllegalAccessException {
 
+        // Given
+        final int length = 5;
         final Class<String> type = String.class;
 
-        final int size = 5;
-
-        // Given
-        given(random.nextInt(DEFAULT_MAX_ARRAY_SIZE)).willReturn(size);
-
         // When
-        final GeneratedIterable<String> actual = iterables.create(type);
+        final GeneratedIterable<String> actual = iterables.create(length, type);
 
         // Then
-        final Class<? extends GeneratedIterable> actualClass = actual.getClass();
-        final Object actualType = extractField(actual, actualClass, "type");
-        final Object actualSize = extractField(actual, actualClass, "size");
-        final Object actualBlock = extractField(actual, actualClass, "defaultGenerator");
+        final Object actualType = extractField(actual, "type");
+        final Object actualLength = extractField(actual, "length");
+        final Object actualBlock = extractField(actual, "defaultGenerator");
 
         assertThat(type, is(actualType));
-        assertThat(size, is(actualSize));
+        assertThat(length, is(actualLength));
         assertThat(block, is(actualBlock));
     }
 
     @Test
     public void Can_create_a_lazy_generated_iterable() throws NoSuchFieldException, IllegalAccessException {
 
-        final int size = 8;
-
         // Given
-        given(random.nextInt(DEFAULT_MAX_ARRAY_SIZE)).willReturn(size);
+        final int length = 8;
 
         // When
-        final GeneratedIterable actual = iterables.create();
+        final GeneratedIterable actual = iterables.create(length);
 
         // Then
-        final Class<? extends GeneratedIterable> actualClass = actual.getClass();
-        final Object actualType = extractField(actual, actualClass, "type");
-        final Object actualSize = extractField(actual, actualClass, "size");
-        final Object actualBlock = extractField(actual, actualClass, "defaultGenerator");
+        final Object actualType = extractField(actual, "type");
+        final Object actualLength = extractField(actual, "length");
+        final Object actualBlock = extractField(actual, "defaultGenerator");
 
         assertThat(Object.class, is(actualType));
-        assertThat(size, is(actualSize));
+        assertThat(length, is(actualLength));
         assertThat(block, is(actualBlock));
-    }
-
-    private Object extractField(Object actual, Class type, String name)
-        throws IllegalAccessException, NoSuchFieldException {
-        final Field field = type.getDeclaredField(name);
-        field.setAccessible(true);
-        return field.get(actual);
     }
 }

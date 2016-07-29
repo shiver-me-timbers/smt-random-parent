@@ -27,7 +27,7 @@ public class RandomThings {
 
     private static Things things() {
         final ThreadLocalRandom random = ThreadLocalRandom.current();
-        return new SomeThings(random, new SomeRandomIterables(new LazyGeneratedIterables(random, new RandomBlock(random))));
+        return new SomeThings(new SomeRandomIterables(random, new LazyGeneratedIterables(new SomeRandomBlock(random))));
     }
 
     /**

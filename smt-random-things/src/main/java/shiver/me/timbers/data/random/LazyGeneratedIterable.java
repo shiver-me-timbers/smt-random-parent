@@ -26,10 +26,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
-
-import static shiver.me.timbers.data.random.Constants.DEFAULT_MAX_ARRAY_SIZE;
 
 /**
  * @author Karl Bennett
@@ -37,16 +34,16 @@ import static shiver.me.timbers.data.random.Constants.DEFAULT_MAX_ARRAY_SIZE;
 class LazyGeneratedIterable<T> implements GeneratedIterable<T> {
 
     private final Class<T> type;
-    private int size;
+    private int length;
     private final Block<T> defaultGenerator;
     private final List<T> delegate;
     private final Builder<T> builder;
 
-    public LazyGeneratedIterable(Class<T> type, Random random, Block<T> defaultGenerator) {
+    public LazyGeneratedIterable(Class<T> type, int length, Block<T> defaultGenerator) {
         this.type = type;
-        this.size = random.nextInt(DEFAULT_MAX_ARRAY_SIZE);
+        this.length = length;
         this.defaultGenerator = defaultGenerator;
-        this.delegate = new ArrayList<>(size);
+        this.delegate = new ArrayList<>(this.length);
         this.builder = new QueueBuilder<>(new LinkedList<Block<T>>());
     }
 
@@ -84,7 +81,7 @@ class LazyGeneratedIterable<T> implements GeneratedIterable<T> {
 
     @Override
     public GeneratedIterable<T> withLength(int length) {
-        this.size = length;
+        this.length = length;
         return this;
     }
 
@@ -96,7 +93,7 @@ class LazyGeneratedIterable<T> implements GeneratedIterable<T> {
         }
 
         if (delegate.isEmpty()) {
-            for (T number : builder.iterable(size)) {
+            for (T number : builder.iterable(length)) {
                 delegate.add(number);
             }
         }

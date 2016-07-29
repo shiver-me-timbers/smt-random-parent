@@ -26,16 +26,13 @@ This library contains helper methods for generating random strings.
     <dependency>
         <groupId>com.github.shiver-me-timbers</groupId>
         <artifactId>smt-random-strings</artifactId>
-        <version>1.4</version>
+        <version>1.7</version>
     </dependency>
 </dependencies>
 ```
 ### Usage
 
 This is a very simple library that contains some static methods that can be used to generate random strings.
-
-It was inspired by an internal library built by [Paul Jacobs](https://www.linkedin.com/profile/view?id=5717945) to help
-with [Mockist TDD](http://martinfowler.com/articles/mocksArentStubs.html#ClassicalAndMockistTesting).
 
 ```java
 someString(); // A random ASCII string of any length up to 1024 characters.

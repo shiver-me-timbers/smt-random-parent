@@ -16,29 +16,21 @@
 
 package shiver.me.timbers.data.random;
 
-import java.util.Random;
-
 /**
  * @author Karl Bennett
  */
 class SomeThings implements Things {
 
-    private final Random random;
     private final RandomIterables randomIterables;
 
-    public SomeThings(Random random, RandomIterables randomIterables) {
-        this.random = random;
+    public SomeThings(RandomIterables randomIterables) {
         this.randomIterables = randomIterables;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T> T someThing(T... things) {
-        if (things.length == 0) {
-            return (T) someThings().withLength(1).list().get(0);
-        }
-
-        return things[random.nextInt(things.length)];
+        return someThings(things).withLength(1).list().get(0);
     }
 
     @Override

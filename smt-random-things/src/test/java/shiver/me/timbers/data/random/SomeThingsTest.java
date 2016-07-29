@@ -20,7 +20,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Random;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -30,47 +29,13 @@ import static org.mockito.Mockito.mock;
 
 public class SomeThingsTest {
 
-    private Random random;
     private SomeThings someThings;
     private RandomIterables randomIterables;
 
     @Before
     public void setUp() {
-        random = mock(Random.class);
         randomIterables = mock(RandomIterables.class);
-        someThings = new SomeThings(random, randomIterables);
-    }
-
-    @Test
-    public void Can_generate_a_single_thing() {
-
-        final Object expected = new Object();
-        final Object[] things = {expected};
-
-        // Given
-        given(random.nextInt(things.length)).willReturn(0);
-
-        // When
-        final Object actual = someThings.someThing(things);
-
-        // Then
-        assertThat(actual, equalTo(expected));
-    }
-
-    @Test
-    public void Can_generate_a_single_thing_from_some_things() {
-
-        final Object expected = new Object();
-        final Object[] things = {1, expected, "three"};
-
-        // Given
-        given(random.nextInt(things.length)).willReturn(1);
-
-        // When
-        final Object actual = someThings.someThing(things);
-
-        // Then
-        assertThat(actual, equalTo(expected));
+        someThings = new SomeThings(randomIterables);
     }
 
     @Test
@@ -94,6 +59,47 @@ public class SomeThingsTest {
 
         // Then
         assertThat(actual, equalTo(expected));
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void Can_generate_a_single_thing_from_some_things() {
+
+        final Object[] things = {1, 2.0, "three", new Object()};
+
+        final RandomIterable<Object> randomIterable = mock(RandomIterable.class);
+        final RandomIterable<Object> randomIterableWithLength = mock(RandomIterable.class);
+        final List<Object> randomList = mock(List.class);
+
+        final Object expected = new Object();
+
+        // Given
+        given(randomIterables.thatContains(things)).willReturn(randomIterable);
+        given(randomIterable.withLength(1)).willReturn(randomIterableWithLength);
+        given(randomIterableWithLength.list()).willReturn(randomList);
+        given(randomList.get(0)).willReturn(expected);
+
+        // When
+        final Object actual = someThings.someThing(things);
+
+        // Then
+        assertThat(actual, equalTo(expected));
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void Can_generate_some_random_things() {
+
+        final RandomIterable<Object> expected = mock(RandomIterable.class);
+
+        // Given
+        given(randomIterables.thatContains()).willReturn(expected);
+
+        // When
+        final RandomIterable<Object> actual = someThings.someThings();
+
+        // Then
+        assertThat(actual, is(expected));
     }
 
     @Test

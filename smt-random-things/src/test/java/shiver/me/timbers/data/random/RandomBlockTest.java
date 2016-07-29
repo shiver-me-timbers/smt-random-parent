@@ -17,10 +17,7 @@
 package shiver.me.timbers.data.random;
 
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import static org.hamcrest.Matchers.anyOf;
@@ -28,10 +25,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willAnswer;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
-import static shiver.me.timbers.data.random.Constants.DEFAULT_MAX_ARRAY_SIZE;
 
 public class RandomBlockTest {
 
@@ -39,44 +33,20 @@ public class RandomBlockTest {
     public void Can_build_a_random_block() {
 
         final Random random = mock(Random.class);
-
-        final Object object = new Object();
-        final byte[] bytesValue = Arrays.copyOf(new byte[]{1, 2, 3}, DEFAULT_MAX_ARRAY_SIZE);
-        final boolean booleanValue = true;
-        final int intValue = 5;
-        final float floatValue = 8F;
-        final long longValue = 13L;
-        final double doubleValue = 21D;
-        final String string = "a random string";
-
-        final Object[] randomValues =
-            {object, booleanValue, bytesValue, intValue, floatValue, longValue, doubleValue, string};
+        final int zero = 0;
+        final double one = 1.0;
+        final String two = "two";
+        final Object three = new Object();
+        final Object[] randomValues = {zero, one, two, three};
         final int randomIndex = new Random().nextInt(randomValues.length);
 
         // Given
-        given(random.nextBoolean()).willReturn(booleanValue);
-        willAnswer(populateBytes(bytesValue)).given(random).nextBytes(any(byte[].class));
-        given(random.nextInt()).willReturn(intValue);
-        given(random.nextFloat()).willReturn(floatValue);
-        given(random.nextLong()).willReturn(longValue);
-        given(random.nextDouble()).willReturn(doubleValue);
         given(random.nextInt(randomValues.length)).willReturn(randomIndex);
 
         // When
-        final Object actual = new RandomBlock(random).build();
+        final Object actual = new RandomBlock<>(random, randomValues).build();
 
         // Then
         assertThat(actual, anyOf(is(randomValues[randomIndex]), isA(Object.class)));
-    }
-
-    private Answer<byte[]> populateBytes(final byte[] bytesValue) {
-        return new Answer<byte[]>() {
-            @Override
-            public byte[] answer(InvocationOnMock invocation) throws Throwable {
-                final byte[] bytes = invocation.getArgumentAt(0, byte[].class);
-                System.arraycopy(bytesValue, 0, bytes, 0, bytesValue.length);
-                return null;
-            }
-        };
     }
 }

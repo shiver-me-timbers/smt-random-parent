@@ -23,19 +23,24 @@ import static shiver.me.timbers.data.random.Constants.DEFAULT_MAX_ARRAY_SIZE;
 /**
  * @author Karl Bennett
  */
-class SomeRandomIterables implements RandomIterables {
+class SomeRandomBlock extends RandomBlock<Object> {
 
-    private final Random random;
-    private final GeneratedIterables generatedIterables;
-
-    public SomeRandomIterables(Random random, GeneratedIterables generatedIterables) {
-        this.random = random;
-        this.generatedIterables = generatedIterables;
+    SomeRandomBlock(Random random) {
+        super(random, createRandomValues(random));
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> RandomIterable<T> thatContains(T... elements) {
-        return new SomeRandomIterable<>(generatedIterables.create(random.nextInt(DEFAULT_MAX_ARRAY_SIZE)), random, elements);
+    private static Object[] createRandomValues(Random random) {
+        final byte[] bytesValue = new byte[DEFAULT_MAX_ARRAY_SIZE];
+        random.nextBytes(bytesValue);
+        return new Object[]{
+            new Object(),
+            random.nextBoolean(),
+            bytesValue,
+            random.nextInt(),
+            random.nextFloat(),
+            random.nextLong(),
+            random.nextDouble(),
+            "a random string"
+        };
     }
 }

@@ -26,7 +26,7 @@ This library contains helper methods for generating random number.
     <dependency>
         <groupId>com.github.shiver-me-timbers</groupId>
         <artifactId>smt-random-numbers</artifactId>
-        <version>1.6</version>
+        <version>1.7</version>
     </dependency>
 </dependencies>
 ```
@@ -34,9 +34,6 @@ This library contains helper methods for generating random number.
 
 This is a very simple library that contains some static methods that can be used to generate random numbers of varying
 size and magnitude.
-
-It was inspired by an internal library built by [Paul Jacobs](https://www.linkedin.com/profile/view?id=5717945) to help
-with [Mockist TDD](http://martinfowler.com/articles/mocksArentStubs.html#ClassicalAndMockistTesting).
 
 ```java
 someShort(); // A random positive or negative short.

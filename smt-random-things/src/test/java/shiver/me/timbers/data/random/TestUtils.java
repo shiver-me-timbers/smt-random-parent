@@ -16,25 +16,14 @@
 
 package shiver.me.timbers.data.random;
 
-import shiver.me.timbers.building.AtomicBlock;
+import java.lang.reflect.Field;
 
-import java.util.Random;
+class TestUtils {
 
-/**
- * @author Karl Bennett
- */
-class RandomBlock<T> extends AtomicBlock<T> {
-
-    private final Random random;
-    private T[] randomValues;
-
-    public RandomBlock(Random random, T... randomValues) {
-        this.random = random;
-        this.randomValues = randomValues;
-    }
-
-    @Override
-    protected T build() {
-        return randomValues[random.nextInt(randomValues.length)];
+    static Object extractField(Object actual, String name)
+        throws IllegalAccessException, NoSuchFieldException {
+        final Field field = actual.getClass().getDeclaredField(name);
+        field.setAccessible(true);
+        return field.get(actual);
     }
 }

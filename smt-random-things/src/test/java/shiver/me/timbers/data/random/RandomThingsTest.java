@@ -21,7 +21,6 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
@@ -105,6 +104,6 @@ public class RandomThingsTest {
 
         // Then
         assertThat(actual, hasSize(size));
-        assertThat(actual, contains(zero, one, two, zero, one));
+        assertThat(actual, anyOf(hasItem(zero), hasItem(one), hasItem(two)));
     }
 }

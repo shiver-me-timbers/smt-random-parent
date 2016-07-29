@@ -22,7 +22,6 @@ import shiver.me.timbers.building.Block;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 import static org.hamcrest.Matchers.arrayContaining;
@@ -34,22 +33,21 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.verify;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verifyZeroInteractions;
-import static shiver.me.timbers.data.random.Constants.DEFAULT_MAX_ARRAY_SIZE;
 
 public class LazyGeneratedIterableTest {
 
     private Class<Object> type;
-    private Random random;
     private Block<Object> defaultGenerator;
     private GeneratedIterable<Object> iterable;
+    private int length;
 
     @Before
     @SuppressWarnings("unchecked")
     public void setUp() {
         type = Object.class;
-        random = mock(Random.class);
+        length = 5;
         defaultGenerator = mock(Block.class);
-        iterable = new LazyGeneratedIterable<>(type, random, defaultGenerator);
+        iterable = new LazyGeneratedIterable<>(type, length, defaultGenerator);
     }
 
     @Test
@@ -57,14 +55,12 @@ public class LazyGeneratedIterableTest {
     public void Can_create_a_lazy_iterable() throws Exception {
 
         // Given
-        final Random random = mock(Random.class);
         final Block<Object> block = mock(Block.class);
 
         // When
-        new LazyGeneratedIterable<>(type, random, block);
+        new LazyGeneratedIterable<>(type, length, block);
 
         // Then
-        verify(random).nextInt(DEFAULT_MAX_ARRAY_SIZE);
         verifyZeroInteractions(block);
     }
 

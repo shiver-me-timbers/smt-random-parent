@@ -20,6 +20,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Random;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -30,13 +31,15 @@ import static org.mockito.Mockito.verify;
 public class SomeRandomIterableTest {
 
     private GeneratedIterable<Object> generatedIterable;
+    private Random random;
     private SomeRandomIterable<Object> iterable;
 
     @Before
     @SuppressWarnings("unchecked")
     public void setUp() {
         generatedIterable = mock(GeneratedIterable.class);
-        iterable = new SomeRandomIterable<>(generatedIterable);
+        random = mock(Random.class);
+        iterable = new SomeRandomIterable<>(generatedIterable, random);
     }
 
     @Test

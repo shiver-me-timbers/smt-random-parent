@@ -18,29 +18,25 @@ package shiver.me.timbers.data.random;
 
 import shiver.me.timbers.building.Block;
 
-import java.util.Random;
-
 /**
  * @author Karl Bennett
  */
 class LazyGeneratedIterables implements GeneratedIterables {
 
-    private final Random random;
     private final Block defaultGenerator;
 
-    public LazyGeneratedIterables(Random random, Block defaultGenerator) {
-        this.random = random;
+    public LazyGeneratedIterables(Block defaultGenerator) {
         this.defaultGenerator = defaultGenerator;
     }
 
     @Override
-    public GeneratedIterable create() {
-        return create(Object.class);
+    public GeneratedIterable create(int length) {
+        return create(length, Object.class);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T> GeneratedIterable<T> create(Class<T> type) {
-        return new LazyGeneratedIterable<>(type, random, defaultGenerator);
+    public <T> GeneratedIterable<T> create(int length, Class<T> type) {
+        return new LazyGeneratedIterable<>(type, length, defaultGenerator);
     }
 }

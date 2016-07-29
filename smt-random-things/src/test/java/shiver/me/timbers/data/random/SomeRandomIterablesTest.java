@@ -18,48 +18,81 @@ package shiver.me.timbers.data.random;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InOrder;
-import shiver.me.timbers.building.ItemBlock;
+import org.mockito.ArgumentCaptor;
 
+import java.util.Random;
+
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
+import static shiver.me.timbers.data.random.Constants.DEFAULT_MAX_ARRAY_SIZE;
+import static shiver.me.timbers.data.random.TestUtils.extractField;
 
 public class SomeRandomIterablesTest {
 
+    private Random random;
     private GeneratedIterables generatedIterables;
     private SomeRandomIterables iterables;
 
     @Before
     public void setUp() {
+        random = mock(Random.class);
         generatedIterables = mock(GeneratedIterables.class);
-        iterables = new SomeRandomIterables(generatedIterables);
+        iterables = new SomeRandomIterables(random, generatedIterables);
     }
 
     @Test
     @SuppressWarnings("unchecked")
-    public void Can_create_a_random_iterable_that_contains_some_specific_things() {
+    public void Can_create_a_random_iterable_that_contains_some_random_things()
+        throws NoSuchFieldException, IllegalAccessException {
+
+        final int length = 5;
+        final GeneratedIterable<Object> generatedIterable = mock(GeneratedIterable.class);
+
+        // Given
+        given(random.nextInt(DEFAULT_MAX_ARRAY_SIZE)).willReturn(length);
+        given(generatedIterables.create(length)).willReturn(generatedIterable);
+
+        // When
+        final RandomIterable<Object> actual = iterables.thatContains();
+
+        // Then
+        assertThat(actual, not(nullValue()));
+        verifyZeroInteractions(generatedIterable);
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void Can_create_a_random_iterable_that_contains_some_specific_things()
+        throws NoSuchFieldException, IllegalAccessException {
 
         final Object one = new Object();
         final int two = 2;
         final String three = "two";
 
+        final int length = 5;
         final GeneratedIterable<Object> generatedIterable = mock(GeneratedIterable.class);
+        final ArgumentCaptor<RandomBlock> captor = ArgumentCaptor.forClass(RandomBlock.class);
 
         // Given
-        given(generatedIterables.create()).willReturn(generatedIterable);
+        given(random.nextInt(DEFAULT_MAX_ARRAY_SIZE)).willReturn(length);
+        given(generatedIterables.create(length)).willReturn(generatedIterable);
 
         // When
         final RandomIterable<Object> actual = iterables.thatContains(one, two, three);
 
         // Then
         assertThat(actual, not(nullValue()));
-        final InOrder order = inOrder(generatedIterable);
-        order.verify(generatedIterable).withGenerator(new ItemBlock<>(one));
-        order.verify(generatedIterable).withGenerator(new ItemBlock<Object>(two));
-        order.verify(generatedIterable).withGenerator(new ItemBlock<Object>(three));
+        verify(generatedIterable).withGenerator(captor.capture());
+        final RandomBlock randomBlock = captor.getValue();
+        final Object randomBlockRandom = extractField(randomBlock, "random");
+        final Object randomBlockRandomValues = extractField(randomBlock, "randomValues");
+        assertThat(random, equalTo(randomBlockRandom));
+        assertThat(new Object[]{one, two, three}, equalTo(randomBlockRandomValues));
     }
 }

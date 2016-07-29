@@ -21,7 +21,7 @@ package shiver.me.timbers.data.random;
  */
 interface GeneratedIterables {
 
-    GeneratedIterable create();
+    GeneratedIterable create(int length);
 
-    <T> GeneratedIterable<T> create(Class<T> type);
+    <T> GeneratedIterable<T> create(int length, Class<T> type);
 }
