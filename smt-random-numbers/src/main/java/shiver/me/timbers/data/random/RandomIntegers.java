@@ -85,14 +85,14 @@ public class RandomIntegers {
     }
 
     /**
-     * Generate a list of integers of a random length that contains random integers.
+     * Generate an iterable that contains random integers with a random length.
      */
     public static NumbersIterable<Integer> someIntegers() {
         return integers().someNumbers();
     }
 
     /**
-     * Generate a list of integers of a fixed length that contains random integers.
+     * Generate an iterable that contains random integers with a fixed length.
      */
     public static NumbersIterable<Integer> someIntegers(int length) {
         return integers().someNumbers(length);

@@ -89,14 +89,14 @@ public class RandomBigIntegers {
     }
 
     /**
-     * Generate a list of BigIntegers of a random length that contains random BigIntegers.
+     * Generate an iterable that contains random BigIntegers with a random length.
      */
     public static NumbersIterable<BigInteger> someBigIntegers() {
         return bigIntegers().someNumbers();
     }
 
     /**
-     * Generate a list of BigIntegers of a fixed length that contains random BigIntegers.
+     * Generate an iterable that contains random BigIntegers with a fixed length.
      */
     public static NumbersIterable<BigInteger> someBigIntegers(int length) {
         return bigIntegers().someNumbers(length);

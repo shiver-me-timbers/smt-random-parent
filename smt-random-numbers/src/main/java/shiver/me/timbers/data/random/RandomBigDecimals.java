@@ -89,14 +89,14 @@ public class RandomBigDecimals {
     }
 
     /**
-     * Generate a list of BigDecimals of a random length that contains random BigDecimals.
+     * Generate an iterable that contains random BigDecimals with a random length.
      */
     public static NumbersIterable<BigDecimal> someBigDecimals() {
         return bigDecimals().someNumbers();
     }
 
     /**
-     * Generate a list of BigDecimals of a fixed length that contains random BigDecimals.
+     * Generate an iterable that contains random BigDecimals with a fixed length.
      */
     public static NumbersIterable<BigDecimal> someBigDecimals(int length) {
         return bigDecimals().someNumbers(length);

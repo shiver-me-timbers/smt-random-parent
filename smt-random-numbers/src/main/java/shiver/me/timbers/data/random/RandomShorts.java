@@ -85,14 +85,14 @@ public class RandomShorts {
     }
 
     /**
-     * Generate a list of shorts of a random length that contains random shorts.
+     * Generate an iterable that contains random shorts with a random length.
      */
     public static NumbersIterable<Short> someShorts() {
         return shorts().someNumbers();
     }
 
     /**
-     * Generate a list of shorts of a fixed length that contains random shorts.
+     * Generate an iterable that contains random shorts with a fixed length.
      */
     public static NumbersIterable<Short> someShorts(int length) {
         return shorts().someNumbers(length);

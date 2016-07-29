@@ -85,14 +85,14 @@ public class RandomDoubles {
     }
 
     /**
-     * Generate a list of doubles of a random length that contains random doubles.
+     * Generate an iterable that contains random doubles with a random length.
      */
     public static NumbersIterable<Double> someDoubles() {
         return doubles().someNumbers();
     }
 
     /**
-     * Generate a list of doubles of a fixed length that contains random doubles.
+     * Generate an iterable that contains random doubles with a fixed length.
      */
     public static NumbersIterable<Double> someDoubles(int length) {
         return doubles().someNumbers(length);

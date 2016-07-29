@@ -85,14 +85,14 @@ public class RandomFloats {
     }
 
     /**
-     * Generate a list of floats of a random length that contains random floats.
+     * Generate an iterable that contains random floats with a random length.
      */
     public static NumbersIterable<Float> someFloats() {
         return floats().someNumbers();
     }
 
     /**
-     * Generate a list of floats of a fixed length that contains random floats.
+     * Generate an iterable that contains random floats with a fixed length.
      */
     public static NumbersIterable<Float> someFloats(int length) {
         return floats().someNumbers(length);
