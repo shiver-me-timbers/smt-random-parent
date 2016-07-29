@@ -78,6 +78,6 @@ There is also a builder method that allows for generating more complex strings.
 
 ```java
 // A random string that has a length between 17 to 18 characters and that can also contain all the alphabet
-// characters // along with the '_' and '-' characters.
+// characters along with the '_' and '-' characters.
 buildSomeString().withLengthBetween(17, 18).thatContainsAlphaCharacters().thatContains("_-").build();
 ```
