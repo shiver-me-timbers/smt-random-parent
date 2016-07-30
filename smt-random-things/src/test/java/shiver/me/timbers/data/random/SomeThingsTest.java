@@ -126,13 +126,13 @@ public class SomeThingsTest {
 
         final Object[] things = {};
 
-        final RandomIterable<Object> expected = mock(RandomIterable.class);
+        final FixedRandomIterable<Object> expected = mock(FixedRandomIterable.class);
 
         // Given
         given(randomIterables.thatContainsRandomlyOrdered(things)).willReturn(expected);
 
         // When
-        final RandomIterable<Object> actual = someThings.someOrder(things);
+        final FixedRandomIterable<Object> actual = someThings.someOrder(things);
 
         // Then
         assertThat(actual, is(expected));

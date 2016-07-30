@@ -33,17 +33,20 @@ someThing(1, 2.0F, "three", new Four());
 // An iterable containing a random number of instances of random objects that could be any of the core types.
 someThings()
 // An iterable containing a random number of any of the supplied values, selected randomly.
-someThings(1, 2.0F, "three", new Four());
+someThings(5L, 6.0D, "seven", new Eight());
+
+// An iterable containing only the supplied values in a random order.
+someOrder(new BigInteger("9"), new BigDecimal("10.0"), "eleven", new Twelve());
 ```
 
-The iterable returned by the `someThings()` method is a custom iterable that can be used to create any of the main 
-collections. As well as set the number of elements within the iterable.
+The iterable returned by the `someThings()` and `someOrder()` methods is a custom iterable that can be used to create 
+any of the main collections. The `someThings()` iterable also allows the number of elements to be set.
 
 ```java
-// A list containing 5 instances of random objects that could be any of the core types.
-someThings().withLength(5).list();
-// A set containing 6 of any of the supplied values, selected randomly.
-someThings(1, 2.0F, "three", new Four()).withLength(6).set();
-// An array containing 7 of any of the supplied values, selected randomly.
-someThings(5L, 6.0D, "seven", new Eight()).withLength(7).set();
+// A list containing the specified objects in a random order.
+someOrder(1, 2.0F, "three", new Four()).list();
+// An array containing 6 of any of the supplied objects, selected randomly.
+someThings(5L, 6.0D, "seven", new Eight()).withLength(6).array();
+// An array containing 7 of any of the supplied objects, selected randomly.
+someThings(new BigInteger("9"), new BigDecimal("10.0"), "eleven", new Twelve()).withLength(7).set();
 ```

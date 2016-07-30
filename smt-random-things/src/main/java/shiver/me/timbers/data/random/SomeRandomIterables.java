@@ -16,6 +16,8 @@
 
 package shiver.me.timbers.data.random;
 
+import shiver.me.timbers.building.Block;
+
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -45,14 +47,24 @@ class SomeRandomIterables implements RandomIterables {
     }
 
     @Override
-    public <T> RandomIterable<T> thatContainsRandomlyOrdered(T... things) {
-        throw new UnsupportedOperationException();
+    public <T> FixedRandomIterable<T> thatContainsRandomlyOrdered(T... elements) {
+        final GeneratedIterable<T> iterable = createGeneratedIterable(
+            new RandomOrderBlock<>(random, elements), elements.length
+        );
+        // We generate the iterator up front because the RandomOrderBlock is not thread safe so we want to make sure the
+        // iterator is built and cached and the building cannot be run again in potentially multiple threads.
+        iterable.iterator();
+        return new DelegateRandomIterable<>(iterable);
     }
 
-    private <T> RandomIterable<T> createRandomIterable(RandomBlock<T> defaultBlock) {
+    private <T> RandomIterable<T> createRandomIterable(Block<T> defaultBlock) {
         return new DelegateRandomIterable<>(
-            generatedIterables.<T>create(defaultBlock, random.nextInt(DEFAULT_MAX_ARRAY_SIZE))
+            createGeneratedIterable(defaultBlock, random.nextInt(DEFAULT_MAX_ARRAY_SIZE))
         );
+    }
+
+    private <T> GeneratedIterable<T> createGeneratedIterable(Block<T> defaultBlock, int length) {
+        return generatedIterables.create(defaultBlock, length);
     }
 
     private class DelegateRandomIterable<T> implements RandomIterable<T> {

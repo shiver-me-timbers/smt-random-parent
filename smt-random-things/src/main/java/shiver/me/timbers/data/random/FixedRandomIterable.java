@@ -16,13 +16,17 @@
 
 package shiver.me.timbers.data.random;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * @author Karl Bennett
  */
-interface RandomIterables {
+public interface FixedRandomIterable<T> {
 
-    @SuppressWarnings("unchecked")
-    <T> RandomIterable<T> thatContainsRandom(T... elements);
+    List<T> list();
 
-    <T> FixedRandomIterable<T> thatContainsRandomlyOrdered(T... elements);
+    T[] array();
+
+    Set<T> set();
 }

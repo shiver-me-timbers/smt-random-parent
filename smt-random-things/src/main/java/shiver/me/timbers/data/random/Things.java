@@ -27,5 +27,5 @@ interface Things {
     @SuppressWarnings("unchecked")
     <T> RandomIterable<T> someThings(T... things);
 
-    <T> RandomIterable<T> someOrder(T... things);
+    <T> FixedRandomIterable<T> someOrder(T... things);
 }

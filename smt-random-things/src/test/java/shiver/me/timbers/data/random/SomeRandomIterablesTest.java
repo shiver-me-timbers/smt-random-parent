@@ -22,6 +22,7 @@ import org.mockito.ArgumentCaptor;
 
 import java.util.Random;
 
+import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertThat;
@@ -98,5 +99,35 @@ public class SomeRandomIterablesTest {
         final RandomBlock actualRandomBlock = captor.getValue();
         final Object actualRandomValues = extractField(actualRandomBlock, "randomValues");
         assertThat(actualRandomValues, is((Object) new Object[]{one, two, three}));
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void Can_create_a_random_iterable_that_contains_some_specific_things_in_a_random_order()
+        throws NoSuchFieldException, IllegalAccessException {
+
+        final Object one = new Object();
+        final int two = 2;
+        final String three = "two";
+        final Object[] values = {one, two, three};
+
+        final GeneratedIterable<Object> generatedIterable = mock(GeneratedIterable.class);
+        final ArgumentCaptor<RandomOrderBlock> captor = ArgumentCaptor.forClass(RandomOrderBlock.class);
+
+        // Given
+        given(generatedIterables.create(argThat(isA(RandomOrderBlock.class)), eq(values.length)))
+            .willReturn(generatedIterable);
+
+        // When
+        final FixedRandomIterable<Object> actual = iterables.thatContainsRandomlyOrdered(values);
+
+        // Then
+        final Object actualGeneratedIterable = extractField(actual, "generatedIterable");
+        assertThat(actualGeneratedIterable, is((Object) generatedIterable));
+        verify(generatedIterables).create(captor.capture(), eq(values.length));
+        verify(generatedIterable).iterator();
+        final RandomOrderBlock actualRandomBlock = captor.getValue();
+        final Object actualRandomValues = extractField(actualRandomBlock, "randomValues");
+        assertThat(actualRandomValues, is((Object) asList(one, two, three)));
     }
 }

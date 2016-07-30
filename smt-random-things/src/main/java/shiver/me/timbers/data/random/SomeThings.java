@@ -40,7 +40,7 @@ class SomeThings implements Things {
     }
 
     @Override
-    public <T> RandomIterable<T> someOrder(T... things) {
+    public <T> FixedRandomIterable<T> someOrder(T... things) {
         return randomIterables.thatContainsRandomlyOrdered(things);
     }
 }

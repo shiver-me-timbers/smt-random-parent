@@ -47,7 +47,7 @@ public class RandomThings {
         return things().someThings(things);
     }
 
-    public static <T> RandomIterable<T> someOrder(T... things) {
+    public static <T> FixedRandomIterable<T> someOrder(T... things) {
         return things().someOrder(things);
     }
 }
