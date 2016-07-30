@@ -17,6 +17,7 @@
 package shiver.me.timbers.data.random;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Karl Bennett
@@ -26,4 +27,8 @@ public interface RandomIterable<T> {
     RandomIterable<T> withLength(int length);
 
     List<T> list();
+
+    T[] array();
+
+    Set<T> set();
 }

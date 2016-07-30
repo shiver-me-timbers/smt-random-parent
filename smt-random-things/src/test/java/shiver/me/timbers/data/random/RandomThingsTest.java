@@ -21,6 +21,8 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
@@ -28,6 +30,7 @@ import static org.hamcrest.Matchers.isOneOf;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
+import static shiver.me.timbers.data.random.RandomThings.someOrder;
 import static shiver.me.timbers.data.random.RandomThings.someThing;
 import static shiver.me.timbers.data.random.RandomThings.someThings;
 
@@ -105,5 +108,24 @@ public class RandomThingsTest {
         // Then
         assertThat(actual, hasSize(size));
         assertThat(actual, anyOf(hasItem(zero), hasItem(one), hasItem(two)));
+    }
+
+    @Test
+    public void Can_generate_a_randomised_order_of_things() {
+
+        // Given
+        final int size = 5;
+        final Object zero = new Object();
+        final int one = 1;
+        final float two = 2.0F;
+        final String three = "three";
+
+        // When
+        final List<Object> actual = someOrder(zero, one, two, three).list();
+
+        // Then
+        assertThat(actual, hasSize(4));
+        assertThat(actual, containsInAnyOrder(zero, one, two, three));
+        assertThat(actual, not(contains(zero, one, two, three)));
     }
 }

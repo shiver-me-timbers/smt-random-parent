@@ -22,7 +22,12 @@ class TestUtils {
 
     static Object extractField(Object actual, String name)
         throws IllegalAccessException, NoSuchFieldException {
-        final Field field = actual.getClass().getDeclaredField(name);
+        return extractField(actual, actual.getClass(), name);
+    }
+
+    static Object extractField(Object actual, Class type, String name)
+        throws IllegalAccessException, NoSuchFieldException {
+        final Field field = type.getDeclaredField(name);
         field.setAccessible(true);
         return field.get(actual);
     }

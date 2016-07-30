@@ -36,6 +36,11 @@ class SomeThings implements Things {
     @Override
     @SuppressWarnings("unchecked")
     public <T> RandomIterable<T> someThings(T... things) {
-        return randomIterables.thatContains(things);
+        return randomIterables.thatContainsRandom(things);
+    }
+
+    @Override
+    public <T> RandomIterable<T> someOrder(T... things) {
+        return randomIterables.thatContainsRandomlyOrdered(things);
     }
 }

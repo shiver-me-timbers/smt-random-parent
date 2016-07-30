@@ -49,7 +49,7 @@ public class SomeThingsTest {
         final Object expected = new Object();
 
         // Given
-        given(randomIterables.thatContains()).willReturn(randomIterable);
+        given(randomIterables.thatContainsRandom()).willReturn(randomIterable);
         given(randomIterable.withLength(1)).willReturn(randomIterableWithLength);
         given(randomIterableWithLength.list()).willReturn(randomList);
         given(randomList.get(0)).willReturn(expected);
@@ -74,7 +74,7 @@ public class SomeThingsTest {
         final Object expected = new Object();
 
         // Given
-        given(randomIterables.thatContains(things)).willReturn(randomIterable);
+        given(randomIterables.thatContainsRandom(things)).willReturn(randomIterable);
         given(randomIterable.withLength(1)).willReturn(randomIterableWithLength);
         given(randomIterableWithLength.list()).willReturn(randomList);
         given(randomList.get(0)).willReturn(expected);
@@ -93,7 +93,7 @@ public class SomeThingsTest {
         final RandomIterable<Object> expected = mock(RandomIterable.class);
 
         // Given
-        given(randomIterables.thatContains()).willReturn(expected);
+        given(randomIterables.thatContainsRandom()).willReturn(expected);
 
         // When
         final RandomIterable<Object> actual = someThings.someThings();
@@ -111,10 +111,28 @@ public class SomeThingsTest {
         final RandomIterable<Object> expected = mock(RandomIterable.class);
 
         // Given
-        given(randomIterables.thatContains(things)).willReturn(expected);
+        given(randomIterables.thatContainsRandom(things)).willReturn(expected);
 
         // When
         final RandomIterable<Object> actual = someThings.someThings(things);
+
+        // Then
+        assertThat(actual, is(expected));
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void Can_generate_some_things_in_a_random_order() {
+
+        final Object[] things = {};
+
+        final RandomIterable<Object> expected = mock(RandomIterable.class);
+
+        // Given
+        given(randomIterables.thatContainsRandomlyOrdered(things)).willReturn(expected);
+
+        // When
+        final RandomIterable<Object> actual = someThings.someOrder(things);
 
         // Then
         assertThat(actual, is(expected));

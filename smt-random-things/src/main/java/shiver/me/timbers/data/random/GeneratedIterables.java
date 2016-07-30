@@ -16,12 +16,14 @@
 
 package shiver.me.timbers.data.random;
 
+import shiver.me.timbers.building.Block;
+
 /**
  * @author Karl Bennett
  */
 interface GeneratedIterables {
 
-    GeneratedIterable create(int length);
+    <T> GeneratedIterable<T> create(Block defaultGenerator, int length);
 
-    <T> GeneratedIterable<T> create(int length, Class<T> type);
+    <T> GeneratedIterable<T> create(Block<T> defaultGenerator, int length, Class<T> type);
 }

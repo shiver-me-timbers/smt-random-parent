@@ -37,13 +37,13 @@ import java.util.Set;
  */
 interface GeneratedIterable<T> extends Iterable<T> {
 
+    GeneratedIterable<T> withGenerator(Block<T> generator);
+
+    GeneratedIterable<T> withLength(int length);
+
     List<T> list();
 
     T[] array();
 
     Set<T> set();
-
-    GeneratedIterable<T> withGenerator(Block<T> generator);
-
-    GeneratedIterable<T> withLength(int length);
 }

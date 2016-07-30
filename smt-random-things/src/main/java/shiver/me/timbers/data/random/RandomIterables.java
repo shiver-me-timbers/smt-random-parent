@@ -22,5 +22,7 @@ package shiver.me.timbers.data.random;
 interface RandomIterables {
 
     @SuppressWarnings("unchecked")
-    <T> RandomIterable<T> thatContains(T... elements);
+    <T> RandomIterable<T> thatContainsRandom(T... elements);
+
+    <T> RandomIterable<T> thatContainsRandomlyOrdered(T... things);
 }

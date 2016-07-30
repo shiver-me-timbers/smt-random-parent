@@ -27,51 +27,53 @@ import static shiver.me.timbers.data.random.TestUtils.extractField;
 
 public class LazyGeneratedIterablesTest {
 
-    private Block block;
     private LazyGeneratedIterables iterables;
 
     @Before
     public void setUp() {
-        block = mock(Block.class);
-        iterables = new LazyGeneratedIterables(block);
+        iterables = new LazyGeneratedIterables();
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void Can_create_a_typed_lazy_generated_iterable() throws NoSuchFieldException, IllegalAccessException {
 
         // Given
+        final Block<String> defaultGenerator = mock(Block.class);
         final int length = 5;
         final Class<String> type = String.class;
 
         // When
-        final GeneratedIterable<String> actual = iterables.create(length, type);
+        final GeneratedIterable<String> actual = iterables.create(defaultGenerator, length, type);
 
         // Then
         final Object actualType = extractField(actual, "type");
         final Object actualLength = extractField(actual, "length");
         final Object actualBlock = extractField(actual, "defaultGenerator");
 
-        assertThat(type, is(actualType));
-        assertThat(length, is(actualLength));
-        assertThat(block, is(actualBlock));
+        assertThat(actualType, is((Object) type));
+        assertThat(actualLength, is((Object) length));
+        assertThat(actualBlock, is((Object) defaultGenerator));
     }
 
     @Test
     public void Can_create_a_lazy_generated_iterable() throws NoSuchFieldException, IllegalAccessException {
 
         // Given
+        @SuppressWarnings("unchecked")
+        final Block<Object> defaultGenerator = mock(Block.class);
         final int length = 8;
 
         // When
-        final GeneratedIterable actual = iterables.create(length);
+        final GeneratedIterable actual = iterables.create(defaultGenerator, length);
 
         // Then
         final Object actualType = extractField(actual, "type");
         final Object actualLength = extractField(actual, "length");
         final Object actualBlock = extractField(actual, "defaultGenerator");
 
-        assertThat(Object.class, is(actualType));
-        assertThat(length, is(actualLength));
-        assertThat(block, is(actualBlock));
+        assertThat(actualType, is((Object) Object.class));
+        assertThat(actualLength, is((Object) length));
+        assertThat(actualBlock, is((Object) defaultGenerator));
     }
 }

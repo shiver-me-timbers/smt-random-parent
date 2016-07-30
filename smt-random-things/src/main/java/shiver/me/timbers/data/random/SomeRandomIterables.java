@@ -16,7 +16,9 @@
 
 package shiver.me.timbers.data.random;
 
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import static shiver.me.timbers.data.random.Constants.DEFAULT_MAX_ARRAY_SIZE;
 
@@ -35,7 +37,51 @@ class SomeRandomIterables implements RandomIterables {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T> RandomIterable<T> thatContains(T... elements) {
-        return new SomeRandomIterable<>(generatedIterables.create(random.nextInt(DEFAULT_MAX_ARRAY_SIZE)), random, elements);
+    public <T> RandomIterable<T> thatContainsRandom(T... elements) {
+        if (elements.length > 0) {
+            return createRandomIterable(new RandomBlock(random, elements));
+        }
+        return (RandomIterable<T>) createRandomIterable(new SomeRandomBlock(random));
+    }
+
+    @Override
+    public <T> RandomIterable<T> thatContainsRandomlyOrdered(T... things) {
+        throw new UnsupportedOperationException();
+    }
+
+    private <T> RandomIterable<T> createRandomIterable(RandomBlock<T> defaultBlock) {
+        return new DelegateRandomIterable<>(
+            generatedIterables.<T>create(defaultBlock, random.nextInt(DEFAULT_MAX_ARRAY_SIZE))
+        );
+    }
+
+    private class DelegateRandomIterable<T> implements RandomIterable<T> {
+
+        private final GeneratedIterable<T> generatedIterable;
+
+        public DelegateRandomIterable(GeneratedIterable<T> generatedIterable) {
+            this.generatedIterable = generatedIterable;
+        }
+
+        @Override
+        public RandomIterable<T> withLength(int length) {
+            generatedIterable.withLength(length);
+            return this;
+        }
+
+        @Override
+        public List<T> list() {
+            return generatedIterable.list();
+        }
+
+        @Override
+        public T[] array() {
+            return generatedIterable.array();
+        }
+
+        @Override
+        public Set<T> set() {
+            return generatedIterable.set();
+        }
     }
 }

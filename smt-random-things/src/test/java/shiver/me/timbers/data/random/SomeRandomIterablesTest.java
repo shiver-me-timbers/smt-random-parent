@@ -22,14 +22,14 @@ import org.mockito.ArgumentCaptor;
 
 import java.util.Random;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.argThat;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
 import static shiver.me.timbers.data.random.Constants.DEFAULT_MAX_ARRAY_SIZE;
 import static shiver.me.timbers.data.random.TestUtils.extractField;
 
@@ -53,17 +53,22 @@ public class SomeRandomIterablesTest {
 
         final int length = 5;
         final GeneratedIterable<Object> generatedIterable = mock(GeneratedIterable.class);
+        final ArgumentCaptor<SomeRandomBlock> captor = ArgumentCaptor.forClass(SomeRandomBlock.class);
 
         // Given
         given(random.nextInt(DEFAULT_MAX_ARRAY_SIZE)).willReturn(length);
-        given(generatedIterables.create(length)).willReturn(generatedIterable);
+        given(generatedIterables.create(argThat(isA(SomeRandomBlock.class)), eq(length))).willReturn(generatedIterable);
 
         // When
-        final RandomIterable<Object> actual = iterables.thatContains();
+        final RandomIterable<Object> actual = iterables.thatContainsRandom();
 
         // Then
-        assertThat(actual, not(nullValue()));
-        verifyZeroInteractions(generatedIterable);
+        final Object actualGeneratedIterable = extractField(actual, "generatedIterable");
+        assertThat(actualGeneratedIterable, is((Object) generatedIterable));
+        verify(generatedIterables).create(captor.capture(), eq(length));
+        final SomeRandomBlock actualSomeRandomBlock = captor.getValue();
+        final Object actualRandom = extractField(actualSomeRandomBlock, RandomBlock.class, "random");
+        assertThat(actualRandom, is((Object) random));
     }
 
     @Test
@@ -81,18 +86,17 @@ public class SomeRandomIterablesTest {
 
         // Given
         given(random.nextInt(DEFAULT_MAX_ARRAY_SIZE)).willReturn(length);
-        given(generatedIterables.create(length)).willReturn(generatedIterable);
+        given(generatedIterables.create(argThat(isA(RandomBlock.class)), eq(length))).willReturn(generatedIterable);
 
         // When
-        final RandomIterable<Object> actual = iterables.thatContains(one, two, three);
+        final RandomIterable<Object> actual = iterables.thatContainsRandom(one, two, three);
 
         // Then
-        assertThat(actual, not(nullValue()));
-        verify(generatedIterable).withGenerator(captor.capture());
-        final RandomBlock randomBlock = captor.getValue();
-        final Object randomBlockRandom = extractField(randomBlock, "random");
-        final Object randomBlockRandomValues = extractField(randomBlock, "randomValues");
-        assertThat(random, equalTo(randomBlockRandom));
-        assertThat(new Object[]{one, two, three}, equalTo(randomBlockRandomValues));
+        final Object actualGeneratedIterable = extractField(actual, "generatedIterable");
+        assertThat(actualGeneratedIterable, is((Object) generatedIterable));
+        verify(generatedIterables).create(captor.capture(), eq(length));
+        final RandomBlock actualRandomBlock = captor.getValue();
+        final Object actualRandomValues = extractField(actualRandomBlock, "randomValues");
+        assertThat(actualRandomValues, is((Object) new Object[]{one, two, three}));
     }
 }

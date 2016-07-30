@@ -23,20 +23,15 @@ import shiver.me.timbers.building.Block;
  */
 class LazyGeneratedIterables implements GeneratedIterables {
 
-    private final Block defaultGenerator;
-
-    public LazyGeneratedIterables(Block defaultGenerator) {
-        this.defaultGenerator = defaultGenerator;
-    }
-
+    @SuppressWarnings("unchecked")
     @Override
-    public GeneratedIterable create(int length) {
-        return create(length, Object.class);
+    public <T> GeneratedIterable<T> create(Block defaultBlock, int length) {
+        return (GeneratedIterable<T>) create(defaultBlock, length, Object.class);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T> GeneratedIterable<T> create(int length, Class<T> type) {
+    public <T> GeneratedIterable<T> create(Block<T> defaultGenerator, int length, Class<T> type) {
         return new LazyGeneratedIterable<>(type, length, defaultGenerator);
     }
 }

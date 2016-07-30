@@ -48,6 +48,18 @@ class LazyGeneratedIterable<T> implements GeneratedIterable<T> {
     }
 
     @Override
+    public GeneratedIterable<T> withGenerator(Block<T> generator) {
+        builder.add(generator);
+        return this;
+    }
+
+    @Override
+    public GeneratedIterable<T> withLength(int length) {
+        this.length = length;
+        return this;
+    }
+
+    @Override
     public List<T> list() {
 
         final List<T> list = new ArrayList<>();
@@ -71,18 +83,6 @@ class LazyGeneratedIterable<T> implements GeneratedIterable<T> {
     @Override
     public Set<T> set() {
         return new HashSet<>(list());
-    }
-
-    @Override
-    public GeneratedIterable<T> withGenerator(Block<T> generator) {
-        builder.add(generator);
-        return this;
-    }
-
-    @Override
-    public GeneratedIterable<T> withLength(int length) {
-        this.length = length;
-        return this;
     }
 
     @Override

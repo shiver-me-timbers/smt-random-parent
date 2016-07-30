@@ -27,7 +27,7 @@ public class RandomThings {
 
     private static Things things() {
         final ThreadLocalRandom random = ThreadLocalRandom.current();
-        return new SomeThings(new SomeRandomIterables(random, new LazyGeneratedIterables(new SomeRandomBlock(random))));
+        return new SomeThings(new SomeRandomIterables(random, new LazyGeneratedIterables()));
     }
 
     /**
@@ -45,5 +45,9 @@ public class RandomThings {
     @SafeVarargs
     public static <T> RandomIterable<T> someThings(T... things) {
         return things().someThings(things);
+    }
+
+    public static <T> RandomIterable<T> someOrder(T... things) {
+        return things().someOrder(things);
     }
 }
