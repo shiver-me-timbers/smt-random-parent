@@ -19,17 +19,6 @@ smt-random-strings
 
 This library contains helper methods for generating random strings.
 
-### Maven
-
-```xml
-<dependencies>
-    <dependency>
-        <groupId>com.github.shiver-me-timbers</groupId>
-        <artifactId>smt-random-strings</artifactId>
-        <version>1.7</version>
-    </dependency>
-</dependencies>
-```
 ### Usage
 
 This is a very simple library that contains some static methods that can be used to generate random strings.

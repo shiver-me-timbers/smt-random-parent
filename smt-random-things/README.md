@@ -20,17 +20,6 @@ smt-randoms-things
 
 This library contains helper methods for generating random objects.
 
-### Maven
-
-```xml
-<dependencies>
-    <dependency>
-        <groupId>com.github.shiver-me-timbers</groupId>
-        <artifactId>smt-random-things</artifactId>
-        <version>1.7</version>
-    </dependency>
-</dependencies>
-```
 ### Usage
 
 This is a very simple library that contains some static methods that can be used to generate random objects.

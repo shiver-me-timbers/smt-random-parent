@@ -19,17 +19,6 @@ smt-random-numbers
 
 This library contains helper methods for generating random number.
 
-### Maven
-
-```xml
-<dependencies>
-    <dependency>
-        <groupId>com.github.shiver-me-timbers</groupId>
-        <artifactId>smt-random-numbers</artifactId>
-        <version>1.7</version>
-    </dependency>
-</dependencies>
-```
 ### Usage
 
 This is a very simple library that contains some static methods that can be used to generate random numbers of varying
