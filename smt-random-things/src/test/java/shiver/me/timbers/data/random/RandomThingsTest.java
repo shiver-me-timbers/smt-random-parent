@@ -19,6 +19,7 @@ package shiver.me.timbers.data.random;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.contains;
@@ -68,10 +69,32 @@ public class RandomThingsTest {
     }
 
     @Test
-    public void Can_generate_some_random_things() {
+    public void Can_generate_some_random_things_as_a_list() {
 
         // When
         final List<Object> actual = someThings().list();
+
+        // Then
+        assertThat(actual, not(nullValue()));
+        assertThat(actual, hasSize(greaterThan(0)));
+    }
+
+    @Test
+    public void Can_generate_some_random_things_as_an_array() {
+
+        // When
+        final Object[] actual = someThings().array();
+
+        // Then
+        assertThat(actual, not(nullValue()));
+        assertThat(actual.length, greaterThan(0));
+    }
+
+    @Test
+    public void Can_generate_some_random_things_as_a_set() {
+
+        // When
+        final Set<Object> actual = someThings().set();
 
         // Then
         assertThat(actual, not(nullValue()));
@@ -114,7 +137,6 @@ public class RandomThingsTest {
     public void Can_generate_a_randomised_order_of_things() {
 
         // Given
-        final int size = 5;
         final Object zero = new Object();
         final int one = 1;
         final float two = 2.0F;
